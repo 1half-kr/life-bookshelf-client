@@ -1,7 +1,7 @@
 ---
-name: "[feat] issue title"
+name: Life BookShelf issue template
 about: Describe this issue template's purpose here.
-title: ''
+title: "[feat] issue title"
 labels: ''
 assignees: emjayMJkim
 
