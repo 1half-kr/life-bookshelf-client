@@ -11,6 +11,7 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven("https://packages.jetbrains.team/maven/p/firework/dev")
     }
 }
 
@@ -24,6 +25,7 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        maven("https://packages.jetbrains.team/maven/p/firework/dev")
     }
 }
 
