@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.tdd.bookshelf.core.navigation.NavRoutes
+import com.tdd.bookshelf.core.navigation.loginNavGraph
 import com.tdd.bookshelf.core.navigation.onboardingNavGraph
 
 @Composable
@@ -26,8 +27,11 @@ fun MainScreen() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = NavRoutes.OnboardingGraph.route
+                startDestination = NavRoutes.LogInGraph.route
             ) {
+                loginNavGraph(
+                    navController = navController
+                )
                 onboardingNavGraph(
                     navController = navController
                 )
