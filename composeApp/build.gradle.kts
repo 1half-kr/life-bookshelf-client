@@ -35,6 +35,10 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.lifecycle.viewModelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+
+            implementation(libs.koin.android)
+            implementation(libs.hilt.android)
+            implementation(libs.hilt.core)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -44,6 +48,12 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.compose.navigation)
+
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.annotations)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.kermit)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -80,5 +90,11 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    compileOnly(libs.ksp.gradle.plugin)
+
+    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+    add("kspAndroid", libs.koin.ksp.compiler)
+    add("kspIosArm64", libs.koin.ksp.compiler)
+    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
 }
 
