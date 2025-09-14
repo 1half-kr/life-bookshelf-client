@@ -1,53 +1,95 @@
 package com.tdd.bookshelf.feature.login
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import co.touchlab.kermit.Logger.Companion.d
+import com.tdd.bookshelf.core.designsystem.BackGround1
+import com.tdd.bookshelf.core.designsystem.Blue500
+import com.tdd.bookshelf.core.designsystem.BookShelfTypo
+import com.tdd.bookshelf.core.designsystem.EmailHintText
+import com.tdd.bookshelf.core.designsystem.LogInBtn
+import com.tdd.bookshelf.core.designsystem.LogInTitle
+import com.tdd.bookshelf.core.designsystem.PasswordHintText
+import com.tdd.bookshelf.core.ui.common.button.RectangleBtn
+import com.tdd.bookshelf.core.ui.common.item.TextFieldBox
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 internal fun LogInScreen(
-    goToOnboardingPage: () -> Unit
+    goToOnboardingPage: () -> Unit,
 ) {
 
     val viewModel: LogInViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LogInContent(
-        onClickLogInBtn = {
-            d("[test] click")
-            goToOnboardingPage() }
+        onClickLogInBtn = { viewModel.postEmailLogIn() },
+        emailInput = uiState.emailInput,
+        onEmailValueChange = { newValue -> viewModel.onEmailValueChange(newValue) },
+        passwordInput = uiState.passwordInput,
+        onPasswordValueChange = { newValue -> viewModel.onPasswordValueChange(newValue) }
     )
 }
 
 @Composable
 private fun LogInContent(
-    onClickLogInBtn: () -> Unit = {}
+    onClickLogInBtn: () -> Unit = {},
+    emailInput: String = "",
+    onEmailValueChange: (String) -> Unit = {},
+    passwordInput: String = "",
+    onPasswordValueChange: (String) -> Unit = {},
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(BackGround1)
     ) {
-
-        Box(
+        Text(
+            text = LogInTitle,
+            style = BookShelfTypo.SemiBold,
+            color = Blue500,
+            fontSize = 32.sp,
             modifier = Modifier
-                .align(Alignment.Center)
-                .wrapContentSize()
-                .clickable(
-                    onClick = onClickLogInBtn
-                )
-        ) {
-            Text(text = "LogIn")
-        }
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 180.dp),
+            textAlign = TextAlign.Center
+        )
+
+        Spacer(modifier = Modifier.padding(top = 150.dp))
+
+        TextFieldBox(
+            textInput = emailInput,
+            onValueChange = onEmailValueChange,
+            hintText = EmailHintText
+        )
+
+        Spacer(modifier = Modifier.padding(top = 16.dp))
+
+        TextFieldBox(
+            textInput = passwordInput,
+            onValueChange = onPasswordValueChange,
+            hintText = PasswordHintText
+        )
+
+        Spacer(modifier = Modifier.padding(top = 60.dp))
+
+        RectangleBtn(
+            btnContent = LogInBtn,
+            isBtnActivated = emailInput.isNotEmpty() && passwordInput.isNotEmpty(),
+            onClickAction = onClickLogInBtn
+        )
     }
 }
 
