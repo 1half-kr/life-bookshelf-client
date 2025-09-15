@@ -46,6 +46,9 @@ class LogInViewModel(
     }
 
     private fun onSuccessPostEmailLogIn(data: AccessTokenModel) {
-        d("[test] -> $data")
+        d("[ktor] email response -> $data")
+        if (data.accessToken.isNotEmpty()) {
+            emitEventFlow(LogInEvent.GoToOnBoardingPage)
+        }
     }
 }
