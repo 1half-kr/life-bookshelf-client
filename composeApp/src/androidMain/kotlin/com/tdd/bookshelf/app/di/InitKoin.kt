@@ -14,6 +14,11 @@ fun Application.initKoin(): KoinApplication =
         androidLogger()
         modules(
             commonModule,
-            LogInModule().module
+            LogInModule().module,
+            KtorModule.module,
+            ServiceModule().module,
+            useCaseModule,
+            dataSourceModule,
+            repositoryModule
         )
     }

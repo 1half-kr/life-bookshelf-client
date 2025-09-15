@@ -11,6 +11,6 @@ class LogInModule
 
 val logInModule = module {
     viewModel {
-        LogInViewModel()
+        LogInViewModel(get())
     }
 }

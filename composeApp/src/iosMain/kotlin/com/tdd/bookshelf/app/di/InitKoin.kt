@@ -1,5 +1,6 @@
 package com.tdd.bookshelf.app.di
 
+import com.tdd.bookshelf.feature.login.LogInModule
 import com.tdd.bookshelf.feature.login.logInModule
 import org.koin.core.context.startKoin
 
@@ -8,6 +9,11 @@ fun initKoin() {
         modules(
             commonModule,
             logInModule,
+            KtorModule.module,
+            ServiceModule().module,
+            useCaseModule,
+            dataSourceModule,
+            repositoryModule
         )
     }
 }
