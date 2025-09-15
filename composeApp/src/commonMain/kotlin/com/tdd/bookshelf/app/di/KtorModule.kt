@@ -21,6 +21,12 @@ import org.koin.core.annotation.Module
 import org.koin.core.annotation.Single
 import org.koin.dsl.module
 
+val ktorModule = module {
+    single { KtorModule.provideJson() }
+    single { KtorModule.provideHttpClient(get()) }
+    single { KtorModule.provideKtorfit(get()) }
+}
+
 @Module
 @ComponentScan
 object KtorModule {
