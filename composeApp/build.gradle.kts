@@ -11,6 +11,7 @@ plugins {
     alias(libs.plugins.baselineprofile)
     alias(libs.plugins.roborazzi.plugin)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.ktorfit)
     alias(libs.plugins.compose.hotreload)
     alias(libs.plugins.buildkonfig)
 }
@@ -82,11 +83,6 @@ kotlin {
     }
 }
 
-kotlin {
-    sourceSets.configureEach {
-        kotlin.srcDir("build/generated/ksp/${name}/kotlin")
-    }
-}
 
 android {
     namespace = "com.tdd.bookshelf"
@@ -141,3 +137,8 @@ dependencies {
     add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
 }
 
+afterEvaluate {
+    tasks.named("kspDebugKotlinAndroid") {
+        dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
+    }
+}

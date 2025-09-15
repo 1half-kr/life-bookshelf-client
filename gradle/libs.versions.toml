@@ -67,9 +67,9 @@ koin-annotations = "2.0.0"
 
 ## Network
 # https://github.com/Foso/Ktorfit
-ktorfit = "2.5.1"
+ktorfit = "2.6.4"
 # https://github.com/ktorio/ktor
-ktor = "3.1.3"
+ktor = "3.2.1"
 
 ## File
 okio = "3.10.2"
