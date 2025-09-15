@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
 
 plugins {
     id("com.android.application")
@@ -10,6 +12,11 @@ plugins {
     alias(libs.plugins.roborazzi.plugin)
     alias(libs.plugins.ksp)
     alias(libs.plugins.compose.hotreload)
+    alias(libs.plugins.buildkonfig)
+}
+
+val properties = Properties().apply {
+    load(rootProject.file("local.properties").inputStream())
 }
 
 kotlin {
@@ -37,8 +44,10 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
             implementation(libs.koin.android)
-            implementation(libs.hilt.android)
-            implementation(libs.hilt.core)
+//            implementation(libs.hilt.android)
+//            implementation(libs.hilt.core)
+
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -48,6 +57,15 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.compose.navigation)
+//            implementation(libs.compose.compiler.gradle.plugin)
+            implementation(libs.kotlinx.serialization.json.okio)
+            implementation(libs.okio)
+
+            implementation(libs.ktorfit.lib)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.logging)
 
             api(libs.koin.core)
             implementation(libs.koin.compose)
@@ -58,6 +76,15 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+    }
+}
+
+kotlin {
+    sourceSets.configureEach {
+        kotlin.srcDir("build/generated/ksp/${name}/kotlin")
     }
 }
 
@@ -69,14 +96,18 @@ android {
         applicationId = "com.tdd.bookshelf"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+
+        versionCode = project.properties["version_code"]?.toString()?.toInt() ?: 1
+        versionName = project.properties["version"]?.toString() ?: "1.0.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -86,11 +117,23 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
+    buildFeatures {
+        compose = true
+    }
+}
+
+buildkonfig {
+    packageName = "com.tdd.bookshelf"
+
+    defaultConfigs {
+        val baseUrl = properties.getProperty("BASE_URL")
+        buildConfigField(Type.STRING, "BASE_URL", baseUrl)
+    }
 }
 
 dependencies {
     debugImplementation(compose.uiTooling)
-    compileOnly(libs.ksp.gradle.plugin)
 
     add("kspCommonMainMetadata", libs.koin.ksp.compiler)
     add("kspAndroid", libs.koin.ksp.compiler)
