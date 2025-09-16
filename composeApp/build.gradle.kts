@@ -58,7 +58,6 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.compose.navigation)
-//            implementation(libs.compose.compiler.gradle.plugin)
             implementation(libs.kotlinx.serialization.json.okio)
             implementation(libs.okio)
 

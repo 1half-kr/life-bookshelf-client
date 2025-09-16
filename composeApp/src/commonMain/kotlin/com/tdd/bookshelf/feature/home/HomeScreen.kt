@@ -19,11 +19,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.key.Key.Companion.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bookshelf.composeapp.generated.resources.Res
+import bookshelf.composeapp.generated.resources.ic_chapter_circle
+import bookshelf.composeapp.generated.resources.ic_send
 import bookshelf.composeapp.generated.resources.img_chapter_default
 import com.tdd.bookshelf.core.designsystem.BackGround3
 import com.tdd.bookshelf.core.designsystem.BookShelfTypo
@@ -53,7 +54,7 @@ internal fun HomeScreen() {
 
 @Composable
 private fun HomeContent(
-    chapterList: ChapterListModel = ChapterListModel()
+    chapterList: ChapterListModel = ChapterListModel(),
 ) {
     Column(
         modifier = Modifier
@@ -90,7 +91,7 @@ private fun HomeContent(
 @Composable
 private fun HomeChapter(
     currentChapterId: Int,
-    chapterList: List<ChapterItemModel>
+    chapterList: List<ChapterItemModel>,
 ) {
     Column(
         modifier = Modifier
@@ -171,7 +172,7 @@ private fun HomeCurrentProgressBox() {
                 .background(White0)
         ) {
             Image(
-                painter = painterResource(Res),
+                painter = painterResource(Res.drawable.ic_send),
                 contentDescription = "chapter start",
                 modifier = Modifier
                     .padding(7.dp)
@@ -183,7 +184,7 @@ private fun HomeCurrentProgressBox() {
 
 @Composable
 private fun HomeChapterList(
-    chapterList: List<ChapterItemModel>
+    chapterList: List<ChapterItemModel>,
 ) {
     Column(
         modifier = Modifier
@@ -219,13 +220,13 @@ private fun HomeChapterList(
 
 @Composable
 private fun HomeSubChapterListItem(
-    subItem: SubChapterItemModel
+    subItem: SubChapterItemModel,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
         Image(
-            painter = painterResource(Res.drawable.ic_send),
+            painter = painterResource(Res.drawable.ic_chapter_circle),
             contentDescription = "",
             modifier = Modifier
                 .align(Alignment.CenterVertically)
