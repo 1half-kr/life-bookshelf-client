@@ -9,4 +9,8 @@ sealed class NavRoutes(val route: String) {
     // Onboarding Graph
     data object OnboardingGraph: NavRoutes("splash_graph")
     data object OnboardingScreen: NavRoutes("splash")
+
+    // Home Graph
+    data object HomeGraph: NavRoutes("home_graph")
+    data object HomeScreen: NavRoutes("home")
 }

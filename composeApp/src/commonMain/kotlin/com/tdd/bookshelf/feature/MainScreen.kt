@@ -11,6 +11,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.tdd.bookshelf.core.navigation.NavRoutes
+import com.tdd.bookshelf.core.navigation.homeNavGraph
 import com.tdd.bookshelf.core.navigation.loginNavGraph
 import com.tdd.bookshelf.core.navigation.onboardingNavGraph
 
@@ -30,12 +31,15 @@ fun MainScreen() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = NavRoutes.LogInGraph.route
+                startDestination = NavRoutes.HomeGraph.route
             ) {
                 loginNavGraph(
                     navController = navController
                 )
                 onboardingNavGraph(
+                    navController = navController
+                )
+                homeNavGraph(
                     navController = navController
                 )
             }

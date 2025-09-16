@@ -11,6 +11,10 @@ class HomeViewModel : BaseViewModel<HomePageState>(
     HomePageState()
 ) {
 
+    init {
+        initSetChapterList()
+    }
+
     private fun initSetChapterList() {
         val mockChapterList = ChapterListModel(
             currentChapterId = 2,

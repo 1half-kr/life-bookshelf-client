@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.tdd.bookshelf.feature.home.HomeScreen
 import com.tdd.bookshelf.feature.login.LogInScreen
 import com.tdd.bookshelf.feature.onboarding.OnboardingScreen
 
@@ -31,6 +32,19 @@ fun NavGraphBuilder.onboardingNavGraph(
     ) {
         composable(NavRoutes.OnboardingScreen.route) {
             OnboardingScreen()
+        }
+    }
+}
+
+fun NavGraphBuilder.homeNavGraph(
+    navController: NavController
+) {
+    navigation(
+        startDestination = NavRoutes.HomeScreen.route,
+        route = NavRoutes.HomeGraph.route
+    ) {
+        composable(NavRoutes.HomeScreen.route) {
+            HomeScreen()
         }
     }
 }
