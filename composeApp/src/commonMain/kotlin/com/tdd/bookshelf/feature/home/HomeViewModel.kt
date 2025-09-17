@@ -43,5 +43,11 @@ class HomeViewModel : BaseViewModel<HomePageState>(
                 ),
             )
         )
+
+        updateState(
+            uiState.value.copy(
+                chapterList = mockChapterList
+            )
+        )
     }
 }

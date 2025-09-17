@@ -12,20 +12,24 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bookshelf.composeapp.generated.resources.Res
-import bookshelf.composeapp.generated.resources.ic_chapter_circle
 import bookshelf.composeapp.generated.resources.ic_send
 import bookshelf.composeapp.generated.resources.img_chapter_default
+import bookshelf.composeapp.generated.resources.img_current_chapter_default
+import coil3.compose.AsyncImage
 import com.tdd.bookshelf.core.designsystem.BackGround3
 import com.tdd.bookshelf.core.designsystem.BookShelfTypo
 import com.tdd.bookshelf.core.designsystem.HomeCurrentProgressTitle
@@ -38,6 +42,7 @@ import com.tdd.bookshelf.core.designsystem.White100
 import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterItemModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterListModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.SubChapterItemModel
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
@@ -83,7 +88,8 @@ private fun HomeContent(
 
         HomeChapter(
             currentChapterId = chapterList.currentChapterId,
-            chapterList = chapterList.results
+            chapterList = chapterList.results,
+            modifier = Modifier.weight(1f)
         )
     }
 }
@@ -92,9 +98,10 @@ private fun HomeContent(
 private fun HomeChapter(
     currentChapterId: Int,
     chapterList: List<ChapterItemModel>,
+    modifier: Modifier,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(BackGround3)
     ) {
@@ -119,8 +126,9 @@ private fun HomeCurrentProgressBox() {
             .height(90.dp)
     ) {
         Image(
-            painter = painterResource(Res.drawable.img_chapter_default),
+            painter = painterResource(Res.drawable.img_current_chapter_default),
             contentDescription = "current chapter img",
+            contentScale = ContentScale.FillBounds,
             modifier = Modifier
                 .fillMaxSize()
         )
@@ -146,7 +154,7 @@ private fun HomeCurrentProgressBox() {
 
     Row(
         modifier = Modifier
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 28.dp)
             .fillMaxWidth()
     ) {
         Box(
@@ -188,8 +196,9 @@ private fun HomeChapterList(
 ) {
     Column(
         modifier = Modifier
-            .padding(horizontal = 22.dp)
-            .fillMaxWidth(),
+            .padding(start = 22.dp, end = 22.dp, bottom = 30.dp)
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(17.dp)
     ) {
         chapterList.forEachIndexed { index, chapterItem ->
@@ -218,6 +227,7 @@ private fun HomeChapterList(
     }
 }
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun HomeSubChapterListItem(
     subItem: SubChapterItemModel,
@@ -225,12 +235,13 @@ private fun HomeSubChapterListItem(
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Image(
-            painter = painterResource(Res.drawable.ic_chapter_circle),
+        AsyncImage(
+            model = Res.getUri("files/ic_chapter_circle.svg"),
             contentDescription = "",
             modifier = Modifier
                 .align(Alignment.CenterVertically)
-                .size(14.dp),
+                .padding(end = 12.dp)
+                .size(14.dp)
         )
 
         Row(
@@ -245,9 +256,10 @@ private fun HomeSubChapterListItem(
                     .clip(RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp))
             )
 
-            Box(
+            Column(
                 modifier = Modifier
                     .weight(1f)
+                    .height(86.dp)
                     .clip(RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp))
                     .background(White0)
             ) {
@@ -256,14 +268,14 @@ private fun HomeSubChapterListItem(
                     color = Neutral500,
                     style = BookShelfTypo.SemiBold,
                     fontSize = 12.sp,
-                    modifier = Modifier.padding(top = 12.dp, start = 11.dp)
+                    modifier = Modifier.padding(top = 15.dp, start = 11.dp)
                 )
                 Text(
                     text = subItem.chapterName,
                     color = Neutral900,
                     style = BookShelfTypo.SemiBold,
                     fontSize = 14.sp,
-                    modifier = Modifier.padding(start = 12.dp)
+                    modifier = Modifier.padding(start = 12.dp, top = 5.dp)
                 )
             }
         }

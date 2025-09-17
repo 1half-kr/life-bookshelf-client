@@ -72,6 +72,11 @@ kotlin {
             implementation(libs.koin.annotations)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.kermit)
+
+            implementation(libs.coil.compose)
+//            implementation(libs.coil.network)
+            implementation(libs.coil.svg)
+            implementation(libs.image.loader)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
