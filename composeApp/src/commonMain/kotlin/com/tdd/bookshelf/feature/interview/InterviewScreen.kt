@@ -2,11 +2,13 @@ package com.tdd.bookshelf.feature.interview
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -81,25 +83,32 @@ private fun InterviewContent() {
 private fun InterviewChat(
     modifier: Modifier,
 ) {
-    Column(
+    BoxWithConstraints(
         modifier = modifier
             .padding(bottom = 120.dp)
+            .fillMaxWidth()
     ) {
-        InterviewBotChatItem(
-            content = "bot",
-            modifier = Modifier
-                .align(Alignment.Start)
-                .padding(start = 20.dp)
-                .fillMaxWidth(0.7f)
-        )
+        val chatMaxWidth = maxWidth * 0.7f
 
-        InterviewHumanChatItem(
-            content = "human",
-            modifier = Modifier
-                .align(Alignment.End)
-                .padding(end = 20.dp)
-                .fillMaxWidth(0.7f)
-        )
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            InterviewBotChatItem(
+                content = "bot",
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(start = 20.dp)
+                    .widthIn(max = chatMaxWidth)
+            )
+
+            InterviewHumanChatItem(
+                content = "human",
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(end = 20.dp)
+                    .widthIn(max = chatMaxWidth)
+            )
+        }
     }
 }
 
@@ -119,7 +128,7 @@ private fun InterviewBotChatItem(
             style = BookShelfTypo.Regular,
             fontSize = 14.sp,
             modifier = Modifier
-                .padding(top = 20.dp, bottom = 20.dp, start = 16.dp, end = 40.dp)
+                .padding(top = 20.dp, bottom = 20.dp, start = 16.dp, end = 20.dp)
         )
     }
 }
@@ -136,11 +145,11 @@ private fun InterviewHumanChatItem(
     ) {
         Text(
             text = content,
-            color = Gray600,
+            color = White0,
             style = BookShelfTypo.Regular,
             fontSize = 14.sp,
             modifier = Modifier
-                .padding(top = 20.dp, bottom = 20.dp, end = 16.dp, start = 40.dp)
+                .padding(top = 20.dp, bottom = 20.dp, end = 16.dp, start = 20.dp)
         )
     }
 }
