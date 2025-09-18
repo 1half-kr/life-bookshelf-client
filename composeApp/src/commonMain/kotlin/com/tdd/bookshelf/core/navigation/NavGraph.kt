@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.tdd.bookshelf.feature.detailchapter.DetailChapterScreen
 import com.tdd.bookshelf.feature.home.HomeScreen
 import com.tdd.bookshelf.feature.interview.InterviewScreen
 import com.tdd.bookshelf.feature.login.LogInScreen
@@ -46,7 +47,8 @@ fun NavGraphBuilder.homeNavGraph(
     ) {
         composable(NavRoutes.HomeScreen.route) {
             HomeScreen(
-                goToInterviewPage = { navController.navigate(NavRoutes.InterviewScreen.route) }
+                goToInterviewPage = { navController.navigate(NavRoutes.InterviewScreen.route) },
+                goToDetailChapterPage = { navController.navigate(NavRoutes.DetailChapterScreen.route) }
             )
         }
     }
@@ -61,6 +63,19 @@ fun NavGraphBuilder.interviewNavGraph(
     ) {
         composable(NavRoutes.InterviewScreen.route) {
             InterviewScreen()
+        }
+    }
+}
+
+fun NavGraphBuilder.detailChapterNavGraph(
+    navController: NavController,
+) {
+    navigation(
+        startDestination = NavRoutes.DetailChapterScreen.route,
+        route = NavRoutes.DetailChapterGraph.route
+    ) {
+        composable(NavRoutes.DetailChapterScreen.route) {
+            DetailChapterScreen()
         }
     }
 }

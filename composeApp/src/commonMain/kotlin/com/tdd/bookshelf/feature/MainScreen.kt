@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.tdd.bookshelf.core.navigation.NavRoutes
+import com.tdd.bookshelf.core.navigation.detailChapterNavGraph
 import com.tdd.bookshelf.core.navigation.homeNavGraph
 import com.tdd.bookshelf.core.navigation.interviewNavGraph
 import com.tdd.bookshelf.core.navigation.loginNavGraph
@@ -41,6 +42,9 @@ fun MainScreen() {
                     navController = navController
                 )
                 interviewNavGraph(
+                    navController = navController
+                )
+                detailChapterNavGraph(
                     navController = navController
                 )
             }

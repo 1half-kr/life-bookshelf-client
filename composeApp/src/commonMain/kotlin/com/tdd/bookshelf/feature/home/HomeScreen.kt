@@ -52,7 +52,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 internal fun HomeScreen(
-    goToInterviewPage: () -> Unit
+    goToInterviewPage: () -> Unit,
+    goToDetailChapterPage: () -> Unit
 ) {
     val viewModel: HomeViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -62,7 +63,10 @@ internal fun HomeScreen(
     HomeContent(
         chapterList = uiState.chapterList,
         onClickCurrentChapterInterview = { goToInterviewPage() },
-        interactionSource = interactionSource
+        interactionSource = interactionSource,
+        onClickChapterDetail = { detailChapterId ->
+            goToDetailChapterPage()
+        }
     )
 }
 
@@ -70,7 +74,8 @@ internal fun HomeScreen(
 private fun HomeContent(
     chapterList: ChapterListModel = ChapterListModel(),
     onClickCurrentChapterInterview: () -> Unit = {},
-    interactionSource: MutableInteractionSource = MutableInteractionSource()
+    interactionSource: MutableInteractionSource = MutableInteractionSource(),
+    onClickChapterDetail: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -102,7 +107,8 @@ private fun HomeContent(
             chapterList = chapterList.results,
             modifier = Modifier.weight(1f),
             onClickCurrentChapterInterview = onClickCurrentChapterInterview,
-            interactionSource = interactionSource
+            interactionSource = interactionSource,
+            onClickChapterDetail = onClickChapterDetail
         )
     }
 }
@@ -113,7 +119,8 @@ private fun HomeChapter(
     chapterList: List<ChapterItemModel>,
     modifier: Modifier,
     onClickCurrentChapterInterview: () -> Unit,
-    interactionSource: MutableInteractionSource
+    interactionSource: MutableInteractionSource,
+    onClickChapterDetail: (Int) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -130,7 +137,8 @@ private fun HomeChapter(
         Spacer(modifier = Modifier.padding(top = 50.dp))
 
         HomeChapterList(
-            chapterList = chapterList
+            chapterList = chapterList,
+            onClickChapterDetail = onClickChapterDetail
         )
     }
 }
@@ -223,6 +231,7 @@ private fun HomeCurrentProgressBox(
 @Composable
 private fun HomeChapterList(
     chapterList: List<ChapterItemModel>,
+    onClickChapterDetail: (Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -249,7 +258,8 @@ private fun HomeChapterList(
             ) {
                 chapterItem.subChapters.forEachIndexed { subIndex, subChapterItem ->
                     HomeSubChapterListItem(
-                        subItem = subChapterItem
+                        subItem = subChapterItem,
+                        onClickAction = { onClickChapterDetail(subChapterItem.chapterId) }
                     )
                 }
             }
@@ -261,9 +271,14 @@ private fun HomeChapterList(
 @Composable
 private fun HomeSubChapterListItem(
     subItem: SubChapterItemModel,
+    onClickAction: () -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(
+                onClick = onClickAction
+            )
     ) {
         AsyncImage(
             model = Res.getUri("files/ic_chapter_circle.svg"),
