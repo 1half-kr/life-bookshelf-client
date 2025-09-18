@@ -13,4 +13,8 @@ sealed class NavRoutes(val route: String) {
     // Home Graph
     data object HomeGraph: NavRoutes("home_graph")
     data object HomeScreen: NavRoutes("home")
+
+    // Interview Graph
+    data object InterviewGraph: NavRoutes("interview_graph")
+    data object InterviewScreen: NavRoutes("interview")
 }

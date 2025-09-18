@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.tdd.bookshelf.feature.home.HomeScreen
+import com.tdd.bookshelf.feature.interview.InterviewScreen
 import com.tdd.bookshelf.feature.login.LogInScreen
 import com.tdd.bookshelf.feature.onboarding.OnboardingScreen
 
@@ -37,14 +38,29 @@ fun NavGraphBuilder.onboardingNavGraph(
 }
 
 fun NavGraphBuilder.homeNavGraph(
-    navController: NavController
+    navController: NavController,
 ) {
     navigation(
         startDestination = NavRoutes.HomeScreen.route,
         route = NavRoutes.HomeGraph.route
     ) {
         composable(NavRoutes.HomeScreen.route) {
-            HomeScreen()
+            HomeScreen(
+                goToInterviewPage = { navController.navigate(NavRoutes.InterviewScreen.route) }
+            )
+        }
+    }
+}
+
+fun NavGraphBuilder.interviewNavGraph(
+    navController: NavController,
+) {
+    navigation(
+        startDestination = NavRoutes.InterviewScreen.route,
+        route = NavRoutes.InterviewGraph.route
+    ) {
+        composable(NavRoutes.InterviewScreen.route) {
+            InterviewScreen()
         }
     }
 }

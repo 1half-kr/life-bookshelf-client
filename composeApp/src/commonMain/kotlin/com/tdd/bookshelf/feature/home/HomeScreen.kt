@@ -2,6 +2,7 @@ package com.tdd.bookshelf.feature.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,18 +49,22 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-internal fun HomeScreen() {
+internal fun HomeScreen(
+    goToInterviewPage: () -> Unit
+) {
     val viewModel: HomeViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeContent(
-        chapterList = uiState.chapterList
+        chapterList = uiState.chapterList,
+        onClickCurrentChapterInterview = { goToInterviewPage() }
     )
 }
 
 @Composable
 private fun HomeContent(
     chapterList: ChapterListModel = ChapterListModel(),
+    onClickCurrentChapterInterview: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -89,7 +94,8 @@ private fun HomeContent(
         HomeChapter(
             currentChapterId = chapterList.currentChapterId,
             chapterList = chapterList.results,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            onClickCurrentChapterInterview = onClickCurrentChapterInterview
         )
     }
 }
@@ -99,6 +105,7 @@ private fun HomeChapter(
     currentChapterId: Int,
     chapterList: List<ChapterItemModel>,
     modifier: Modifier,
+    onClickCurrentChapterInterview: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -107,7 +114,9 @@ private fun HomeChapter(
     ) {
         Spacer(modifier = Modifier.padding(top = 25.dp))
 
-        HomeCurrentProgressBox()
+        HomeCurrentProgressBox(
+            onClickAction = onClickCurrentChapterInterview
+        )
 
         Spacer(modifier = Modifier.padding(top = 50.dp))
 
@@ -118,74 +127,83 @@ private fun HomeChapter(
 }
 
 @Composable
-private fun HomeCurrentProgressBox() {
-    Box(
+private fun HomeCurrentProgressBox(
+    onClickAction: () -> Unit
+) {
+    Column(
         modifier = Modifier
-            .padding(horizontal = 28.dp)
-            .fillMaxWidth()
-            .height(90.dp)
+            .clickable(
+                onClick = onClickAction
+            )
     ) {
-        Image(
-            painter = painterResource(Res.drawable.img_current_chapter_default),
-            contentDescription = "current chapter img",
-            contentScale = ContentScale.FillBounds,
-            modifier = Modifier
-                .fillMaxSize()
-        )
-
         Box(
             modifier = Modifier
-                .padding(end = 53.dp)
+                .padding(horizontal = 28.dp)
                 .fillMaxWidth()
-                .align(Alignment.BottomStart)
-                .clip(RoundedCornerShape(topEnd = 8.dp))
-                .background(White100)
-        ) {
-            Text(
-                text = HomeCurrentProgressTitle,
-                color = White0,
-                style = BookShelfTypo.Regular,
-                fontSize = 13.sp,
-                modifier = Modifier
-                    .padding(top = 8.dp, bottom = 8.dp, start = 17.dp)
-            )
-        }
-    }
-
-    Row(
-        modifier = Modifier
-            .padding(horizontal = 28.dp)
-            .fillMaxWidth()
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(end = 14.dp)
-                .weight(1f)
-                .clip(RoundedCornerShape(8.dp))
-                .background(White0)
-        ) {
-            Text(
-                text = "현재 진행중인 챕터 제목",
-                color = Neutral900,
-                style = BookShelfTypo.SemiBold,
-                fontSize = 17.sp,
-                modifier = Modifier
-                    .padding(top = 10.dp, start = 17.dp, bottom = 10.dp)
-            )
-        }
-
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(7.dp))
-                .background(White0)
+                .height(90.dp)
         ) {
             Image(
-                painter = painterResource(Res.drawable.ic_send),
-                contentDescription = "chapter start",
+                painter = painterResource(Res.drawable.img_current_chapter_default),
+                contentDescription = "current chapter img",
+                contentScale = ContentScale.FillBounds,
                 modifier = Modifier
-                    .padding(7.dp)
-                    .size(21.dp)
+                    .fillMaxSize()
             )
+
+            Box(
+                modifier = Modifier
+                    .padding(end = 53.dp)
+                    .fillMaxWidth()
+                    .align(Alignment.BottomStart)
+                    .clip(RoundedCornerShape(topEnd = 8.dp))
+                    .background(White100)
+            ) {
+                Text(
+                    text = HomeCurrentProgressTitle,
+                    color = White0,
+                    style = BookShelfTypo.Regular,
+                    fontSize = 13.sp,
+                    modifier = Modifier
+                        .padding(top = 8.dp, bottom = 8.dp, start = 17.dp)
+                )
+            }
+        }
+
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 28.dp)
+                .fillMaxWidth()
+        ) {
+            Box(
+                modifier = Modifier
+                    .padding(end = 14.dp)
+                    .weight(1f)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(White0)
+            ) {
+                Text(
+                    text = "현재 진행중인 챕터 제목",
+                    color = Neutral900,
+                    style = BookShelfTypo.SemiBold,
+                    fontSize = 17.sp,
+                    modifier = Modifier
+                        .padding(top = 10.dp, start = 17.dp, bottom = 10.dp)
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(7.dp))
+                    .background(White0)
+            ) {
+                Image(
+                    painter = painterResource(Res.drawable.ic_send),
+                    contentDescription = "chapter start",
+                    modifier = Modifier
+                        .padding(7.dp)
+                        .size(21.dp)
+                )
+            }
         }
     }
 }
