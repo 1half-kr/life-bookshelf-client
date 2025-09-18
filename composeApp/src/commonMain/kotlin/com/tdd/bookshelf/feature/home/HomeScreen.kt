@@ -3,6 +3,7 @@ package com.tdd.bookshelf.feature.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -55,16 +57,20 @@ internal fun HomeScreen(
     val viewModel: HomeViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    val interactionSource = remember { MutableInteractionSource() }
+
     HomeContent(
         chapterList = uiState.chapterList,
-        onClickCurrentChapterInterview = { goToInterviewPage() }
+        onClickCurrentChapterInterview = { goToInterviewPage() },
+        interactionSource = interactionSource
     )
 }
 
 @Composable
 private fun HomeContent(
     chapterList: ChapterListModel = ChapterListModel(),
-    onClickCurrentChapterInterview: () -> Unit = {}
+    onClickCurrentChapterInterview: () -> Unit = {},
+    interactionSource: MutableInteractionSource = MutableInteractionSource()
 ) {
     Column(
         modifier = Modifier
@@ -95,7 +101,8 @@ private fun HomeContent(
             currentChapterId = chapterList.currentChapterId,
             chapterList = chapterList.results,
             modifier = Modifier.weight(1f),
-            onClickCurrentChapterInterview = onClickCurrentChapterInterview
+            onClickCurrentChapterInterview = onClickCurrentChapterInterview,
+            interactionSource = interactionSource
         )
     }
 }
@@ -105,7 +112,8 @@ private fun HomeChapter(
     currentChapterId: Int,
     chapterList: List<ChapterItemModel>,
     modifier: Modifier,
-    onClickCurrentChapterInterview: () -> Unit
+    onClickCurrentChapterInterview: () -> Unit,
+    interactionSource: MutableInteractionSource
 ) {
     Column(
         modifier = modifier
@@ -115,7 +123,8 @@ private fun HomeChapter(
         Spacer(modifier = Modifier.padding(top = 25.dp))
 
         HomeCurrentProgressBox(
-            onClickAction = onClickCurrentChapterInterview
+            onClickAction = onClickCurrentChapterInterview,
+            interactionSource = interactionSource
         )
 
         Spacer(modifier = Modifier.padding(top = 50.dp))
@@ -128,12 +137,15 @@ private fun HomeChapter(
 
 @Composable
 private fun HomeCurrentProgressBox(
-    onClickAction: () -> Unit
+    onClickAction: () -> Unit,
+    interactionSource: MutableInteractionSource
 ) {
     Column(
         modifier = Modifier
             .clickable(
-                onClick = onClickAction
+                onClick = onClickAction,
+                indication = null,
+                interactionSource = interactionSource
             )
     ) {
         Box(
