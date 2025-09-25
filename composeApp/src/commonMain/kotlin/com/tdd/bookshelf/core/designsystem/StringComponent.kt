@@ -16,3 +16,7 @@ const val HomeCurrentProgressTitle = "현재 진행하고 있는 페이지"
 
 // Interview
 const val InterviewScreenTitle = "Interview Chat"
+
+// Detail Chapter
+const val DetailChapterTitle = "Detail Chapter"
+const val ChatAgainBtn = "다시 채팅하기"
