@@ -31,6 +31,7 @@ import com.tdd.bookshelf.core.designsystem.Gray600
 import com.tdd.bookshelf.core.designsystem.InterviewScreenTitle
 import com.tdd.bookshelf.core.designsystem.Neutral900
 import com.tdd.bookshelf.core.designsystem.White0
+import com.tdd.bookshelf.core.ui.common.content.TopBarContent
 import com.tdd.bookshelf.domain.entity.enums.ChatType
 import com.tdd.bookshelf.domain.entity.response.interview.InterviewChatItem
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -60,29 +61,9 @@ private fun InterviewContent(
             .fillMaxSize()
             .background(White0)
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = InterviewScreenTitle,
-                style = BookShelfTypo.SemiBold,
-                color = Neutral900,
-                fontSize = 20.sp,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(vertical = 30.dp)
-            )
-
-            AsyncImage(
-                model = Res.getUri("files/ic_back.svg"),
-                contentDescription = "",
-                modifier = Modifier
-                    .align(Alignment.CenterStart)
-                    .padding(start = 20.dp)
-                    .size(24.dp)
-            )
-        }
+        TopBarContent(
+            content = InterviewScreenTitle
+        )
 
         InterviewChat(
             modifier = Modifier.weight(1f),
