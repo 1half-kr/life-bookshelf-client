@@ -8,7 +8,9 @@ import com.tdd.bookshelf.feature.detailchapter.DetailChapterScreen
 import com.tdd.bookshelf.feature.home.HomeScreen
 import com.tdd.bookshelf.feature.interview.InterviewScreen
 import com.tdd.bookshelf.feature.login.LogInScreen
+import com.tdd.bookshelf.feature.my.MyScreen
 import com.tdd.bookshelf.feature.onboarding.OnboardingScreen
+import com.tdd.bookshelf.feature.publication.PublicationScreen
 
 fun NavGraphBuilder.loginNavGraph(
     navController: NavController,
@@ -76,6 +78,32 @@ fun NavGraphBuilder.detailChapterNavGraph(
     ) {
         composable(NavRoutes.DetailChapterScreen.route) {
             DetailChapterScreen()
+        }
+    }
+}
+
+fun NavGraphBuilder.publicationNavGraph(
+    navController: NavController,
+) {
+    navigation(
+        startDestination = NavRoutes.PublicationScreen.route,
+        route = NavRoutes.PublicationGraph.route
+    ) {
+        composable(NavRoutes.PublicationScreen.route) {
+            PublicationScreen()
+        }
+    }
+}
+
+fun NavGraphBuilder.myNavGraph(
+    navController: NavController,
+) {
+    navigation(
+        startDestination = NavRoutes.MyPageScreen.route,
+        route = NavRoutes.MyPageGraph.route
+    ) {
+        composable(NavRoutes.MyPageScreen.route) {
+            MyScreen()
         }
     }
 }

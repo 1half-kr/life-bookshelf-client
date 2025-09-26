@@ -27,7 +27,9 @@ import com.tdd.bookshelf.core.navigation.detailChapterNavGraph
 import com.tdd.bookshelf.core.navigation.homeNavGraph
 import com.tdd.bookshelf.core.navigation.interviewNavGraph
 import com.tdd.bookshelf.core.navigation.loginNavGraph
+import com.tdd.bookshelf.core.navigation.myNavGraph
 import com.tdd.bookshelf.core.navigation.onboardingNavGraph
+import com.tdd.bookshelf.core.navigation.publicationNavGraph
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -96,6 +98,12 @@ fun MainScreen() {
                     navController = navController
                 )
                 detailChapterNavGraph(
+                    navController = navController
+                )
+                publicationNavGraph(
+                    navController = navController
+                )
+                myNavGraph(
                     navController = navController
                 )
             }

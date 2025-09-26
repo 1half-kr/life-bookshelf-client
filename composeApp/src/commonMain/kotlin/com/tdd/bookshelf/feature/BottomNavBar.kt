@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,7 +35,6 @@ fun BottomNavBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(50.dp)
             .background(White0),
         horizontalArrangement = Arrangement.Absolute.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
@@ -42,7 +43,7 @@ fun BottomNavBar(
             navIcon = BottomNavType.getBottomNavIcon(BottomNavType.PUBLICATION),
             isSelected = (type == BottomNavType.PUBLICATION),
             type = BottomNavType.PUBLICATION,
-            onClick = { onClick(BottomNavType.getDestination(type)) },
+            onClick = { onClick(BottomNavType.getDestination(BottomNavType.PUBLICATION)) },
             interactionSource = interactionSource
         )
 
@@ -50,7 +51,7 @@ fun BottomNavBar(
             navIcon = BottomNavType.getBottomNavIcon(BottomNavType.HOME),
             isSelected = (type == BottomNavType.HOME),
             type = BottomNavType.HOME,
-            onClick = { onClick(BottomNavType.getDestination(type)) },
+            onClick = { onClick(BottomNavType.getDestination(BottomNavType.HOME)) },
             interactionSource = interactionSource
         )
 
@@ -58,7 +59,7 @@ fun BottomNavBar(
             navIcon = BottomNavType.getBottomNavIcon(BottomNavType.MY),
             isSelected = (type == BottomNavType.MY),
             type = BottomNavType.MY,
-            onClick = { onClick(BottomNavType.getDestination(type)) },
+            onClick = { onClick(BottomNavType.getDestination(BottomNavType.MY)) },
             interactionSource = interactionSource
         )
     }
@@ -74,6 +75,7 @@ private fun BottomNavItem(
 ) {
     Column(
         modifier = Modifier
+            .padding(vertical = 7.dp)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
@@ -83,10 +85,12 @@ private fun BottomNavItem(
     ) {
         Image(
             painter = painterResource(navIcon),
-            contentDescription = "nav icon"
+            contentDescription = "nav icon",
+            modifier = Modifier
+                .size(25.dp)
         )
 
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(6.dp))
 
         Text(
             text = type.navName,
