@@ -2,6 +2,13 @@ package com.tdd.bookshelf.core.designsystem
 
 // Common
 const val BookShelf = "인생책장"
+const val Empty = ""
+const val Blank = " "
+
+// Bottom
+const val Home = "홈"
+const val Publication = "출판페이지"
+const val MyPage = "마이페이지"
 
 // LogIn
 const val LogInTitle = "Sign In"

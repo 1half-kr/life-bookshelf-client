@@ -21,4 +21,12 @@ sealed class NavRoutes(val route: String) {
     // DetailChapter Graph
     data object DetailChapterGraph: NavRoutes("detail_chapter_graph")
     data object DetailChapterScreen: NavRoutes("detail_chapter")
+
+    // MyPage Graph
+    data object MyPageGraph: NavRoutes("my_page_graph")
+    data object MyPageScreen: NavRoutes("my_page")
+
+    // Publication
+    data object PublicationGraph: NavRoutes("publication_graph")
+    data object PublicationScreen: NavRoutes("publication")
 }
