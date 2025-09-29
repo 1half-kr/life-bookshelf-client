@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 val BackGround1 = Color(0xFFECEBF0)
 val BackGround2 = Color(0xFFF7F6FB)
 val BackGround3 = Color(0xFFF7F7F7)
+val BackGround4 = Color(0xFFF3F3F3)
 
 // White
 val White0 = Color(0xFFFFFFFF)
