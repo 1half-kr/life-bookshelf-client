@@ -6,5 +6,6 @@ import com.tdd.bookshelf.domain.entity.response.publication.PublishBookListItemM
 
 data class MyPageState(
     val publishStatus: String = Rejected,
-    val publishBookList: List<PublishBookListItemModel> = emptyList()
+    val publishBookList: List<PublishBookListItemModel> = emptyList(),
+    val isAlarmActivated: Boolean = false
 ) : PageState

@@ -24,4 +24,12 @@ class MyViewModel : BaseViewModel<MyPageState>(
             )
         )
     }
+
+    fun changeAlarmActivatedStatus() {
+        updateState(
+            uiState.value.copy(
+                isAlarmActivated = !uiState.value.isAlarmActivated
+            )
+        )
+    }
 }

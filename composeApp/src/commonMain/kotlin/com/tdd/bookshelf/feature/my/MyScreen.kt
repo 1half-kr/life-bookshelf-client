@@ -2,6 +2,8 @@ package com.tdd.bookshelf.feature.my
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -19,6 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,15 +39,21 @@ import com.tdd.bookshelf.core.designsystem.Blue900
 import com.tdd.bookshelf.core.designsystem.BookShelfTypo
 import com.tdd.bookshelf.core.designsystem.CompleteStatusSubTitle
 import com.tdd.bookshelf.core.designsystem.CompleteStatusTitle
+import com.tdd.bookshelf.core.designsystem.Gray100
 import com.tdd.bookshelf.core.designsystem.Gray300
 import com.tdd.bookshelf.core.designsystem.Gray600
 import com.tdd.bookshelf.core.designsystem.Gray900
 import com.tdd.bookshelf.core.designsystem.MyTitle
+import com.tdd.bookshelf.core.designsystem.ProfileDeleteContent
+import com.tdd.bookshelf.core.designsystem.ProfileDeleteTitle
 import com.tdd.bookshelf.core.designsystem.ProgressStatusSubTitle
 import com.tdd.bookshelf.core.designsystem.ProgressStatusTitle
 import com.tdd.bookshelf.core.designsystem.PublicationBookSubTitle
 import com.tdd.bookshelf.core.designsystem.PublicationBookTitle
 import com.tdd.bookshelf.core.designsystem.PublishStatusTitle
+import com.tdd.bookshelf.core.designsystem.SettingAlarmContent
+import com.tdd.bookshelf.core.designsystem.SettingAlarmTitle
+import com.tdd.bookshelf.core.designsystem.SettingTitle
 import com.tdd.bookshelf.core.designsystem.SubmitStatusSubTitle
 import com.tdd.bookshelf.core.designsystem.SubmitStatusTitle
 import com.tdd.bookshelf.core.designsystem.White0
@@ -62,9 +72,14 @@ fun MyScreen() {
     val viewModel: MyViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    val interactionSource = remember { MutableInteractionSource() }
+
     MyContent(
         publishStatus = uiState.publishStatus,
-        publishBookList = uiState.publishBookList
+        publishBookList = uiState.publishBookList,
+        onClickAlarm = { viewModel.changeAlarmActivatedStatus() },
+        isAlarmActivated = uiState.isAlarmActivated,
+        interactionSource = interactionSource
     )
 }
 
@@ -72,6 +87,9 @@ fun MyScreen() {
 private fun MyContent(
     publishStatus: String,
     publishBookList: List<PublishBookListItemModel>,
+    onClickAlarm: () -> Unit,
+    isAlarmActivated: Boolean,
+    interactionSource: MutableInteractionSource,
 ) {
     Column(
         modifier = Modifier
@@ -94,7 +112,11 @@ private fun MyContent(
             publishBookList = publishBookList
         )
 
-        MySettingBox()
+        MySettingBox(
+            onClickAlarm = onClickAlarm,
+            isAlarmActivated = isAlarmActivated,
+            interactionSource = interactionSource
+        )
     }
 }
 
@@ -326,7 +348,136 @@ private fun PublicationBookListItem(
 
 
 @Composable
-private fun MySettingBox() {
+private fun MySettingBox(
+    onClickAlarm: () -> Unit,
+    isAlarmActivated: Boolean,
+    interactionSource: MutableInteractionSource,
+) {
+    Text(
+        text = SettingTitle,
+        color = Black900,
+        style = BookShelfTypo.Bold,
+        fontSize = 14.sp,
+        modifier = Modifier
+            .padding(top = 15.dp, start = 31.dp)
+    )
+
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 20.dp, vertical = 11.dp)
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .background(White0)
+    ) {
+        SettingAlarm(
+            onClickAction = onClickAlarm,
+            isActivated = isAlarmActivated,
+            interactionSource = interactionSource
+        )
+
+        SettingUserDelete()
+    }
+}
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+private fun SettingAlarm(
+    onClickAction: () -> Unit,
+    isActivated: Boolean,
+    interactionSource: MutableInteractionSource,
+) {
+    Row {
+        AsyncImage(
+            model = Res.getUri("files/ic_alarm.svg"),
+            contentDescription = "",
+            modifier = Modifier
+                .padding(top = 30.dp, start = 17.dp, bottom = 12.dp, end = 16.dp)
+                .size(40.dp)
+                .clip(CircleShape)
+        )
+
+        Column(
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .weight(1f)
+        ) {
+            Text(
+                text = SettingAlarmTitle,
+                color = Gray900,
+                style = BookShelfTypo.Medium,
+                fontSize = 13.sp
+            )
+
+            Text(
+                text = SettingAlarmContent,
+                color = Gray300,
+                style = BookShelfTypo.Medium,
+                fontSize = 11.sp,
+                modifier = Modifier
+                    .padding(top = 3.dp)
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .padding(end = 25.dp)
+                .width(51.dp)
+                .align(Alignment.CenterVertically)
+                .clip(RoundedCornerShape(20.dp))
+                .background(Gray100)
+                .clickable(
+                    onClick = onClickAction,
+                    interactionSource = interactionSource,
+                    indication = null
+                )
+        ) {
+            Box(
+                modifier = Modifier
+                    .padding(5.dp)
+                    .size(20.dp)
+                    .align(if (isActivated) Alignment.CenterEnd else Alignment.CenterStart)
+                    .clip(CircleShape)
+                    .background(if (isActivated) Blue300 else Gray300)
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+private fun SettingUserDelete() {
+    Row {
+        AsyncImage(
+            model = Res.getUri("files/ic_user_delete.svg"),
+            contentDescription = "",
+            modifier = Modifier
+                .padding(top = 12.dp, start = 17.dp, bottom = 30.dp, end = 16.dp)
+                .size(40.dp)
+                .clip(CircleShape)
+        )
+
+        Column(
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .weight(1f)
+        ) {
+            Text(
+                text = ProfileDeleteTitle,
+                color = Gray900,
+                style = BookShelfTypo.Medium,
+                fontSize = 13.sp
+            )
+
+            Text(
+                text = ProfileDeleteContent,
+                color = Gray300,
+                style = BookShelfTypo.Medium,
+                fontSize = 11.sp,
+                modifier = Modifier
+                    .padding(top = 3.dp)
+            )
+        }
+    }
 }
 
 private fun publicationStatusUI(
