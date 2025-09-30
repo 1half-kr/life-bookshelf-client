@@ -58,7 +58,6 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.compose.navigation)
-//            implementation(libs.compose.compiler.gradle.plugin)
             implementation(libs.kotlinx.serialization.json.okio)
             implementation(libs.okio)
 
@@ -73,6 +72,11 @@ kotlin {
             implementation(libs.koin.annotations)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.kermit)
+
+            implementation(libs.coil.compose)
+//            implementation(libs.coil.network)
+            implementation(libs.coil.svg)
+            implementation(libs.image.loader)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

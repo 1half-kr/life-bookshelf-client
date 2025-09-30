@@ -1,7 +1,6 @@
 package com.tdd.bookshelf.app.di
 
 import android.app.Application
-import com.tdd.bookshelf.feature.login.LogInModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinApplication
@@ -13,12 +12,11 @@ fun Application.initKoin(): KoinApplication =
         androidContext(this@initKoin)
         androidLogger()
         modules(
-            commonModule,
-            LogInModule().module,
+            viewModelModule,
             KtorModule.module,
             ServiceModule().module,
             useCaseModule,
             dataSourceModule,
-            repositoryModule
+            repositoryModule,
         )
     }

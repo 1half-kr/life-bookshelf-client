@@ -128,6 +128,13 @@ kermit = "2.0.5"
 
 buildKonfig = "0.17.1"
 
+# image
+ui-graphics = "1.9.0-rc01"
+skiko = "0.9.22"
+kamel-image = "1.0.0-beta.4"
+coil = "3.3.0"
+image-loader = "1.10.0"
+
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
@@ -244,6 +251,15 @@ glance-tools-appwidget-host = { group = "com.google.android.glance.tools", name 
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+
+#image
+ui-graphics = { module = "org.jetbrains.compose.ui:ui-graphics", version.ref = "ui-graphics" }
+skiko = { module = "org.jetbrains.skiko:skiko", version.ref = "skiko" }
+kamel-image = { module = "com.alialbaali.kamel:kamel-image", version.ref = "kamel-image" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coil" }
+coil-network = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
+image-loader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "image-loader" }
 
 [bundles]
 
