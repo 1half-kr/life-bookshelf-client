@@ -1,6 +1,7 @@
 package com.tdd.bookshelf.domain.entity.enums
 
 import com.tdd.bookshelf.core.designsystem.InPublishing
+import com.tdd.bookshelf.core.designsystem.NotPublished
 import com.tdd.bookshelf.core.designsystem.Published
 import com.tdd.bookshelf.core.designsystem.Rejected
 import com.tdd.bookshelf.core.designsystem.RequestConfirmed
@@ -13,7 +14,8 @@ enum class PublishStatusType(
     REQUEST_CONFIRM(RequestConfirmed),
     IN_PUBLISHING(InPublishing),
     PUBLISHED(Published),
-    REJECTED(Rejected);
+    REJECTED(Rejected),
+    NOT_PUBLISHED(NotPublished);
 
     companion object {
         fun getPublishStatus(type: String): PublishStatusType =

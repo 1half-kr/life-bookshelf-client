@@ -13,10 +13,6 @@ data class PublicationProgressUIModel(
         val strokeColor: Color = White0,
         val titleColor: Color = White0,
         val subTitleColor: Color = White0,
-        val numberImg: Int = 0,
-        val topStartCorner: Int = 0,
-        val topEndCorner: Int = 0,
-        val bottomStartCorner: Int = 0,
-        val bottomEndCorner: Int = 0
+        val numberImg: Int = 0
     )
 }

@@ -11,6 +11,7 @@ const val RequestConfirmed = "REQUEST_CONFIRMED"
 const val InPublishing = "IN_PUBLISHING"
 const val Published = "PUBLISHED"
 const val Rejected = "REJECTED"
+const val NotPublished = "NOT_PUBLISHED"
 
 // Bottom
 const val Home = "홈"
