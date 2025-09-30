@@ -206,14 +206,25 @@ private fun PublicationStatusBox(
             .border(1.dp, statusUI.strokeColor, shape)
             .background(statusUI.backgroundColor)
     ) {
-        AsyncImage(
-            model = Res.getUri(progressContent.stepImg),
-            contentDescription = "edit",
-            modifier = Modifier
-                .padding(vertical = 13.dp, horizontal = 19.dp)
-                .size(31.dp)
-                .clip(CircleShape)
-        )
+        if (statusUI.isChecked) {
+            AsyncImage(
+                model = Res.getUri("files/ic_step_check.svg"),
+                contentDescription = "step",
+                modifier = Modifier
+                    .padding(vertical = 13.dp, horizontal = 19.dp)
+                    .size(31.dp)
+                    .clip(CircleShape)
+            )
+        } else {
+            AsyncImage(
+                model = Res.getUri(progressContent.stepImg),
+                contentDescription = "step",
+                modifier = Modifier
+                    .padding(vertical = 13.dp, horizontal = 19.dp)
+                    .size(31.dp)
+                    .clip(CircleShape)
+            )
+        }
 
         Column(
             modifier = Modifier
@@ -295,7 +306,7 @@ private fun publicationStatusCompleted(): UIModel =
         strokeColor = Gray300,
         titleColor = Black900,
         subTitleColor = Gray600,
-        numberImg = 0,
+        isChecked = true,
     )
 
 private fun publicationStatusProgress(): UIModel =
@@ -304,7 +315,6 @@ private fun publicationStatusProgress(): UIModel =
         strokeColor = Blue300,
         titleColor = White0,
         subTitleColor = White0,
-        numberImg = 0,
     )
 
 private fun publicationStatusYet(): UIModel =
@@ -313,5 +323,4 @@ private fun publicationStatusYet(): UIModel =
         strokeColor = Gray300,
         titleColor = Gray600,
         subTitleColor = Gray600,
-        numberImg = 0,
     )
