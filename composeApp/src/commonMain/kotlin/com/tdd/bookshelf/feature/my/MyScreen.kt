@@ -2,14 +2,18 @@ package com.tdd.bookshelf.feature.my
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -24,6 +28,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import bookshelf.composeapp.generated.resources.Res
 import coil3.compose.AsyncImage
 import com.tdd.bookshelf.core.designsystem.BackGround4
+import com.tdd.bookshelf.core.designsystem.Black1000
 import com.tdd.bookshelf.core.designsystem.Black900
 import com.tdd.bookshelf.core.designsystem.Blue300
 import com.tdd.bookshelf.core.designsystem.Blue900
@@ -32,9 +37,12 @@ import com.tdd.bookshelf.core.designsystem.CompleteStatusSubTitle
 import com.tdd.bookshelf.core.designsystem.CompleteStatusTitle
 import com.tdd.bookshelf.core.designsystem.Gray300
 import com.tdd.bookshelf.core.designsystem.Gray600
+import com.tdd.bookshelf.core.designsystem.Gray900
 import com.tdd.bookshelf.core.designsystem.MyTitle
 import com.tdd.bookshelf.core.designsystem.ProgressStatusSubTitle
 import com.tdd.bookshelf.core.designsystem.ProgressStatusTitle
+import com.tdd.bookshelf.core.designsystem.PublicationBookSubTitle
+import com.tdd.bookshelf.core.designsystem.PublicationBookTitle
 import com.tdd.bookshelf.core.designsystem.PublishStatusTitle
 import com.tdd.bookshelf.core.designsystem.SubmitStatusSubTitle
 import com.tdd.bookshelf.core.designsystem.SubmitStatusTitle
@@ -44,6 +52,7 @@ import com.tdd.bookshelf.domain.entity.enums.PublishStatusType
 import com.tdd.bookshelf.domain.entity.response.publication.PublicationProgressUIContentModel
 import com.tdd.bookshelf.domain.entity.response.publication.PublicationProgressUIModel
 import com.tdd.bookshelf.domain.entity.response.publication.PublicationProgressUIModel.UIModel
+import com.tdd.bookshelf.domain.entity.response.publication.PublishBookListItemModel
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -54,13 +63,15 @@ fun MyScreen() {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     MyContent(
-        publishStatus = uiState.publishStatus
+        publishStatus = uiState.publishStatus,
+        publishBookList = uiState.publishBookList
     )
 }
 
 @Composable
 private fun MyContent(
     publishStatus: String,
+    publishBookList: List<PublishBookListItemModel>,
 ) {
     Column(
         modifier = Modifier
@@ -78,6 +89,12 @@ private fun MyContent(
             progressUI = publicationStatusUI(publishStatus).progressUI,
             completeUI = publicationStatusUI(publishStatus).completeUI
         )
+
+        PublicationBookBox(
+            publishBookList = publishBookList
+        )
+
+        MySettingBox()
     }
 }
 
@@ -247,6 +264,69 @@ private fun PublicationStatusBox(
             )
         }
     }
+}
+
+@Composable
+private fun PublicationBookBox(
+    publishBookList: List<PublishBookListItemModel>,
+) {
+    Text(
+        text = PublicationBookTitle,
+        color = Black900,
+        style = BookShelfTypo.Bold,
+        fontSize = 14.sp,
+        modifier = Modifier
+            .padding(top = 31.dp, start = 26.dp)
+    )
+
+    Text(
+        text = PublicationBookSubTitle,
+        color = Gray900,
+        style = BookShelfTypo.Medium,
+        fontSize = 10.sp,
+        modifier = Modifier
+            .padding(start = 26.dp)
+    )
+
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 5.dp),
+        horizontalArrangement = Arrangement.spacedBy(9.dp),
+        contentPadding = PaddingValues(horizontal = 20.dp)
+
+    ) {
+        items(publishBookList) { item ->
+            PublicationBookListItem(
+                item = item
+            )
+        }
+    }
+}
+
+@Composable
+private fun PublicationBookListItem(
+    item: PublishBookListItemModel,
+) {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(5.dp))
+            .background(Black1000)
+    ) {
+        Text(
+            text = item.title,
+            color = White0,
+            style = BookShelfTypo.SemiBold,
+            fontSize = 10.sp,
+            modifier = Modifier
+                .padding(top = 15.dp, bottom = 15.dp, start = 8.dp, end = 30.dp)
+        )
+    }
+}
+
+
+@Composable
+private fun MySettingBox() {
 }
 
 private fun publicationStatusUI(
