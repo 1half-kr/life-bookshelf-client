@@ -5,4 +5,8 @@ object EndPoints {
     object Auth {
         const val EMAILLOGIN = "api/v1/auth/email-login"
     }
+
+    object Autobiography {
+        const val AUTOBIOGRAPHIES = "api/v1/autobiographies"
+    }
 }
