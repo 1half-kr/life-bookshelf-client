@@ -77,6 +77,9 @@ kotlin {
 //            implementation(libs.coil.network)
             implementation(libs.coil.svg)
             implementation(libs.image.loader)
+
+            api(libs.datastore.preferences)
+            api(libs.datastore)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

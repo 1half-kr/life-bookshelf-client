@@ -5,9 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import com.tdd.bookshelf.core.designsystem.Gray50
+import com.tdd.bookshelf.data.dataStore.createDataStore
 import com.tdd.bookshelf.feature.MainScreen
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +21,11 @@ class MainActivity : ComponentActivity() {
             val statusBarColor = Gray50.toArgb()
             window.statusBarColor = statusBarColor
 
-            MainScreen()
+            MainScreen(
+                dataStore = remember {
+                    createDataStore(applicationContext)
+                }
+            )
         }
     }
 }
