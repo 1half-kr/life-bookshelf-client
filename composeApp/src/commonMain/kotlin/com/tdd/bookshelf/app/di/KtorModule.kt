@@ -1,5 +1,6 @@
 package com.tdd.bookshelf.app.di
 
+import co.touchlab.kermit.Logger.Companion.d
 import com.tdd.bookshelf.BuildKonfig
 import com.tdd.bookshelf.data.dataStore.LocalDataStore
 import de.jensklingenberg.ktorfit.Ktorfit
@@ -62,7 +63,7 @@ object KtorModule {
             level = LogLevel.ALL
             logger = object : Logger {
                 override fun log(message: String) {
-                    println("[Ktor] -> $message")
+                    d("[Ktor] -> $message")
                 }
             }
         }
