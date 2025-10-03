@@ -45,8 +45,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
             implementation(libs.koin.android)
-//            implementation(libs.hilt.android)
-//            implementation(libs.hilt.core)
 
             implementation(libs.ktor.client.okhttp)
         }
@@ -62,10 +60,7 @@ kotlin {
             implementation(libs.okio)
 
             implementation(libs.ktorfit.lib)
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.kotlinx.json)
-            implementation(libs.ktor.logging)
+            implementation(libs.bundles.ktor)
 
             api(libs.koin.core)
             implementation(libs.koin.compose)
@@ -74,7 +69,6 @@ kotlin {
             implementation(libs.kermit)
 
             implementation(libs.coil.compose)
-//            implementation(libs.coil.network)
             implementation(libs.coil.svg)
             implementation(libs.image.loader)
 
