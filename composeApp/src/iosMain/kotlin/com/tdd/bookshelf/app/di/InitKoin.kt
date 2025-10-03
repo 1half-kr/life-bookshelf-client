@@ -9,7 +9,6 @@ fun initKoin() {
             iosDataStoreModule,
             dataStoreModule,
 
-            tokenModule,
             KtorModule.module,
             NoAuthModule.module,
 
