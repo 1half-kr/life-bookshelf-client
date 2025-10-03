@@ -17,6 +17,8 @@ fun Application.initKoin(): KoinApplication =
             ServiceModule().module,
             useCaseModule,
             dataSourceModule,
+            dataStoreModule,
+            androidDataStoreModule,
             repositoryModule,
         )
     }

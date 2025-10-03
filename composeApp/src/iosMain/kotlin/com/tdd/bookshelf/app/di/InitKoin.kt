@@ -10,6 +10,8 @@ fun initKoin() {
             serviceModule,
             useCaseModule,
             dataSourceModule,
+            dataStoreModule,
+            iosDataStoreModule,
             repositoryModule,
         )
     }
