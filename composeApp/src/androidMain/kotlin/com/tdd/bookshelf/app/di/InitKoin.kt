@@ -12,13 +12,13 @@ fun Application.initKoin(): KoinApplication =
         androidContext(this@initKoin)
         androidLogger()
         modules(
-            viewModelModule,
+            androidDataStoreModule,
+            dataStoreModule,
             KtorModule.module,
             ServiceModule().module,
-            useCaseModule,
             dataSourceModule,
-            dataStoreModule,
-            androidDataStoreModule,
             repositoryModule,
+            useCaseModule,
+            viewModelModule,
         )
     }
