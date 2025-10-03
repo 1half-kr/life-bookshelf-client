@@ -8,7 +8,11 @@ fun initKoin() {
         modules(
             iosDataStoreModule,
             dataStoreModule,
+
+            tokenModule,
             KtorModule.module,
+            NoAuthModule.module,
+
             ServiceModule().module,
             dataSourceModule,
             repositoryModule,
