@@ -1,6 +1,7 @@
 package com.tdd.bookshelf.app.di
 
 import com.tdd.bookshelf.domain.usecase.auth.PostEmailLogInUseCase
+import com.tdd.bookshelf.domain.usecase.auth.SaveTokenUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.GetAllAutobiographyUseCase
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
@@ -11,11 +12,10 @@ import org.koin.dsl.module
 class UseCaseModule
 
 val useCaseModule = module {
-    factory {
-        // Auth
-        PostEmailLogInUseCase(get())
+    // Auth
+    factory { PostEmailLogInUseCase(get()) }
+    factory { SaveTokenUseCase(get()) }
 
-        // Autobiography
-        GetAllAutobiographyUseCase(get())
-    }
+    // Autobiography
+    factory {  GetAllAutobiographyUseCase(get()) }
 }

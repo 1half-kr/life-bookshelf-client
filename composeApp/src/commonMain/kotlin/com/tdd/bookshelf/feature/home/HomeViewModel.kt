@@ -1,18 +1,37 @@
 package com.tdd.bookshelf.feature.home
 
+import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger.Companion.d
 import com.tdd.bookshelf.core.ui.base.BaseViewModel
+import com.tdd.bookshelf.domain.entity.response.autobiography.AllAutobiographyListModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterItemModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterListModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.SubChapterItemModel
+import com.tdd.bookshelf.domain.usecase.autobiograph.GetAllAutobiographyUseCase
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class HomeViewModel : BaseViewModel<HomePageState>(
+class HomeViewModel(
+    private val getAllAutobiographyUseCase: GetAllAutobiographyUseCase
+) : BaseViewModel<HomePageState>(
     HomePageState()
 ) {
 
     init {
         initSetChapterList()
+
+        initTestAutobiography()
+    }
+
+    private fun initTestAutobiography() {
+        viewModelScope.launch {
+            getAllAutobiographyUseCase(Unit).collect { resultResponse(it, ::onSuccess) }
+        }
+    }
+
+    private fun onSuccess(data: AllAutobiographyListModel) {
+        d("[테스트] -> $data")
     }
 
     private fun initSetChapterList() {
