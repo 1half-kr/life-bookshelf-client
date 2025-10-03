@@ -1,13 +1,30 @@
 package com.tdd.bookshelf.data.dataStore
 
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
-import okio.Path.Companion.toPath
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import co.touchlab.kermit.Logger.Companion.d
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-internal const val dataStoreFileName = "bookshelf_prefs"
+class LocalDataStore(
+    private val dataStore: DataStore<Preferences>,
+) {
 
-fun createDataStore(producePath: () -> String): DataStore<Preferences> =
-    PreferenceDataStoreFactory.createWithPath(
-        produceFile = { producePath().toPath() }
-    )
+    val accessToken: Flow<String?> = dataStore.data.map { preferences ->
+        preferences[ACCESS_TOKEN_KEY]
+    }
+
+    suspend fun saveAccessToken(token: String) {
+        dataStore.edit { preferences ->
+            preferences[ACCESS_TOKEN_KEY] = token
+            d("[dataStore] access token: $token")
+        }
+    }
+
+
+    companion object {
+        val ACCESS_TOKEN_KEY = stringPreferencesKey("access_token")
+    }
+}
