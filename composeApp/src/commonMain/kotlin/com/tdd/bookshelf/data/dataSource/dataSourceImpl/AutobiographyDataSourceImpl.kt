@@ -1,6 +1,7 @@
 package com.tdd.bookshelf.data.dataSource.dataSourceImpl
 
 import com.tdd.bookshelf.data.dataSource.AutobiographyDataSource
+import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyChaptersRequestDto
 import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyRequestDto
 import com.tdd.bookshelf.data.entity.request.autobiography.PostEditAutobiographyRequestDto
 import com.tdd.bookshelf.data.service.AutobiographyService
@@ -32,6 +33,9 @@ class AutobiographyDataSourceImpl(
 
     override suspend fun getAutobiographyChapter(): HttpResponse =
         autobiographyService.getAutobiographiesChapter()
+
+    override suspend fun postCreateChapterList(body: PostCreateAutobiographyChaptersRequestDto): HttpResponse =
+        autobiographyService.postAutobiographiesChapterList(body)
 
     override suspend fun postUpdateCurrentChapter(): HttpResponse =
         autobiographyService.updateCurrentChapter()

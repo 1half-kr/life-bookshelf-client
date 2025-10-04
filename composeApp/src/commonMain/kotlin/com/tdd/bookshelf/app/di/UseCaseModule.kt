@@ -6,6 +6,7 @@ import com.tdd.bookshelf.domain.usecase.autobiograph.DeleteAutobiographyUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.GetAllAutobiographyUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.GetAutobiographiesChapterListUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.GetAutobiographiesDetailUseCase
+import com.tdd.bookshelf.domain.usecase.autobiograph.PostCreateAutobiographyChaptersUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.PostCreateAutobiographyUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.PostEditAutobiographyDetailUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.PostUpdateCurrentChapterUseCase
@@ -29,5 +30,6 @@ val useCaseModule = module {
     factory { PostEditAutobiographyDetailUseCase(get()) }
     factory { DeleteAutobiographyUseCase(get()) }
     factory { GetAutobiographiesChapterListUseCase(get()) }
+    factory { PostCreateAutobiographyChaptersUseCase(get()) }
     factory { PostUpdateCurrentChapterUseCase(get()) }
 }

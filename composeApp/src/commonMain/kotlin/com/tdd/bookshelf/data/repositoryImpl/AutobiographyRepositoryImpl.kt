@@ -4,9 +4,11 @@ import com.tdd.bookshelf.data.dataSource.AutobiographyDataSource
 import com.tdd.bookshelf.data.mapper.autobiograph.AllAutobiographyMapper
 import com.tdd.bookshelf.data.mapper.autobiograph.AutobiographiesDetailMapper
 import com.tdd.bookshelf.data.mapper.autobiograph.AutobiographyChapterMapper
+import com.tdd.bookshelf.data.mapper.autobiograph.CreateAutobiographyChaptersMapper.toDto
 import com.tdd.bookshelf.data.mapper.autobiograph.CreateAutobiographyMapper.toDto
 import com.tdd.bookshelf.data.mapper.autobiograph.EditAutobiographyDetailMapper.toDto
 import com.tdd.bookshelf.data.mapper.base.DefaultBooleanMapper
+import com.tdd.bookshelf.domain.entity.request.autobiography.CreateAutobiographyChaptersRequestModel
 import com.tdd.bookshelf.domain.entity.request.autobiography.CreateAutobiographyRequestModel
 import com.tdd.bookshelf.domain.entity.request.autobiography.EditAutobiographyDetailRequestModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.AllAutobiographyListModel
@@ -56,6 +58,13 @@ class AutobiographyRepositoryImpl(
 
     override suspend fun getAutobiographyChapter(): Flow<Result<ChapterListModel>> =
         AutobiographyChapterMapper.responseToModel(apiCall = { autobiographyDataSource.getAutobiographyChapter() })
+
+    override suspend fun postCreateChapterList(body: CreateAutobiographyChaptersRequestModel): Flow<Result<Boolean>> =
+        DefaultBooleanMapper.responseToModel(apiCall = {
+            autobiographyDataSource.postCreateChapterList(
+                body.toDto()
+            )
+        })
 
     override suspend fun postUpdateCurrentChapter(): Flow<Result<Boolean>> =
         DefaultBooleanMapper.responseToModel(apiCall = { autobiographyDataSource.postUpdateCurrentChapter() })

@@ -1,6 +1,7 @@
 package com.tdd.bookshelf.data.service
 
 import com.tdd.bookshelf.data.base.EndPoints
+import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyChaptersRequestDto
 import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyRequestDto
 import com.tdd.bookshelf.data.entity.request.autobiography.PostEditAutobiographyRequestDto
 import de.jensklingenberg.ktorfit.http.Body
@@ -17,27 +18,32 @@ interface AutobiographyService {
 
     @POST(EndPoints.Autobiography.AUTOBIOGRAPHIES)
     suspend fun postAllAutobiographies(
-        @Body body: PostCreateAutobiographyRequestDto
+        @Body body: PostCreateAutobiographyRequestDto,
     ): HttpResponse
 
     @GET(EndPoints.Autobiography.AUTOBIOGRAPHIESDETAIL)
     suspend fun getAutobiographiesDetail(
-        @Path("autobiographyId") autobiographyId: Int
+        @Path("autobiographyId") autobiographyId: Int,
     ): HttpResponse
 
     @POST(EndPoints.Autobiography.AUTOBIOGRAPHIESDETAIL)
     suspend fun postEditAutobiographyDetail(
         @Path("autobiographyId") autobiographyId: Int,
-        @Body body: PostEditAutobiographyRequestDto
+        @Body body: PostEditAutobiographyRequestDto,
     ): HttpResponse
 
     @DELETE(EndPoints.Autobiography.AUTOBIOGRAPHIESDETAIL)
     suspend fun deleteAutobiography(
-        @Path("autobiographyId") autobiographyId: Int
+        @Path("autobiographyId") autobiographyId: Int,
     ): HttpResponse
 
     @GET(EndPoints.Autobiography.AUTOBIOGRAPHIESCHAPTER)
     suspend fun getAutobiographiesChapter(): HttpResponse
+
+    @POST(EndPoints.Autobiography.AUTOBIOGRAPHIESCHAPTER)
+    suspend fun postAutobiographiesChapterList(
+        @Body body: PostCreateAutobiographyChaptersRequestDto,
+    ): HttpResponse
 
     @POST(EndPoints.Autobiography.UPDATECURRENTCHAPTER)
     suspend fun updateCurrentChapter(): HttpResponse

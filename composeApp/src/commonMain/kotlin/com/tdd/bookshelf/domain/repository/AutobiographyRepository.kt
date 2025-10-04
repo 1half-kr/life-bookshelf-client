@@ -1,5 +1,6 @@
 package com.tdd.bookshelf.domain.repository
 
+import com.tdd.bookshelf.domain.entity.request.autobiography.CreateAutobiographyChaptersRequestModel
 import com.tdd.bookshelf.domain.entity.request.autobiography.CreateAutobiographyRequestModel
 import com.tdd.bookshelf.domain.entity.request.autobiography.EditAutobiographyDetailRequestModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.AllAutobiographyListModel
@@ -14,5 +15,6 @@ interface AutobiographyRepository {
     suspend fun postEditAutobiographiesDetail(body: EditAutobiographyDetailRequestModel): Flow<Result<Boolean>>
     suspend fun deleteAutobiography(autobiographyId: Int): Flow<Result<Boolean>>
     suspend fun getAutobiographyChapter(): Flow<Result<ChapterListModel>>
+    suspend fun postCreateChapterList(body: CreateAutobiographyChaptersRequestModel): Flow<Result<Boolean>>
     suspend fun postUpdateCurrentChapter(): Flow<Result<Boolean>>
 }
