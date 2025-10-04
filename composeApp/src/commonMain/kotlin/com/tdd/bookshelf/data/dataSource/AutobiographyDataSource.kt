@@ -4,4 +4,5 @@ import io.ktor.client.statement.HttpResponse
 
 interface AutobiographyDataSource {
     suspend fun getAllAutobiographies(): HttpResponse
+    suspend fun getAutobiographiesDetail(autobiographyId: Int): HttpResponse
 }
