@@ -51,8 +51,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 internal fun HomeScreen(
-    goToInterviewPage: () -> Unit,
-    goToDetailChapterPage: () -> Unit,
+    goToInterviewPage: (Int) -> Unit,
+    goToDetailChapterPage: (Int) -> Unit,
 ) {
     val viewModel: HomeViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -62,12 +62,12 @@ internal fun HomeScreen(
     HomeContent(
         chapterList = uiState.chapterList,
         currentChapterId = uiState.currentChapterId,
-        onClickCurrentChapterInterview = { goToInterviewPage() },
+        onClickCurrentChapterInterview = { goToInterviewPage(viewModel.setInterviewId()) },
         interactionSource = interactionSource,
         onClickChapterDetail = { detailChapterId ->
-            goToDetailChapterPage()
+            goToDetailChapterPage(viewModel.setAutobiographyId(detailChapterId))
         },
-        currentChapter = uiState.currentChapter
+        currentChapter = uiState.currentChapter,
     )
 }
 
@@ -112,7 +112,7 @@ private fun HomeContent(
             onClickCurrentChapterInterview = onClickCurrentChapterInterview,
             interactionSource = interactionSource,
             onClickChapterDetail = onClickChapterDetail,
-            currentChapter = currentChapter
+            currentChapter = currentChapter,
         )
     }
 }

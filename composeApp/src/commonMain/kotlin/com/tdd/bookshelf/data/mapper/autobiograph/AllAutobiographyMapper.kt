@@ -22,12 +22,14 @@ object AllAutobiographyMapper : BaseMapper() {
                         isLast = data.isLast,
                         results = data.results.map { item ->
                             AllAutobiographyItemModel(
-                                chapterId = 0,
-                                title = "",
-                                contentPreview = "",
-                                coverImageUrl = "",
-                                createdAt = "",
-                                updatedAt = ""
+                                autobiographyId = item.autobiographyId,
+                                interviewId = item.interviewId,
+                                chapterId = item.chapterId,
+                                title = item.title,
+                                contentPreview = item.contentPreview,
+                                coverImageUrl = item.coverImageUrl,
+                                createdAt = item.createdAt,
+                                updatedAt = item.updatedAt
                             )
                         }
                     )
