@@ -6,15 +6,15 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AllAutobiographyResponseDto(
     @SerialName("results")
-    val results: List<AutobiographyItem>,
+    val results: List<AutobiographyItem> = emptyList(),
     @SerialName("currentPage")
-    val currentPage: Int,
+    val currentPage: Int? = 0,
     @SerialName("totalPages")
-    val totalPages: Int,
+    val totalPages: Int? = 0,
     @SerialName("totalElements")
-    val totalElements: Int,
+    val totalElements: Int? = 0,
     @SerialName("isLast")
-    val isLast: Boolean,
+    val isLast: Boolean? = false,
 ) {
     @Serializable
     data class AutobiographyItem(
