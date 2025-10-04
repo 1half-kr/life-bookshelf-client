@@ -13,7 +13,7 @@ val viewModelModule = module {
     viewModel { MainViewModel() }
     viewModel { LogInViewModel(get(), get()) }
     viewModel { InterviewViewModel() }
-    viewModel { HomeViewModel() }
+    viewModel { HomeViewModel(get()) }
     viewModel { DetailChapterViewModel() }
     viewModel { MyViewModel() }
 }

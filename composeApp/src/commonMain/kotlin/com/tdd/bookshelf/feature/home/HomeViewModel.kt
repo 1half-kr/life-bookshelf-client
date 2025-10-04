@@ -1,13 +1,17 @@
 package com.tdd.bookshelf.feature.home
 
+import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger.Companion.d
 import com.tdd.bookshelf.core.ui.base.BaseViewModel
-import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterItemModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterListModel
-import com.tdd.bookshelf.domain.entity.response.autobiography.SubChapterItemModel
+import com.tdd.bookshelf.domain.usecase.autobiograph.GetAutobiographiesChapterListUseCase
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class HomeViewModel : BaseViewModel<HomePageState>(
+class HomeViewModel(
+    private val getAutobiographiesChapterListUseCase: GetAutobiographiesChapterListUseCase,
+) : BaseViewModel<HomePageState>(
     HomePageState()
 ) {
 
@@ -16,37 +20,21 @@ class HomeViewModel : BaseViewModel<HomePageState>(
     }
 
     private fun initSetChapterList() {
-        val mockChapterList = ChapterListModel(
-            currentChapterId = 2,
-            results = listOf(
-                ChapterItemModel(
-                    0, "1", "Chapter 1: Early Life", "test", "",
-                    subChapters = listOf(
-                        SubChapterItemModel(1, "1.1", "Subchapter 1: Childhood", "test"),
-                        SubChapterItemModel(2, "1.2", "Subchapter 1: Childhood", "test")
-                    )
-                ),
-                ChapterItemModel(
-                    3, "2", "Chapter 2: Early Life", "test", "",
-                    subChapters = listOf(
-                        SubChapterItemModel(4, "2.1", "Subchapter 2: Childhood", "test"),
-                        SubChapterItemModel(5, "2.2", "Subchapter 2: Childhood", "test"),
-                        SubChapterItemModel(6, "2.3", "Subchapter 2: Childhood", "test")
-                    )
-                ),
-                ChapterItemModel(
-                    7, "3", "Chapter 3: Early Life", "test", "",
-                    subChapters = listOf(
-                        SubChapterItemModel(8, "3.1", "Subchapter 3: Childhood", "test"),
-                        SubChapterItemModel(9, "3.2", "Subchapter 3: Childhood", "test")
-                    )
-                ),
-            )
-        )
+        viewModelScope.launch {
+            getAutobiographiesChapterListUseCase(Unit).collect {
+                resultResponse(
+                    it,
+                    ::onSuccessGetChapterList
+                )
+            }
+        }
+    }
 
+    private fun onSuccessGetChapterList(data: ChapterListModel) {
+        d("[ktor] homeViewmodel -> $data")
         updateState(
             uiState.value.copy(
-                chapterList = mockChapterList
+                chapterList = data
             )
         )
     }
