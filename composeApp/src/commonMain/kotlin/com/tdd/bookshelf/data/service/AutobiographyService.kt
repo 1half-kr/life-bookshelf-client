@@ -20,4 +20,7 @@ interface AutobiographyService {
     suspend fun deleteAutobiography(
         @Path("autobiographyId") autobiographyId: Int
     ): HttpResponse
+
+    @GET(EndPoints.Autobiography.AUTOBIOGRAPHIESCHAPTER)
+    suspend fun getAutobiographiesChapter(): HttpResponse
 }
