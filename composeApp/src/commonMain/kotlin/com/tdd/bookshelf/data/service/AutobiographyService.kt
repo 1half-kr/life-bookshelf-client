@@ -2,6 +2,7 @@ package com.tdd.bookshelf.data.service
 
 import com.tdd.bookshelf.data.base.EndPoints
 import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyRequestDto
+import com.tdd.bookshelf.data.entity.request.autobiography.PostEditAutobiographyRequestDto
 import de.jensklingenberg.ktorfit.http.Body
 import de.jensklingenberg.ktorfit.http.DELETE
 import de.jensklingenberg.ktorfit.http.GET
@@ -22,6 +23,12 @@ interface AutobiographyService {
     @GET(EndPoints.Autobiography.AUTOBIOGRAPHIESDETAIL)
     suspend fun getAutobiographiesDetail(
         @Path("autobiographyId") autobiographyId: Int
+    ): HttpResponse
+
+    @POST(EndPoints.Autobiography.AUTOBIOGRAPHIESDETAIL)
+    suspend fun postEditAutobiographyDetail(
+        @Path("autobiographyId") autobiographyId: Int,
+        @Body body: PostEditAutobiographyRequestDto
     ): HttpResponse
 
     @DELETE(EndPoints.Autobiography.AUTOBIOGRAPHIESDETAIL)

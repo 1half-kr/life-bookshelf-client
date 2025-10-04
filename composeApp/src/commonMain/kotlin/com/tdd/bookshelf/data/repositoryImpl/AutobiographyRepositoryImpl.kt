@@ -5,8 +5,10 @@ import com.tdd.bookshelf.data.mapper.autobiograph.AllAutobiographyMapper
 import com.tdd.bookshelf.data.mapper.autobiograph.AutobiographiesDetailMapper
 import com.tdd.bookshelf.data.mapper.autobiograph.AutobiographyChapterMapper
 import com.tdd.bookshelf.data.mapper.autobiograph.CreateAutobiographyMapper.toDto
+import com.tdd.bookshelf.data.mapper.autobiograph.EditAutobiographyDetailMapper.toDto
 import com.tdd.bookshelf.data.mapper.base.DefaultBooleanMapper
 import com.tdd.bookshelf.domain.entity.request.autobiography.CreateAutobiographyRequestModel
+import com.tdd.bookshelf.domain.entity.request.autobiography.EditAutobiographyDetailRequestModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.AllAutobiographyListModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.AutobiographiesDetailModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterListModel
@@ -32,6 +34,16 @@ class AutobiographyRepositoryImpl(
         AutobiographiesDetailMapper.responseToModel(apiCall = {
             autobiographyDataSource.getAutobiographiesDetail(
                 autobiographyId
+            )
+        })
+
+    override suspend fun postEditAutobiographiesDetail(
+        body: EditAutobiographyDetailRequestModel,
+    ): Flow<Result<Boolean>> =
+        DefaultBooleanMapper.responseToModel(apiCall = {
+            autobiographyDataSource.postEditAutobiographiesDetail(
+                body.autobiographyId,
+                body.toDto()
             )
         })
 
