@@ -10,6 +10,6 @@ object EndPoints {
         const val AUTOBIOGRAPHIES = "api/v1/autobiographies"
         const val AUTOBIOGRAPHIESDETAIL = "$AUTOBIOGRAPHIES/{autobiographyId}"
         const val AUTOBIOGRAPHIESCHAPTER = "$AUTOBIOGRAPHIES/chapters"
-        const val UPDATECURRENTCHAPTER = "$$AUTOBIOGRAPHIESCHAPTER/current-chapter"
+        const val UPDATECURRENTCHAPTER = "$AUTOBIOGRAPHIESCHAPTER/current-chapter"
     }
 }
