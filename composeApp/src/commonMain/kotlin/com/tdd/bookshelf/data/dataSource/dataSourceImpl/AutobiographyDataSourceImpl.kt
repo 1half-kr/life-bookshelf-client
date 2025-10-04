@@ -1,6 +1,7 @@
 package com.tdd.bookshelf.data.dataSource.dataSourceImpl
 
 import com.tdd.bookshelf.data.dataSource.AutobiographyDataSource
+import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyRequestDto
 import com.tdd.bookshelf.data.service.AutobiographyService
 import io.ktor.client.statement.HttpResponse
 import org.koin.core.annotation.Single
@@ -12,6 +13,9 @@ class AutobiographyDataSourceImpl(
 
     override suspend fun getAllAutobiographies(): HttpResponse =
         autobiographyService.getAllAutobiographies()
+
+    override suspend fun postCreateAutobiographies(body: PostCreateAutobiographyRequestDto): HttpResponse =
+        autobiographyService.postAllAutobiographies(body)
 
     override suspend fun getAutobiographiesDetail(autobiographyId: Int): HttpResponse =
         autobiographyService.getAutobiographiesDetail(autobiographyId)

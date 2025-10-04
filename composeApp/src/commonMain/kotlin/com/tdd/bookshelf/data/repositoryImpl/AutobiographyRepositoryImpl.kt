@@ -4,7 +4,9 @@ import com.tdd.bookshelf.data.dataSource.AutobiographyDataSource
 import com.tdd.bookshelf.data.mapper.autobiograph.AllAutobiographyMapper
 import com.tdd.bookshelf.data.mapper.autobiograph.AutobiographiesDetailMapper
 import com.tdd.bookshelf.data.mapper.autobiograph.AutobiographyChapterMapper
+import com.tdd.bookshelf.data.mapper.autobiograph.CreateAutobiographyMapper.toDto
 import com.tdd.bookshelf.data.mapper.base.DefaultBooleanMapper
+import com.tdd.bookshelf.domain.entity.request.autobiography.CreateAutobiographyRequestModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.AllAutobiographyListModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.AutobiographiesDetailModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterListModel
@@ -18,6 +20,13 @@ class AutobiographyRepositoryImpl(
 ) : AutobiographyRepository {
     override suspend fun getAllAutobiographies(): Flow<Result<AllAutobiographyListModel>> =
         AllAutobiographyMapper.responseToModel(apiCall = { autobiographyDataSource.getAllAutobiographies() })
+
+    override suspend fun postCreateAutobiographies(body: CreateAutobiographyRequestModel): Flow<Result<Boolean>> =
+        DefaultBooleanMapper.responseToModel(apiCall = {
+            autobiographyDataSource.postCreateAutobiographies(
+                body.toDto()
+            )
+        })
 
     override suspend fun getAutobiographiesDetail(autobiographyId: Int): Flow<Result<AutobiographiesDetailModel>> =
         AutobiographiesDetailMapper.responseToModel(apiCall = {

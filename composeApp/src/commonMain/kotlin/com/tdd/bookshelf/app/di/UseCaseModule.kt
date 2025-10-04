@@ -6,6 +6,8 @@ import com.tdd.bookshelf.domain.usecase.autobiograph.DeleteAutobiographyUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.GetAllAutobiographyUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.GetAutobiographiesChapterListUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.GetAutobiographiesDetailUseCase
+import com.tdd.bookshelf.domain.usecase.autobiograph.PostCreateAutobiographyUseCase
+import com.tdd.bookshelf.domain.usecase.autobiograph.PostUpdateCurrentChapterUseCase
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
 import org.koin.dsl.module
@@ -24,4 +26,6 @@ val useCaseModule = module {
     factory { GetAutobiographiesDetailUseCase(get()) }
     factory { DeleteAutobiographyUseCase(get()) }
     factory { GetAutobiographiesChapterListUseCase(get()) }
+    factory { PostUpdateCurrentChapterUseCase(get()) }
+    factory { PostCreateAutobiographyUseCase(get()) }
 }
