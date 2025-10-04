@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -22,14 +21,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import bookshelf.composeapp.generated.resources.Res
-import coil3.compose.AsyncImage
 import com.tdd.bookshelf.core.designsystem.Blue300
 import com.tdd.bookshelf.core.designsystem.BookShelfTypo
 import com.tdd.bookshelf.core.designsystem.Gray50
 import com.tdd.bookshelf.core.designsystem.Gray600
 import com.tdd.bookshelf.core.designsystem.InterviewScreenTitle
-import com.tdd.bookshelf.core.designsystem.Neutral900
 import com.tdd.bookshelf.core.designsystem.White0
 import com.tdd.bookshelf.core.ui.common.content.TopBarContent
 import com.tdd.bookshelf.domain.entity.enums.ChatType
@@ -39,7 +35,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-internal fun InterviewScreen() {
+internal fun InterviewScreen(
+    interviewId: Int,
+) {
 
     val viewModel: InterviewViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -54,7 +52,7 @@ internal fun InterviewScreen() {
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun InterviewContent(
-    interviewChatList: List<InterviewChatItem> = emptyList()
+    interviewChatList: List<InterviewChatItem> = emptyList(),
 ) {
     Column(
         modifier = Modifier
@@ -99,6 +97,7 @@ private fun InterviewChat(
                                 .widthIn(max = chatMaxWidth)
                         )
                     }
+
                     ChatType.HUMAN -> {
                         InterviewHumanChatItem(
                             content = chatItem.content,

@@ -39,7 +39,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-internal fun DetailChapterScreen() {
+internal fun DetailChapterScreen(
+    autobiographyId: Int
+) {
     val viewModel: DetailChapterViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
