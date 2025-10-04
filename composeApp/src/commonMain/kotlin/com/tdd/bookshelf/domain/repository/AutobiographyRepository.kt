@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface AutobiographyRepository {
     suspend fun getAllAutobiographies(): Flow<Result<AllAutobiographyListModel>>
     suspend fun getAutobiographiesDetail(autobiographyId: Int): Flow<Result<AutobiographiesDetailModel>>
+    suspend fun deleteAutobiography(autobiographyId: Int): Flow<Result<Boolean>>
 }

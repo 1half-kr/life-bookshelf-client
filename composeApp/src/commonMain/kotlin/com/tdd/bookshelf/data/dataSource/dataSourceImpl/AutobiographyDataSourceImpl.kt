@@ -15,4 +15,7 @@ class AutobiographyDataSourceImpl(
 
     override suspend fun getAutobiographiesDetail(autobiographyId: Int): HttpResponse =
         autobiographyService.getAutobiographiesDetail(autobiographyId)
+
+    override suspend fun deleteAutobiography(autobiographyId: Int): HttpResponse =
+        autobiographyService.deleteAutobiography(autobiographyId)
 }
