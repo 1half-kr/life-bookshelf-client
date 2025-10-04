@@ -7,4 +7,5 @@ interface AutobiographyDataSource {
     suspend fun getAutobiographiesDetail(autobiographyId: Int): HttpResponse
     suspend fun deleteAutobiography(autobiographyId: Int): HttpResponse
     suspend fun getAutobiographyChapter(): HttpResponse
+    suspend fun postUpdateCurrentChapter(): HttpResponse
 }

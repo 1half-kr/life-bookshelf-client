@@ -3,6 +3,7 @@ package com.tdd.bookshelf.data.service
 import com.tdd.bookshelf.data.base.EndPoints
 import de.jensklingenberg.ktorfit.http.DELETE
 import de.jensklingenberg.ktorfit.http.GET
+import de.jensklingenberg.ktorfit.http.POST
 import de.jensklingenberg.ktorfit.http.Path
 import io.ktor.client.statement.HttpResponse
 
@@ -23,4 +24,7 @@ interface AutobiographyService {
 
     @GET(EndPoints.Autobiography.AUTOBIOGRAPHIESCHAPTER)
     suspend fun getAutobiographiesChapter(): HttpResponse
+
+    @POST(EndPoints.Autobiography.UPDATECURRENTCHAPTER)
+    suspend fun updateCurrentChapter(): HttpResponse
 }

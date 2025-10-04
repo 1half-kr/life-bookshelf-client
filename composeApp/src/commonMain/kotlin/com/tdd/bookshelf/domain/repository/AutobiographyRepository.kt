@@ -10,4 +10,5 @@ interface AutobiographyRepository {
     suspend fun getAutobiographiesDetail(autobiographyId: Int): Flow<Result<AutobiographiesDetailModel>>
     suspend fun deleteAutobiography(autobiographyId: Int): Flow<Result<Boolean>>
     suspend fun getAutobiographyChapter(): Flow<Result<ChapterListModel>>
+    suspend fun postUpdateCurrentChapter(): Flow<Result<Boolean>>
 }

@@ -35,4 +35,7 @@ class AutobiographyRepositoryImpl(
 
     override suspend fun getAutobiographyChapter(): Flow<Result<ChapterListModel>> =
         AutobiographyChapterMapper.responseToModel(apiCall = { autobiographyDataSource.getAutobiographyChapter() })
+
+    override suspend fun postUpdateCurrentChapter(): Flow<Result<Boolean>> =
+        DefaultBooleanMapper.responseToModel(apiCall = { autobiographyDataSource.postUpdateCurrentChapter() })
 }

@@ -21,4 +21,7 @@ class AutobiographyDataSourceImpl(
 
     override suspend fun getAutobiographyChapter(): HttpResponse =
         autobiographyService.getAutobiographiesChapter()
+
+    override suspend fun postUpdateCurrentChapter(): HttpResponse =
+        autobiographyService.updateCurrentChapter()
 }
