@@ -5,7 +5,7 @@ data class MemberInfoModel(
     val bornedAt: String = "",
     val gender: String = "",
     val hasChildren: Boolean = false,
-    val occupation: String = "",
-    val educationLevel: String = "",
-    val maritalStatus: String = "",
+    val occupation: String? = null,
+    val educationLevel: String? = null,
+    val maritalStatus: String? = null,
 )

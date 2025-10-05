@@ -14,9 +14,9 @@ data class MemberInfoResponseDto (
     @SerialName("hasChildren")
     val hasChildren: Boolean = false,
     @SerialName("occupation")
-    val occupation: String = "",
+    val occupation: String? = null,
     @SerialName("educationLevel")
-    val educationLevel: String = "",
+    val educationLevel: String? = null,
     @SerialName("maritalStatus")
-    val maritalStatus: String = ""
+    val maritalStatus: String? = null
 )

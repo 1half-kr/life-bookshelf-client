@@ -16,9 +16,9 @@ object CreateInterviewQuestionMapper : BaseMapper() {
             userInfo.bornedAt,
             userInfo.gender,
             userInfo.hasChildren,
-            userInfo.occupation,
-            userInfo.educationLevel,
-            userInfo.maritalStatus
+            userInfo.occupation ?: "",
+            userInfo.educationLevel ?: "",
+            userInfo.maritalStatus ?: ""
         ),
         chapterInfo = InterviewQuestionsRequestDto.ChapterInfo(
             chapterInfo.title,
