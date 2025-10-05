@@ -17,6 +17,7 @@ fun Application.initKoin(): KoinApplication =
 
             KtorModule.module,
             NoAuthModule.module,
+            KtorAIModule.module,
 
             ServiceModule().module,
             dataSourceModule,

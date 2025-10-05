@@ -40,7 +40,7 @@ object  KtorAIModule {
 
     @Single
     @BookShelfKtorAI
-    fun provideHttpClient(
+    fun provideAIHttpClient(
         json: Json,
         localDataStore: LocalDataStore,
     ): HttpClient = HttpClient {
@@ -98,7 +98,7 @@ object  KtorAIModule {
 
     @Single
     @BookShelfKtorAI
-    fun provideKtorfit(
+    fun provideAIKtorfit(
         @BookShelfKtorAI httpClient: HttpClient,
     ): Ktorfit = Ktorfit.Builder()
         .baseUrl(BuildKonfig.AI_URL)
