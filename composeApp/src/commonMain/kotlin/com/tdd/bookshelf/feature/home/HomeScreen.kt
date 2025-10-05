@@ -66,6 +66,7 @@ internal fun HomeScreen(
         interactionSource = interactionSource,
         onClickChapterDetail = { detailChapterId ->
             goToDetailChapterPage(viewModel.setAutobiographyId(detailChapterId))
+//            viewModel.setAutobiographyId(detailChapterId)
         },
         currentChapter = uiState.currentChapter,
     )

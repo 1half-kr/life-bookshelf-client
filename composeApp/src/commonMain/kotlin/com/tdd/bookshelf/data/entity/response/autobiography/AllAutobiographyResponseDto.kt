@@ -29,7 +29,7 @@ data class AllAutobiographyResponseDto(
         @SerialName("contentPreview")
         val contentPreview: String,
         @SerialName("coverImageUrl")
-        val coverImageUrl: String,
+        val coverImageUrl: String?,
         @SerialName("createdAt")
         val createdAt: String,
         @SerialName("updatedAt")

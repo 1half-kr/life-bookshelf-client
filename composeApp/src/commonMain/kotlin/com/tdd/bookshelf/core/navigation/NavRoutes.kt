@@ -23,7 +23,7 @@ sealed class NavRoutes(val route: String) {
     // DetailChapter Graph
     data object DetailChapterGraph : NavRoutes("detail_chapter_graph")
     data object DetailChapterScreen : NavRoutes("detail_chapter/{autobiographyId}") {
-        fun setRouteModel(autobiographyId: Int): String = "interview/$autobiographyId"
+        fun setRouteModel(autobiographyId: Int): String = "detail_chapter/$autobiographyId"
     }
 
     // MyPage Graph

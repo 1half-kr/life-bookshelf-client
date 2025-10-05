@@ -6,7 +6,7 @@ data class AllAutobiographyItemModel(
     val chapterId: Int = 0,
     val title: String = "",
     val contentPreview: String = "",
-    val coverImageUrl: String = "",
+    val coverImageUrl: String? = null,
     val createdAt: String = "",
     val updatedAt: String = "",
 )
