@@ -9,6 +9,7 @@ import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterListModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.SubChapterItemModel
 import com.tdd.bookshelf.domain.usecase.autobiograph.GetAllAutobiographyUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.GetAutobiographiesChapterListUseCase
+import com.tdd.bookshelf.domain.usecase.member.GetMemberInfoUseCase
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
@@ -16,6 +17,7 @@ import org.koin.android.annotation.KoinViewModel
 class HomeViewModel(
     private val getAutobiographiesChapterListUseCase: GetAutobiographiesChapterListUseCase,
     private val getAllAutobiographyUseCase: GetAllAutobiographyUseCase,
+    private val getMemberInfoUseCase: GetMemberInfoUseCase
 ) : BaseViewModel<HomePageState>(
     HomePageState()
 ) {
@@ -102,7 +104,23 @@ class HomeViewModel(
         return interviewId
     }
 
-    fun setAutobiographyId(chapterId: Int): Int =
-        uiState.value.allAutobiographyList.firstOrNull { it.chapterId == chapterId }?.autobiographyId
+    fun setAutobiographyId(chapterId: Int): Int {
+        var autobiographyId = uiState.value.allAutobiographyList.firstOrNull { it.chapterId == chapterId }?.autobiographyId
             ?: 0
+
+        if (autobiographyId == 0) {
+            createAutobiography()
+            initSetAllAutobiography()
+            autobiographyId = uiState.value.allAutobiographyList.firstOrNull { it.chapterId == chapterId }?.autobiographyId ?: 0
+            return autobiographyId
+        } else return autobiographyId
+    }
+
+    private fun createAutobiography() {
+        generateInterviewQuestions()
+    }
+
+    private fun generateInterviewQuestions() {
+        //
+    }
 }
