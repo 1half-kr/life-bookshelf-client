@@ -5,6 +5,7 @@ import com.tdd.bookshelf.domain.entity.response.autobiography.AllAutobiographyIt
 import com.tdd.bookshelf.domain.entity.response.autobiography.AllAutobiographyListModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterItemModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.SubChapterItemModel
+import com.tdd.bookshelf.domain.entity.response.member.MemberInfoModel
 
 data class HomePageState(
     val chapterList: List<ChapterItemModel> = emptyList(),
@@ -12,5 +13,7 @@ data class HomePageState(
     val currentChapterId: Int = 0,
     val currentChapter: SubChapterItemModel = SubChapterItemModel(),
     val allAutobiography: AllAutobiographyListModel = AllAutobiographyListModel(),
-    val allAutobiographyList: List<AllAutobiographyItemModel> = emptyList()
+    val allAutobiographyList: List<AllAutobiographyItemModel> = emptyList(),
+    val memberInfo: MemberInfoModel = MemberInfoModel(),
+    val interviewQuestions: List<String> = emptyList(),
 ) : PageState
