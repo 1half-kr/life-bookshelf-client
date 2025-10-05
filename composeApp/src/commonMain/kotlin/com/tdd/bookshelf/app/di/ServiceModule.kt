@@ -3,6 +3,8 @@ package com.tdd.bookshelf.app.di
 import com.tdd.bookshelf.data.service.AuthService
 import com.tdd.bookshelf.data.service.AutobiographyService
 import com.tdd.bookshelf.data.service.MemberService
+import com.tdd.bookshelf.data.service.ai.InterviewAIService
+import com.tdd.bookshelf.data.service.ai.createInterviewAIService
 import com.tdd.bookshelf.data.service.createAuthService
 import com.tdd.bookshelf.data.service.createAutobiographyService
 import com.tdd.bookshelf.data.service.createMemberService
@@ -29,4 +31,9 @@ class ServiceModule {
     fun provideMemberService(
         @BookShelfKtor ktorfit: Ktorfit
     ): MemberService = ktorfit.createMemberService()
+
+    @Single
+    fun provideInterviewAIService(
+        @BookShelfKtorAI ktorfit: Ktorfit
+    ): InterviewAIService = ktorfit.createInterviewAIService()
 }

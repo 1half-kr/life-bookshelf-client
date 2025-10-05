@@ -10,6 +10,7 @@ import com.tdd.bookshelf.domain.usecase.autobiograph.PostCreateAutobiographyChap
 import com.tdd.bookshelf.domain.usecase.autobiograph.PostCreateAutobiographyUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.PostEditAutobiographyDetailUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.PostUpdateCurrentChapterUseCase
+import com.tdd.bookshelf.domain.usecase.interview.ai.PostCreateInterviewQuestionUseCase
 import com.tdd.bookshelf.domain.usecase.member.GetMemberInfoUseCase
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
@@ -36,4 +37,8 @@ val useCaseModule = module {
 
     // Member
     factory { GetMemberInfoUseCase(get()) }
+
+    // AI
+    // Interview
+    factory { PostCreateInterviewQuestionUseCase(get()) }
 }
