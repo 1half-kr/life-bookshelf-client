@@ -35,6 +35,7 @@ import com.tdd.bookshelf.core.designsystem.Gray600
 import com.tdd.bookshelf.core.designsystem.Gray800
 import com.tdd.bookshelf.core.designsystem.Neutral900
 import com.tdd.bookshelf.core.ui.common.content.TopBarContent
+import com.tdd.bookshelf.domain.entity.response.autobiography.AutobiographiesDetailModel
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
@@ -50,11 +51,15 @@ internal fun DetailChapterScreen(
         viewModel.setAutobiographyId(autobiographyId)
     }
 
-    DetailChapterContent()
+    DetailChapterContent(
+        chapterDetail = uiState.detailChapter
+    )
 }
 
 @Composable
-private fun DetailChapterContent() {
+private fun DetailChapterContent(
+    chapterDetail: AutobiographiesDetailModel = AutobiographiesDetailModel()
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -77,10 +82,12 @@ private fun DetailChapterContent() {
                 .clip(RoundedCornerShape(13.dp))
         )
 
-        DetailTitleBar()
+        DetailTitleBar(
+            title = chapterDetail.title
+        )
 
         Text(
-            text = "외쳐라 최강기아 워어어어어 타이거즈 함성을 모아서 워어어어어 승리하라 최강기아 열광하라 타이거즈 우리들의 함성을 모아서 워어어어어\n비내리는 호남선 남행열차에 흔들리는 차창 넘어로 빗물이 흐르고 내눈물도 흐르고 잃어버린 첫사랑도 흐르네 깜박깜박이는 희미한 저 기억 속에 최!강!기!아! 다시 만날 그 사람 말이 없던 그 사람 자꾸만 멀어지는데",
+            text = chapterDetail.content,
             color = Gray800,
             style = BookShelfTypo.Medium,
             fontSize = 15.sp,
@@ -117,7 +124,9 @@ private fun DetailTopBar() {
 }
 
 @Composable
-private fun DetailTitleBar() {
+private fun DetailTitleBar(
+    title: String
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -126,7 +135,7 @@ private fun DetailTitleBar() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "내가 태어났을 때, 나의 가족은",
+            text = title,
             color = Black900,
             style = BookShelfTypo.SemiBold,
             fontSize = 20.sp,

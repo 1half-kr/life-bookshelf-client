@@ -14,6 +14,6 @@ val viewModelModule = module {
     viewModel { LogInViewModel(get(), get()) }
     viewModel { InterviewViewModel() }
     viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
-    viewModel { DetailChapterViewModel() }
+    viewModel { DetailChapterViewModel(get()) }
     viewModel { MyViewModel() }
 }

@@ -14,7 +14,7 @@ data class AutobiographiesDetailResponseDto (
     @SerialName("content")
     val content: String = "",
     @SerialName("coverImageUrl")
-    val coverImageUrl: String = "",
+    val coverImageUrl: String? = null,
     @SerialName("createdAt")
     val createdAt: String = "",
     @SerialName("updatedAt")

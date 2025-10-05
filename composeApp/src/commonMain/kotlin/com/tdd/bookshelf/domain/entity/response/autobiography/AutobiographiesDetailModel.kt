@@ -5,7 +5,7 @@ data class AutobiographiesDetailModel(
     val interviewId: Int = 0,
     val title: String = "",
     val content: String = "",
-    val coverImageUrl: String = "",
+    val coverImageUrl: String? = null,
     val createdAt: String = "",
     val updatedAt: String = "",
 )
