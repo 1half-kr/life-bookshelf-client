@@ -34,7 +34,7 @@ class HomeViewModel(
 
     init {
         initSetChapterList()
-        initSetAllAutobiography()
+        initSetAllAutobiography(GetAutobiographyType.DEFAULT)
     }
 
     private fun initSetChapterList() {
@@ -86,18 +86,17 @@ class HomeViewModel(
         return SubChapterItemModel()
     }
 
-    private fun initSetAllAutobiography() {
+    private fun initSetAllAutobiography(type: GetAutobiographyType) {
         viewModelScope.launch {
             getAllAutobiographyUseCase(Unit).collect {
                 resultResponse(
-                    it,
-                    ::onSuccessAllAutobiography
+                    it, {data -> onSuccessAllAutobiography(data, type) }
                 )
             }
         }
     }
 
-    private fun onSuccessAllAutobiography(data: AllAutobiographyListModel) {
+    private fun onSuccessAllAutobiography(data: AllAutobiographyListModel, type: GetAutobiographyType) {
         d("[test] homeViewmodel -> $data")
         updateState(
             uiState.value.copy(
@@ -105,7 +104,11 @@ class HomeViewModel(
                 allAutobiographyList = data.results
             )
         )
+
+        if (type == GetAutobiographyType.AfterCreate) emitEventFlow(HomeEvent.GoToDetailChapterPage)
     }
+
+    fun checkAutobiographyId() = uiState.value.allAutobiographyList.firstOrNull { it.chapterId == uiState.value.selectedDetailChapterId }?.autobiographyId ?: 0
 
     fun setInterviewId(): Int {
         val currentChapterId = uiState.value.currentChapterId
@@ -116,27 +119,37 @@ class HomeViewModel(
         return interviewId
     }
 
-    fun setAutobiographyId(chapterId: Int): Int {
-        var autobiographyId =
+    fun setAutobiographyId(chapterId: Int) {
+        val autobiographyId =
             uiState.value.allAutobiographyList.firstOrNull { it.chapterId == chapterId }?.autobiographyId
                 ?: 0
 
+        setSelectedDetailChapterId(chapterId)
+
         if (autobiographyId == 0) {
             d("[test] homeViewmodel -> autobiography = 0")
-            return setNewAutobiography(chapterId)
+            setNewAutobiography(chapterId)
 //            initSetAllAutobiography()
 //            autobiographyId =
 //                uiState.value.allAutobiographyList.firstOrNull { it.chapterId == chapterId }?.autobiographyId
 //                    ?: 0
 //            return autobiographyId
-        } else return autobiographyId
+        } else emitEventFlow(HomeEvent.GoToDetailChapterPage)
     }
 
-    private fun setNewAutobiography(chapterId: Int): Int {
+    private fun setSelectedDetailChapterId(chapterId: Int) {
+        updateState(
+            uiState.value.copy(
+                selectedDetailChapterId = chapterId
+            )
+        )
+    }
+
+    private fun setNewAutobiography(chapterId: Int) {
         getMemberInfo()
 //        initSetAllAutobiography()
-        return uiState.value.allAutobiographyList.firstOrNull { it.chapterId == chapterId }?.autobiographyId
-            ?: 0
+//        return uiState.value.allAutobiographyList.firstOrNull { it.chapterId == chapterId }?.autobiographyId
+//            ?: 0
 
 //        val autobiography = CreateAutobiographyRequestModel(
 //            title = uiState.value.currentChapter.chapterName,
@@ -180,14 +193,14 @@ class HomeViewModel(
             }
 
 
-            initSetAllAutobiography()
+            initSetAllAutobiography(GetAutobiographyType.AfterCreate)
         }
     }
 
-    private fun onSuccessCreateAutobiography(data: Boolean) {
-        d("[test] homeViewmodel -> $data")
-        initSetAllAutobiography()
-    }
+//    private fun onSuccessCreateAutobiography(data: Boolean) {
+//        d("[test] homeViewmodel -> $data")
+//        initSetAllAutobiography()
+//    }
 
     private fun getMemberInfo() {
         viewModelScope.launch {

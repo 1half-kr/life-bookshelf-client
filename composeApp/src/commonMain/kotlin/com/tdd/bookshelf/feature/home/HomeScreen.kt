@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -59,14 +60,24 @@ internal fun HomeScreen(
 
     val interactionSource = remember { MutableInteractionSource() }
 
+    LaunchedEffect(Unit) {
+        viewModel.eventFlow.collect { event ->
+            when (event) {
+                is HomeEvent.GoToDetailChapterPage -> {
+                    goToDetailChapterPage(viewModel.checkAutobiographyId())
+                }
+            }
+        }
+    }
+
     HomeContent(
         chapterList = uiState.chapterList,
         currentChapterId = uiState.currentChapterId,
         onClickCurrentChapterInterview = { goToInterviewPage(viewModel.setInterviewId()) },
         interactionSource = interactionSource,
         onClickChapterDetail = { detailChapterId ->
-            goToDetailChapterPage(viewModel.setAutobiographyId(detailChapterId))
-//            viewModel.setAutobiographyId(detailChapterId)
+//            goToDetailChapterPage(viewModel.setAutobiographyId(detailChapterId))
+            viewModel.setAutobiographyId(detailChapterId)
         },
         currentChapter = uiState.currentChapter,
     )

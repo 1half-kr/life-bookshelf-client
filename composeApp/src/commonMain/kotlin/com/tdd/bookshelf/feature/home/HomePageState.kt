@@ -16,4 +16,5 @@ data class HomePageState(
     val allAutobiographyList: List<AllAutobiographyItemModel> = emptyList(),
     val memberInfo: MemberInfoModel = MemberInfoModel(),
     val interviewQuestions: List<String> = emptyList(),
+    val selectedDetailChapterId: Int = 0
 ) : PageState
