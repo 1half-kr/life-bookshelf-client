@@ -6,12 +6,14 @@ import com.tdd.bookshelf.core.ui.base.BaseViewModel
 import com.tdd.bookshelf.domain.entity.request.auth.EmailLogInRequestModel
 import com.tdd.bookshelf.domain.entity.response.auth.AccessTokenModel
 import com.tdd.bookshelf.domain.usecase.auth.PostEmailLogInUseCase
+import com.tdd.bookshelf.domain.usecase.auth.SaveTokenUseCase
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 class LogInViewModel(
     private val postEmailLogInUseCase: PostEmailLogInUseCase,
+    private val saveTokenUseCase: SaveTokenUseCase
 ) : BaseViewModel<LogInPageState>(
     LogInPageState()
 ) {
@@ -48,7 +50,14 @@ class LogInViewModel(
     private fun onSuccessPostEmailLogIn(data: AccessTokenModel) {
         d("[ktor] email response -> $data")
         if (data.accessToken.isNotEmpty()) {
+            saveAccessToken(data.accessToken)
             emitEventFlow(LogInEvent.GoToOnBoardingPage)
+        }
+    }
+
+    private fun saveAccessToken(data: String) {
+        viewModelScope.launch {
+            saveTokenUseCase(data).collect {  }
         }
     }
 }

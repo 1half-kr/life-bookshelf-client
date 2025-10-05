@@ -5,5 +5,7 @@ import com.tdd.bookshelf.domain.entity.response.auth.AccessTokenModel
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
+    suspend fun saveToken(request: String): Flow<Result<Unit>>
+
     suspend fun postEmailLogIn(request: EmailLogInRequestModel): Flow<Result<AccessTokenModel>>
 }

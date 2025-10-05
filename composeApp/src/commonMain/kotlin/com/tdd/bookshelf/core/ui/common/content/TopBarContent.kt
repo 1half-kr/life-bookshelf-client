@@ -1,5 +1,7 @@
 package com.tdd.bookshelf.core.ui.common.content
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,6 +22,9 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 @Composable
 fun TopBarContent(
     content: String,
+    onClickIcon: () -> Unit = {},
+    interactionSource: MutableInteractionSource,
+    iconVisible: Boolean = true
 ) {
     Box(
         modifier = Modifier
@@ -35,13 +40,20 @@ fun TopBarContent(
                 .padding(vertical = 30.dp)
         )
 
-        AsyncImage(
-            model = Res.getUri("files/ic_back.svg"),
-            contentDescription = "",
-            modifier = Modifier
-                .align(Alignment.CenterStart)
-                .padding(start = 20.dp)
-                .size(24.dp)
-        )
+        if (iconVisible) {
+            AsyncImage(
+                model = Res.getUri("files/ic_back.svg"),
+                contentDescription = "",
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = 20.dp)
+                    .size(24.dp)
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = onClickIcon
+                    )
+            )
+        }
     }
 }

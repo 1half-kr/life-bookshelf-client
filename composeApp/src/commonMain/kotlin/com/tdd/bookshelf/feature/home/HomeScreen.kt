@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -43,7 +44,6 @@ import com.tdd.bookshelf.core.designsystem.Neutral900
 import com.tdd.bookshelf.core.designsystem.White0
 import com.tdd.bookshelf.core.designsystem.White100
 import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterItemModel
-import com.tdd.bookshelf.domain.entity.response.autobiography.ChapterListModel
 import com.tdd.bookshelf.domain.entity.response.autobiography.SubChapterItemModel
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
@@ -52,30 +52,45 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 internal fun HomeScreen(
-    goToInterviewPage: () -> Unit,
-    goToDetailChapterPage: () -> Unit
+    goToInterviewPage: (Int) -> Unit,
+    goToDetailChapterPage: (Int) -> Unit,
 ) {
     val viewModel: HomeViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val interactionSource = remember { MutableInteractionSource() }
 
+    LaunchedEffect(Unit) {
+        viewModel.eventFlow.collect { event ->
+            when (event) {
+                is HomeEvent.GoToDetailChapterPage -> {
+                    goToDetailChapterPage(viewModel.checkAutobiographyId())
+                }
+            }
+        }
+    }
+
     HomeContent(
         chapterList = uiState.chapterList,
-        onClickCurrentChapterInterview = { goToInterviewPage() },
+        currentChapterId = uiState.currentChapterId,
+        onClickCurrentChapterInterview = { goToInterviewPage(viewModel.setInterviewId()) },
         interactionSource = interactionSource,
         onClickChapterDetail = { detailChapterId ->
-            goToDetailChapterPage()
-        }
+//            goToDetailChapterPage(viewModel.setAutobiographyId(detailChapterId))
+            viewModel.setAutobiographyId(detailChapterId)
+        },
+        currentChapter = uiState.currentChapter,
     )
 }
 
 @Composable
 private fun HomeContent(
-    chapterList: ChapterListModel = ChapterListModel(),
+    chapterList: List<ChapterItemModel> = emptyList(),
+    currentChapterId: Int = 0,
     onClickCurrentChapterInterview: () -> Unit = {},
     interactionSource: MutableInteractionSource = MutableInteractionSource(),
-    onClickChapterDetail: (Int) -> Unit = {}
+    onClickChapterDetail: (Int) -> Unit = {},
+    currentChapter: SubChapterItemModel = SubChapterItemModel(),
 ) {
     Column(
         modifier = Modifier
@@ -103,12 +118,13 @@ private fun HomeContent(
         Spacer(modifier = Modifier.padding(top = 28.dp))
 
         HomeChapter(
-            currentChapterId = chapterList.currentChapterId,
-            chapterList = chapterList.results,
+            currentChapterId = currentChapterId,
+            chapterList = chapterList,
             modifier = Modifier.weight(1f),
             onClickCurrentChapterInterview = onClickCurrentChapterInterview,
             interactionSource = interactionSource,
-            onClickChapterDetail = onClickChapterDetail
+            onClickChapterDetail = onClickChapterDetail,
+            currentChapter = currentChapter,
         )
     }
 }
@@ -120,7 +136,8 @@ private fun HomeChapter(
     modifier: Modifier,
     onClickCurrentChapterInterview: () -> Unit,
     interactionSource: MutableInteractionSource,
-    onClickChapterDetail: (Int) -> Unit
+    onClickChapterDetail: (Int) -> Unit,
+    currentChapter: SubChapterItemModel,
 ) {
     Column(
         modifier = modifier
@@ -131,7 +148,8 @@ private fun HomeChapter(
 
         HomeCurrentProgressBox(
             onClickAction = onClickCurrentChapterInterview,
-            interactionSource = interactionSource
+            interactionSource = interactionSource,
+            currentChapter = currentChapter
         )
 
         Spacer(modifier = Modifier.padding(top = 50.dp))
@@ -146,7 +164,8 @@ private fun HomeChapter(
 @Composable
 private fun HomeCurrentProgressBox(
     onClickAction: () -> Unit,
-    interactionSource: MutableInteractionSource
+    interactionSource: MutableInteractionSource,
+    currentChapter: SubChapterItemModel,
 ) {
     Column(
         modifier = Modifier
@@ -202,7 +221,7 @@ private fun HomeCurrentProgressBox(
                     .background(White0)
             ) {
                 Text(
-                    text = "현재 진행중인 챕터 제목",
+                    text = currentChapter.chapterName,
                     color = Neutral900,
                     style = BookShelfTypo.SemiBold,
                     fontSize = 17.sp,
@@ -231,7 +250,7 @@ private fun HomeCurrentProgressBox(
 @Composable
 private fun HomeChapterList(
     chapterList: List<ChapterItemModel>,
-    onClickChapterDetail: (Int) -> Unit
+    onClickChapterDetail: (Int) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -271,7 +290,7 @@ private fun HomeChapterList(
 @Composable
 private fun HomeSubChapterListItem(
     subItem: SubChapterItemModel,
-    onClickAction: () -> Unit
+    onClickAction: () -> Unit,
 ) {
     Row(
         modifier = Modifier

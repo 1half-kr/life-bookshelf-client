@@ -1,9 +1,19 @@
 package com.tdd.bookshelf.app.di
 
 import com.tdd.bookshelf.data.repositoryImpl.AuthRepositoryImpl
+import com.tdd.bookshelf.data.repositoryImpl.AutobiographyRepositoryImpl
+import com.tdd.bookshelf.data.repositoryImpl.MemberRepositoryImpl
+import com.tdd.bookshelf.data.repositoryImpl.ai.InterviewAIRepositoryImpl
 import com.tdd.bookshelf.domain.repository.AuthRepository
+import com.tdd.bookshelf.domain.repository.AutobiographyRepository
+import com.tdd.bookshelf.domain.repository.InterviewAIRepository
+import com.tdd.bookshelf.domain.repository.MemberRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single<AuthRepository> { AuthRepositoryImpl(get()) }
+    single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
+    single<AutobiographyRepository> { AutobiographyRepositoryImpl(get()) }
+    single<MemberRepository> { MemberRepositoryImpl(get()) }
+
+    single<InterviewAIRepository> { InterviewAIRepositoryImpl(get()) }
 }

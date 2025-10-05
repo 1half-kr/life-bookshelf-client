@@ -2,7 +2,9 @@ package com.tdd.bookshelf.core.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.tdd.bookshelf.feature.detailchapter.DetailChapterScreen
 import com.tdd.bookshelf.feature.home.HomeScreen
@@ -21,7 +23,7 @@ fun NavGraphBuilder.loginNavGraph(
     ) {
         composable(NavRoutes.LogInScreen.route) {
             LogInScreen(
-                goToOnboardingPage = { navController.navigate(NavRoutes.OnboardingScreen.route) }
+                goToOnboardingPage = { navController.navigate(NavRoutes.HomeScreen.route) }
             )
         }
     }
@@ -49,8 +51,8 @@ fun NavGraphBuilder.homeNavGraph(
     ) {
         composable(NavRoutes.HomeScreen.route) {
             HomeScreen(
-                goToInterviewPage = { navController.navigate(NavRoutes.InterviewScreen.route) },
-                goToDetailChapterPage = { navController.navigate(NavRoutes.DetailChapterScreen.route) }
+                goToInterviewPage = { interviewId -> navController.navigate(NavRoutes.InterviewScreen.setRouteModel(interviewId)) },
+                goToDetailChapterPage = { autobiographyId -> navController.navigate(NavRoutes.DetailChapterScreen.setRouteModel(autobiographyId)) }
             )
         }
     }
@@ -63,8 +65,16 @@ fun NavGraphBuilder.interviewNavGraph(
         startDestination = NavRoutes.InterviewScreen.route,
         route = NavRoutes.InterviewGraph.route
     ) {
-        composable(NavRoutes.InterviewScreen.route) {
-            InterviewScreen()
+        composable(
+            route = NavRoutes.InterviewScreen.route,
+            arguments = listOf(navArgument("interviewId") { type = NavType.IntType } )
+        ) {
+            val interviewId = it.arguments?.getInt("interviewId") ?: 0
+
+            InterviewScreen(
+                interviewId = interviewId,
+                goBackPage = { navController.popBackStack() }
+            )
         }
     }
 }
@@ -76,8 +86,16 @@ fun NavGraphBuilder.detailChapterNavGraph(
         startDestination = NavRoutes.DetailChapterScreen.route,
         route = NavRoutes.DetailChapterGraph.route
     ) {
-        composable(NavRoutes.DetailChapterScreen.route) {
-            DetailChapterScreen()
+        composable(
+            route = NavRoutes.DetailChapterScreen.route,
+            arguments = listOf(navArgument("autobiographyId") { type = NavType.IntType })
+        ) {
+            val autobiographyId = it.arguments?.getInt("autobiographyId") ?: 0
+
+            DetailChapterScreen(
+                autobiographyId = autobiographyId,
+                goBackPage = { navController.popBackStack() }
+            )
         }
     }
 }

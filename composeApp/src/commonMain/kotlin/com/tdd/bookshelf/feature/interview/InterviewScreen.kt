@@ -9,11 +9,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,14 +22,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import bookshelf.composeapp.generated.resources.Res
-import coil3.compose.AsyncImage
 import com.tdd.bookshelf.core.designsystem.Blue300
 import com.tdd.bookshelf.core.designsystem.BookShelfTypo
 import com.tdd.bookshelf.core.designsystem.Gray50
 import com.tdd.bookshelf.core.designsystem.Gray600
 import com.tdd.bookshelf.core.designsystem.InterviewScreenTitle
-import com.tdd.bookshelf.core.designsystem.Neutral900
 import com.tdd.bookshelf.core.designsystem.White0
 import com.tdd.bookshelf.core.ui.common.content.TopBarContent
 import com.tdd.bookshelf.domain.entity.enums.ChatType
@@ -39,22 +36,33 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-internal fun InterviewScreen() {
+internal fun InterviewScreen(
+    interviewId: Int,
+    goBackPage: () -> Unit
+) {
 
     val viewModel: InterviewViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val interactionSource = remember { MutableInteractionSource() }
 
+    LaunchedEffect(Unit) {
+        viewModel.setInterviewId(interviewId)
+    }
+
     InterviewContent(
-        interviewChatList = uiState.interviewChatList
+        interviewChatList = uiState.interviewChatList,
+        interactionSource = interactionSource,
+        onClickBack = { goBackPage() }
     )
 }
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun InterviewContent(
-    interviewChatList: List<InterviewChatItem> = emptyList()
+    interviewChatList: List<InterviewChatItem> = emptyList(),
+    interactionSource: MutableInteractionSource = MutableInteractionSource(),
+    onClickBack: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -62,7 +70,9 @@ private fun InterviewContent(
             .background(White0)
     ) {
         TopBarContent(
-            content = InterviewScreenTitle
+            content = InterviewScreenTitle,
+            interactionSource = interactionSource,
+            onClickIcon = onClickBack
         )
 
         InterviewChat(
@@ -99,6 +109,7 @@ private fun InterviewChat(
                                 .widthIn(max = chatMaxWidth)
                         )
                     }
+
                     ChatType.HUMAN -> {
                         InterviewHumanChatItem(
                             content = chatItem.content,

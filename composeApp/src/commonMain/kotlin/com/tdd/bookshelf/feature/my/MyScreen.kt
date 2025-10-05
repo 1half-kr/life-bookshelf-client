@@ -97,7 +97,9 @@ private fun MyContent(
             .background(BackGround4)
     ) {
         TopBarContent(
-            content = MyTitle
+            content = MyTitle,
+            interactionSource = interactionSource,
+            iconVisible = false
         )
 
         MyProfileBox()

@@ -17,7 +17,7 @@ abstract class BaseMapper {
 
     fun <DTO, MODEL> baseMapper(
         apiCall: suspend () -> HttpResponse?,
-        successDeserializer: KSerializer<DTO>,
+        successDeserializer: KSerializer<DTO>? = null,
         responseToModel: (DTO?) -> MODEL,
     ): Flow<Result<MODEL>> = flow {
         val response = apiCall()
@@ -28,8 +28,18 @@ abstract class BaseMapper {
             val responseBody = response?.bodyAsText() ?: ""
 
             if (httpStatus == HttpStatusCode.OK) {
-                val dto = json.decodeFromString(successDeserializer, responseBody)
-                val model = responseToModel(dto)
+//                val dto = json.decodeFromString(successDeserializer, responseBody)
+//                val model = responseToModel(dto)
+
+                val model = when {
+                    httpStatus == HttpStatusCode.NoContent || responseBody.isEmpty() || successDeserializer == null -> {
+                        responseToModel(null)
+                    }
+                    else -> {
+                        val dto = json.decodeFromString(successDeserializer, responseBody)
+                        responseToModel(dto)
+                    }
+                }
                 emit(Result.success(model))
             } else {
                 val error = json.decodeFromString(

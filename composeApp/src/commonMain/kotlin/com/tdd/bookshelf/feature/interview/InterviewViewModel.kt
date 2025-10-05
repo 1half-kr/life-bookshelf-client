@@ -1,5 +1,6 @@
 package com.tdd.bookshelf.feature.interview
 
+import co.touchlab.kermit.Logger.Companion.d
 import com.tdd.bookshelf.core.ui.base.BaseViewModel
 import com.tdd.bookshelf.domain.entity.enums.ChatType
 import com.tdd.bookshelf.domain.entity.response.interview.InterviewChatItem
@@ -41,6 +42,15 @@ class InterviewViewModel : BaseViewModel<InterviewPageState>(
         updateState(
             uiState.value.copy(
                 interviewChatList = interviews.results
+            )
+        )
+    }
+
+    fun setInterviewId(interviewId: Int) {
+        d("[test] interviewViewModel -> $interviewId")
+        updateState(
+            uiState.value.copy(
+                interviewId = interviewId
             )
         )
     }

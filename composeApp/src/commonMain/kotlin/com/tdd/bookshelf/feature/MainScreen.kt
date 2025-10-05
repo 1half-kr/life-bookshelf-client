@@ -83,7 +83,7 @@ fun MainScreen() {
         ) {
             NavHost(
                 navController = navController,
-                startDestination = NavRoutes.HomeGraph.route
+                startDestination = NavRoutes.LogInGraph.route
             ) {
                 loginNavGraph(
                     navController = navController
