@@ -38,6 +38,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 internal fun InterviewScreen(
     interviewId: Int,
+    goBackPage: () -> Unit
 ) {
 
     val viewModel: InterviewViewModel = koinViewModel()
@@ -50,7 +51,9 @@ internal fun InterviewScreen(
     }
 
     InterviewContent(
-        interviewChatList = uiState.interviewChatList
+        interviewChatList = uiState.interviewChatList,
+        interactionSource = interactionSource,
+        onClickBack = { goBackPage() }
     )
 }
 
@@ -58,6 +61,8 @@ internal fun InterviewScreen(
 @Composable
 private fun InterviewContent(
     interviewChatList: List<InterviewChatItem> = emptyList(),
+    interactionSource: MutableInteractionSource = MutableInteractionSource(),
+    onClickBack: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -65,7 +70,9 @@ private fun InterviewContent(
             .background(White0)
     ) {
         TopBarContent(
-            content = InterviewScreenTitle
+            content = InterviewScreenTitle,
+            interactionSource = interactionSource,
+            onClickIcon = onClickBack
         )
 
         InterviewChat(

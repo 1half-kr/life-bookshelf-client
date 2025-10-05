@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,23 +44,30 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 internal fun DetailChapterScreen(
-    autobiographyId: Int
+    autobiographyId: Int,
+    goBackPage: () -> Unit
 ) {
     val viewModel: DetailChapterViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val interactionSource = remember { MutableInteractionSource() }
 
     LaunchedEffect(Unit) {
         viewModel.setAutobiographyId(autobiographyId)
     }
 
     DetailChapterContent(
-        chapterDetail = uiState.detailChapter
+        chapterDetail = uiState.detailChapter,
+        onClickBackBtn = { goBackPage() },
+        interactionSource = interactionSource
     )
 }
 
 @Composable
 private fun DetailChapterContent(
-    chapterDetail: AutobiographiesDetailModel = AutobiographiesDetailModel()
+    chapterDetail: AutobiographiesDetailModel = AutobiographiesDetailModel(),
+    onClickBackBtn: () -> Unit = {},
+    interactionSource: MutableInteractionSource = MutableInteractionSource()
 ) {
     Column(
         modifier = Modifier
@@ -66,10 +75,14 @@ private fun DetailChapterContent(
             .background(BackGround3)
     ) {
         TopBarContent(
-            content = DetailChapterTitle
+            content = DetailChapterTitle,
+            interactionSource = interactionSource,
+            onClickIcon = onClickBackBtn
         )
 
-        DetailTopBar()
+        DetailTopBar(
+            title = chapterDetail.title
+        )
 
         Image(
             painter = painterResource(Res.drawable.img_chapter_detail),
@@ -101,7 +114,9 @@ private fun DetailChapterContent(
 }
 
 @Composable
-private fun DetailTopBar() {
+private fun DetailTopBar(
+    title: String
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -109,7 +124,7 @@ private fun DetailTopBar() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "나의 가정환경",
+            text = title,
             color = Black900,
             style = BookShelfTypo.SemiBold,
             fontSize = 16.sp,

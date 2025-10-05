@@ -72,7 +72,8 @@ fun NavGraphBuilder.interviewNavGraph(
             val interviewId = it.arguments?.getInt("interviewId") ?: 0
 
             InterviewScreen(
-                interviewId = interviewId
+                interviewId = interviewId,
+                goBackPage = { navController.popBackStack() }
             )
         }
     }
@@ -92,7 +93,8 @@ fun NavGraphBuilder.detailChapterNavGraph(
             val autobiographyId = it.arguments?.getInt("autobiographyId") ?: 0
 
             DetailChapterScreen(
-                autobiographyId = autobiographyId
+                autobiographyId = autobiographyId,
+                goBackPage = { navController.popBackStack() }
             )
         }
     }
