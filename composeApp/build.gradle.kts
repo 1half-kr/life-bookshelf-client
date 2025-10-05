@@ -126,6 +126,9 @@ buildkonfig {
     defaultConfigs {
         val baseUrl = properties.getProperty("BASE_URL")
         buildConfigField(Type.STRING, "BASE_URL", baseUrl)
+
+        val aiUrl = properties.getProperty("AI_URL")
+        buildConfigField(Type.STRING, "AI_URL", aiUrl)
     }
 }
 

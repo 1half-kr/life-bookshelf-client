@@ -8,4 +8,8 @@ annotation class BookShelfKtor
 
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
+annotation class BookShelfKtorAI
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
 annotation class NoAuthKtor
