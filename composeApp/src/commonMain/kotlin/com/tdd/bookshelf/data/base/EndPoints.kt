@@ -12,4 +12,8 @@ object EndPoints {
         const val AUTOBIOGRAPHIESCHAPTER = "$AUTOBIOGRAPHIES/chapters"
         const val UPDATECURRENTCHAPTER = "$AUTOBIOGRAPHIESCHAPTER/current-chapter"
     }
+
+    object Member {
+        const val MEMBER = "api/v1/members/me"
+    }
 }
