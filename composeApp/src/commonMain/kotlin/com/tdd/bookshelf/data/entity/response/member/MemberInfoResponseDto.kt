@@ -12,7 +12,7 @@ data class MemberInfoResponseDto (
     @SerialName("gender")
     val gender: String = "",
     @SerialName("hasChildren")
-    val hasChildren: String = "",
+    val hasChildren: Boolean = false,
     @SerialName("occupation")
     val occupation: String = "",
     @SerialName("educationLevel")
