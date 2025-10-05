@@ -90,14 +90,13 @@ class HomeViewModel(
         viewModelScope.launch {
             getAllAutobiographyUseCase(Unit).collect {
                 resultResponse(
-                    it, {data -> onSuccessAllAutobiography(data, type) }
+                    it, { data -> onSuccessAllAutobiography(data, type) }
                 )
             }
         }
     }
 
     private fun onSuccessAllAutobiography(data: AllAutobiographyListModel, type: GetAutobiographyType) {
-        d("[test] homeViewmodel -> $data")
         updateState(
             uiState.value.copy(
                 allAutobiography = data,
@@ -127,13 +126,7 @@ class HomeViewModel(
         setSelectedDetailChapterId(chapterId)
 
         if (autobiographyId == 0) {
-            d("[test] homeViewmodel -> autobiography = 0")
-            setNewAutobiography(chapterId)
-//            initSetAllAutobiography()
-//            autobiographyId =
-//                uiState.value.allAutobiographyList.firstOrNull { it.chapterId == chapterId }?.autobiographyId
-//                    ?: 0
-//            return autobiographyId
+            getMemberInfo()
         } else emitEventFlow(HomeEvent.GoToDetailChapterPage)
     }
 
@@ -145,19 +138,21 @@ class HomeViewModel(
         )
     }
 
-    private fun setNewAutobiography(chapterId: Int) {
-        getMemberInfo()
-//        initSetAllAutobiography()
-//        return uiState.value.allAutobiographyList.firstOrNull { it.chapterId == chapterId }?.autobiographyId
-//            ?: 0
+    private fun getMemberInfo() {
+        viewModelScope.launch {
+            getMemberInfoUseCase(Unit).collect { resultResponse(it, ::onSuccessGetMemberInfo) }
+        }
+    }
 
-//        val autobiography = CreateAutobiographyRequestModel(
-//            title = uiState.value.currentChapter.chapterName,
-//            content = uiState.value.currentChapter.chapterDescription,
-//            interviewQuestions = mapInterviewQuestionModel()
-//        )
-//        postCreateAutobiography(autobiography)
+    private fun onSuccessGetMemberInfo(data: MemberInfoModel) {
+        d("[ktor] homeViewmodel -> $data")
+        updateState(
+            uiState.value.copy(
+                memberInfo = data
+            )
+        )
 
+        generateInterviewQuestions(data)
     }
 
     private fun generateInterviewQuestions(data: MemberInfoModel) {
@@ -176,52 +171,7 @@ class HomeViewModel(
         postInterviewQuestions(interviewQuestionRequest)
     }
 
-    private fun mapInterviewQuestionModel(questions: List<String>): List<InterviewQuestionModel> {
-        val interviewQuestionModels =
-            questions.mapIndexed { index, question ->
-                InterviewQuestionModel(index, question)
-            }
-
-        return interviewQuestionModels
-    }
-
-    private fun postCreateAutobiography(request: CreateAutobiographyRequestModel) {
-        d("[test] homeViewmodel -> request: $request")
-        viewModelScope.launch {
-            postCreateAutobiographyUseCase(request).collect {
-                resultResponse(it, { d("[test] homeViewmodel -> $it") })
-            }
-
-
-            initSetAllAutobiography(GetAutobiographyType.AfterCreate)
-        }
-    }
-
-//    private fun onSuccessCreateAutobiography(data: Boolean) {
-//        d("[test] homeViewmodel -> $data")
-//        initSetAllAutobiography()
-//    }
-
-    private fun getMemberInfo() {
-        viewModelScope.launch {
-            getMemberInfoUseCase(Unit).collect { resultResponse(it, ::onSuccessGetMemberInfo) }
-        }
-    }
-
-    private fun onSuccessGetMemberInfo(data: MemberInfoModel) {
-        d("[ktor] homeViewmodel -> $data")
-        d("[test] homeViewmodel -> $data")
-        updateState(
-            uiState.value.copy(
-                memberInfo = data
-            )
-        )
-
-        generateInterviewQuestions(data)
-    }
-
     private fun postInterviewQuestions(request: InterviewQuestionsRequestModel) {
-        d("[test] homeViewmodel -> request: $request")
         viewModelScope.launch {
             postCreateInterviewQuestionUseCase(request).collect {
                 resultResponse(
@@ -234,7 +184,6 @@ class HomeViewModel(
 
     private fun onSuccessInterviewQuestions(data: InterviewQuestionsAIResponseModel) {
         d("[ktor] homeViewmodel -> $data")
-        d("[test] homeViewmodel -> $data")
         updateState(
             uiState.value.copy(
                 interviewQuestions = data.interviewQuestions
@@ -251,5 +200,25 @@ class HomeViewModel(
             interviewQuestions = mapInterviewQuestionModel(questions)
         )
         postCreateAutobiography(autobiography)
+    }
+
+    private fun postCreateAutobiography(request: CreateAutobiographyRequestModel) {
+        viewModelScope.launch {
+            postCreateAutobiographyUseCase(request).collect {
+                resultResponse(it, { })
+            }
+
+
+            initSetAllAutobiography(GetAutobiographyType.AfterCreate)
+        }
+    }
+
+    private fun mapInterviewQuestionModel(questions: List<String>): List<InterviewQuestionModel> {
+        val interviewQuestionModels =
+            questions.mapIndexed { index, question ->
+                InterviewQuestionModel(index, question)
+            }
+
+        return interviewQuestionModels
     }
 }
