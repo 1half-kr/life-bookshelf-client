@@ -1,15 +1,22 @@
 package com.tdd.bookshelf.feature.my
 
+import androidx.lifecycle.viewModelScope
 import com.tdd.bookshelf.core.ui.base.BaseViewModel
+import com.tdd.bookshelf.domain.entity.response.member.MemberInfoModel
 import com.tdd.bookshelf.domain.entity.response.publication.PublishBookListItemModel
+import com.tdd.bookshelf.domain.usecase.member.GetMemberInfoUseCase
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class MyViewModel : BaseViewModel<MyPageState>(
+class MyViewModel(
+    private val getMemberInfoUseCase: GetMemberInfoUseCase
+) : BaseViewModel<MyPageState>(
     MyPageState()
 ) {
     init {
         initSetPublishBookList()
+        initSetMemberInfo()
     }
 
     private fun initSetPublishBookList() {
@@ -29,6 +36,20 @@ class MyViewModel : BaseViewModel<MyPageState>(
         updateState(
             uiState.value.copy(
                 isAlarmActivated = !uiState.value.isAlarmActivated
+            )
+        )
+    }
+
+    private fun initSetMemberInfo() {
+        viewModelScope.launch {
+            getMemberInfoUseCase(Unit).collect { resultResponse(it, ::onSuccessGetMemberInfo) }
+        }
+    }
+
+    private fun onSuccessGetMemberInfo(data: MemberInfoModel) {
+        updateState(
+            uiState.value.copy(
+                memberInfo = data
             )
         )
     }

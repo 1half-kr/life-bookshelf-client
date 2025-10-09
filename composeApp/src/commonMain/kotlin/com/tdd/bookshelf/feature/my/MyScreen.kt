@@ -79,7 +79,9 @@ fun MyScreen() {
         publishBookList = uiState.publishBookList,
         onClickAlarm = { viewModel.changeAlarmActivatedStatus() },
         isAlarmActivated = uiState.isAlarmActivated,
-        interactionSource = interactionSource
+        interactionSource = interactionSource,
+        userName = uiState.memberInfo.name,
+        userBirthDay = uiState.memberInfo.bornedAt
     )
 }
 
@@ -90,6 +92,8 @@ private fun MyContent(
     onClickAlarm: () -> Unit,
     isAlarmActivated: Boolean,
     interactionSource: MutableInteractionSource,
+    userName: String,
+    userBirthDay: String
 ) {
     Column(
         modifier = Modifier
@@ -102,7 +106,10 @@ private fun MyContent(
             iconVisible = false
         )
 
-        MyProfileBox()
+        MyProfileBox(
+            userName = userName,
+            userBirthDay = userBirthDay
+        )
 
         PublicationStatus(
             submitUI = publicationStatusUI(publishStatus).submitUI,
@@ -124,7 +131,10 @@ private fun MyContent(
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-private fun MyProfileBox() {
+private fun MyProfileBox(
+    userName: String,
+    userBirthDay: String
+) {
     Row(
         modifier = Modifier
             .padding(20.dp)
@@ -147,14 +157,14 @@ private fun MyProfileBox() {
                 .weight(1f)
         ) {
             Text(
-                text = "이름",
+                text = userName,
                 color = White0,
                 style = BookShelfTypo.Medium,
                 fontSize = 16.sp
             )
 
             Text(
-                text = "2001.01.01",
+                text = userBirthDay,
                 color = White0,
                 style = BookShelfTypo.Medium,
                 fontSize = 11.sp
