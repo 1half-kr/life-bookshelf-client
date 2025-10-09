@@ -1,7 +1,6 @@
 package com.tdd.bookshelf.data.service
 
 import com.tdd.bookshelf.data.base.EndPoints
-import de.jensklingenberg.ktorfit.http.Body
 import de.jensklingenberg.ktorfit.http.GET
 import de.jensklingenberg.ktorfit.http.Multipart
 import de.jensklingenberg.ktorfit.http.PUT
@@ -24,4 +23,7 @@ interface MemberService {
         @Part("educationLevel") educationLevel: String,
         @Part("maritalStatus") maritalStatus: String
     ): HttpResponse
+
+    @GET(EndPoints.Member.PROFILE)
+    suspend fun getMemberProfile(): HttpResponse
 }

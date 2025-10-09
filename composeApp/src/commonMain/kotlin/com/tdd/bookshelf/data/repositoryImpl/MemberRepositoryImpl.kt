@@ -3,8 +3,10 @@ package com.tdd.bookshelf.data.repositoryImpl
 import com.tdd.bookshelf.data.dataSource.MemberDataSource
 import com.tdd.bookshelf.data.mapper.base.DefaultBooleanMapper
 import com.tdd.bookshelf.data.mapper.member.MemberInfoMapper
+import com.tdd.bookshelf.data.mapper.member.MemberProfileMapper
 import com.tdd.bookshelf.domain.entity.request.member.EditMemberInfoModel
 import com.tdd.bookshelf.domain.entity.response.member.MemberInfoModel
+import com.tdd.bookshelf.domain.entity.response.member.MemberProfileModel
 import com.tdd.bookshelf.domain.repository.MemberRepository
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Single
@@ -29,4 +31,7 @@ class MemberRepositoryImpl(
                 request.maritalStatus
             )
         })
+
+    override suspend fun getMemberProfile(): Flow<Result<MemberProfileModel>> =
+        MemberProfileMapper.responseToModel(apiCall = { memberDataSource.getMemberProfile() })
 }

@@ -15,6 +15,7 @@ object EndPoints {
 
     object Member {
         const val MEMBER = "api/v1/members/me"
+        const val PROFILE = "$MEMBER/profile"
     }
 
     object Interview {

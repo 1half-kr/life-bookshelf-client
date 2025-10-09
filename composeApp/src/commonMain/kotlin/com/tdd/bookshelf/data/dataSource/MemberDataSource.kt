@@ -13,4 +13,5 @@ interface MemberDataSource {
         educationLevel: String,
         maritalStatus: String,
     ): HttpResponse
+    suspend fun getMemberProfile(): HttpResponse
 }
