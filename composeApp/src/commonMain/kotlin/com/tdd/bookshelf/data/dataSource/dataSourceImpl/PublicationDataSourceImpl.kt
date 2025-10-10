@@ -22,4 +22,7 @@ class PublicationDataSourceImpl(
 
     override suspend fun getPublicationProgress(publicationId: Int): HttpResponse =
         publicationService.getPublicationProgress(publicationId)
+
+    override suspend fun deletePublicationBook(bookId: Int): HttpResponse =
+        publicationService.deletePublicationBook(bookId)
 }

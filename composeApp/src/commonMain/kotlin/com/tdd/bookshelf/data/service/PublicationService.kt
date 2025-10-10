@@ -1,6 +1,7 @@
 package com.tdd.bookshelf.data.service
 
 import com.tdd.bookshelf.data.base.EndPoints
+import de.jensklingenberg.ktorfit.http.DELETE
 import de.jensklingenberg.ktorfit.http.GET
 import de.jensklingenberg.ktorfit.http.Multipart
 import de.jensklingenberg.ktorfit.http.POST
@@ -28,5 +29,10 @@ interface PublicationService {
     @GET(EndPoints.Publication.PROGRESS)
     suspend fun getPublicationProgress(
         @Path("publicationId") publicationId: Int
+    ): HttpResponse
+
+    @DELETE(EndPoints.Publication.DELETE)
+    suspend fun deletePublicationBook(
+        @Path("bookId") bookId: Int
     ): HttpResponse
 }

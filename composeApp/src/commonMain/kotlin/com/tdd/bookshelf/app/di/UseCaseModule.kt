@@ -14,6 +14,7 @@ import com.tdd.bookshelf.domain.usecase.interview.ai.PostCreateInterviewQuestion
 import com.tdd.bookshelf.domain.usecase.member.GetMemberInfoUseCase
 import com.tdd.bookshelf.domain.usecase.member.GetMemberProfileUseCase
 import com.tdd.bookshelf.domain.usecase.member.PutEditMemberInfoUseCase
+import com.tdd.bookshelf.domain.usecase.publication.DeletePublicationBookUseCase
 import com.tdd.bookshelf.domain.usecase.publication.GetMyPublicationUseCase
 import com.tdd.bookshelf.domain.usecase.publication.GetPublicationProgressUseCase
 import com.tdd.bookshelf.domain.usecase.publication.PostPublicationUseCase
@@ -49,6 +50,7 @@ val useCaseModule = module {
     factory { PostPublicationUseCase(get()) }
     factory { GetMyPublicationUseCase(get()) }
     factory { GetPublicationProgressUseCase(get()) }
+    factory { DeletePublicationBookUseCase(get()) }
 
     // AI
     // Interview

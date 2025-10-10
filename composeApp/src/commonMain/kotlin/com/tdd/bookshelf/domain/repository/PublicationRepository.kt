@@ -10,4 +10,5 @@ interface PublicationRepository {
     suspend fun postPublication(request: PostPublicationModel): Flow<Result<Boolean>>
     suspend fun getMyPublication(request: GetQueryDefaultModel): Flow<Result<PublishMyListModel>>
     suspend fun getPublicationProgress(request: Int): Flow<Result<PublicationProgressModel>>
+    suspend fun deletePublicationBook(bookId: Int): Flow<Result<Boolean>>
 }

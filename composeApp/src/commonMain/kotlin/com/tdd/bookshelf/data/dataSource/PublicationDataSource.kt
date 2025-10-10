@@ -10,4 +10,5 @@ interface PublicationDataSource {
     ): HttpResponse
     suspend fun getMyPublication(page: Int, size: Int): HttpResponse
     suspend fun getPublicationProgress(publicationId: Int): HttpResponse
+    suspend fun deletePublicationBook(bookId: Int): HttpResponse
 }

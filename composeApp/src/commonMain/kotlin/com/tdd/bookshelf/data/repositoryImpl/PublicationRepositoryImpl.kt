@@ -41,4 +41,11 @@ class PublicationRepositoryImpl(
                 request
             )
         })
+
+    override suspend fun deletePublicationBook(bookId: Int): Flow<Result<Boolean>> =
+        DefaultBooleanMapper.responseToModel(apiCall = {
+            publicationDataSource.deletePublicationBook(
+                bookId
+            )
+        })
 }
