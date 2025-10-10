@@ -12,4 +12,20 @@ class MemberDataSourceImpl(
 
     override suspend fun getMemberInfo(): HttpResponse =
         memberService.getMemberInfo()
+
+    override suspend fun editMemberInfo(
+        name: String,
+        bornedAt: String,
+        gender: String,
+        hasChildren: Boolean,
+        occupation: String,
+        educationLevel: String,
+        maritalStatus: String,
+    ): HttpResponse =
+        memberService.editMemberInfo(
+            name, bornedAt, gender, hasChildren, occupation, educationLevel, maritalStatus
+        )
+
+    override suspend fun getMemberProfile(): HttpResponse =
+        memberService.getMemberProfile()
 }

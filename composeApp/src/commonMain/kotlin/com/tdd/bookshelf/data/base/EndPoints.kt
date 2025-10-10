@@ -15,9 +15,17 @@ object EndPoints {
 
     object Member {
         const val MEMBER = "api/v1/members/me"
+        const val PROFILE = "$MEMBER/profile"
     }
 
     object Interview {
         const val INTERVIEWQUESTION = "api/v1/interviews/interview-questions"
+    }
+
+    object Publication {
+        const val PUBLICATIONS = "api/v1/publications"
+        const val MYPUBLICATIONS = "$PUBLICATIONS/me"
+        const val PROGRESS = "$PUBLICATIONS/{publicationId}/progress"
+        const val DELETE = "$PUBLICATIONS/{bookId}"
     }
 }
