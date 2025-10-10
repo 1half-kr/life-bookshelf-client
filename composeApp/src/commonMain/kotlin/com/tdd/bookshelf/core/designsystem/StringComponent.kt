@@ -13,6 +13,12 @@ const val Published = "PUBLISHED"
 const val Rejected = "REJECTED"
 const val NotPublished = "NOT_PUBLISHED"
 
+// Book Title
+const val Top = "TOP"
+const val Middle = "MID"
+const val Bottom = "BOTTOM"
+const val Left = "LEFT"
+
 // Bottom
 const val Home = "홈"
 const val Publication = "출판페이지"

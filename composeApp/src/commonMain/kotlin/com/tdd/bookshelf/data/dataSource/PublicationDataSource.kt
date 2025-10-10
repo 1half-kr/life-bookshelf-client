@@ -1,0 +1,11 @@
+package com.tdd.bookshelf.data.dataSource
+
+import io.ktor.client.statement.HttpResponse
+
+interface PublicationDataSource {
+    suspend fun postPublication(
+        title: String,
+        preSignedCoverImageUrl: String,
+        titlePosition: String,
+    ): HttpResponse
+}

@@ -21,4 +21,8 @@ object EndPoints {
     object Interview {
         const val INTERVIEWQUESTION = "api/v1/interviews/interview-questions"
     }
+
+    object Publication {
+        const val PUBLICATIONS = "api/v1/publications/"
+    }
 }

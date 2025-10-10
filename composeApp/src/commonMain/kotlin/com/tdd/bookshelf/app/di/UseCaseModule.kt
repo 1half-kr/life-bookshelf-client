@@ -14,6 +14,7 @@ import com.tdd.bookshelf.domain.usecase.interview.ai.PostCreateInterviewQuestion
 import com.tdd.bookshelf.domain.usecase.member.GetMemberInfoUseCase
 import com.tdd.bookshelf.domain.usecase.member.GetMemberProfileUseCase
 import com.tdd.bookshelf.domain.usecase.member.PutEditMemberInfoUseCase
+import com.tdd.bookshelf.domain.usecase.publication.PostPublicationUseCase
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
 import org.koin.dsl.module
@@ -41,6 +42,9 @@ val useCaseModule = module {
     factory { GetMemberInfoUseCase(get()) }
     factory { PutEditMemberInfoUseCase(get()) }
     factory { GetMemberProfileUseCase(get()) }
+
+    // Publication
+    factory { PostPublicationUseCase(get()) }
 
     // AI
     // Interview
