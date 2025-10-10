@@ -35,12 +35,12 @@ class ServiceModule {
     ): MemberService = ktorfit.createMemberService()
 
     @Single
+    fun providePublicationService(
+        @BookShelfKtor ktorfit: Ktorfit,
+    ): PublicationService = ktorfit.createPublicationService()
+
+    @Single
     fun provideInterviewAIService(
         @BookShelfKtorAI ktorfit: Ktorfit,
     ): InterviewAIService = ktorfit.createInterviewAIService()
-
-    @Single
-    fun providePublicationService(
-        @BookShelfKtorAI ktorfit: Ktorfit,
-    ): PublicationService = ktorfit.createPublicationService()
 }

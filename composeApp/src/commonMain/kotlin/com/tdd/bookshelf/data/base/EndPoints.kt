@@ -23,7 +23,7 @@ object EndPoints {
     }
 
     object Publication {
-        const val PUBLICATIONS = "api/v1/publications/"
+        const val PUBLICATIONS = "api/v1/publications"
         const val MYPUBLICATIONS = "$PUBLICATIONS/me"
     }
 }

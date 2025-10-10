@@ -93,7 +93,7 @@ private fun MyContent(
     isAlarmActivated: Boolean,
     interactionSource: MutableInteractionSource,
     userName: String,
-    userBirthDay: String
+    userBirthDay: String,
 ) {
     Column(
         modifier = Modifier
@@ -133,7 +133,7 @@ private fun MyContent(
 @Composable
 private fun MyProfileBox(
     userName: String,
-    userBirthDay: String
+    userBirthDay: String,
 ) {
     Row(
         modifier = Modifier
