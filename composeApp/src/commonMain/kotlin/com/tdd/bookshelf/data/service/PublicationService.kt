@@ -5,6 +5,7 @@ import de.jensklingenberg.ktorfit.http.GET
 import de.jensklingenberg.ktorfit.http.Multipart
 import de.jensklingenberg.ktorfit.http.POST
 import de.jensklingenberg.ktorfit.http.Part
+import de.jensklingenberg.ktorfit.http.Path
 import de.jensklingenberg.ktorfit.http.Query
 import io.ktor.client.statement.HttpResponse
 
@@ -22,5 +23,10 @@ interface PublicationService {
     suspend fun getMyPublication(
         @Query("page") page: Int,
         @Query("size") size: Int
+    ): HttpResponse
+
+    @GET(EndPoints.Publication.PROGRESS)
+    suspend fun getPublicationProgress(
+        @Path("publicationId") publicationId: Int
     ): HttpResponse
 }

@@ -9,4 +9,5 @@ interface PublicationDataSource {
         titlePosition: String,
     ): HttpResponse
     suspend fun getMyPublication(page: Int, size: Int): HttpResponse
+    suspend fun getPublicationProgress(publicationId: Int): HttpResponse
 }

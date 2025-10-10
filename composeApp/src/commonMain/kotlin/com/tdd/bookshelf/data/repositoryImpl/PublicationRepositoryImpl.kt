@@ -3,8 +3,10 @@ package com.tdd.bookshelf.data.repositoryImpl
 import com.tdd.bookshelf.data.dataSource.PublicationDataSource
 import com.tdd.bookshelf.data.mapper.base.DefaultBooleanMapper
 import com.tdd.bookshelf.data.mapper.publication.PublishMyMapper
+import com.tdd.bookshelf.data.mapper.publication.PublishProgressMapper
 import com.tdd.bookshelf.domain.entity.request.default.GetQueryDefaultModel
 import com.tdd.bookshelf.domain.entity.request.publication.PostPublicationModel
+import com.tdd.bookshelf.domain.entity.response.publication.PublicationProgressModel
 import com.tdd.bookshelf.domain.entity.response.publication.PublishMyListModel
 import com.tdd.bookshelf.domain.repository.PublicationRepository
 import kotlinx.coroutines.flow.Flow
@@ -30,6 +32,13 @@ class PublicationRepositoryImpl(
             publicationDataSource.getMyPublication(
                 request.page,
                 request.size
+            )
+        })
+
+    override suspend fun getPublicationProgress(request: Int): Flow<Result<PublicationProgressModel>> =
+        PublishProgressMapper.responseToModel(apiCall = {
+            publicationDataSource.getPublicationProgress(
+                request
             )
         })
 }

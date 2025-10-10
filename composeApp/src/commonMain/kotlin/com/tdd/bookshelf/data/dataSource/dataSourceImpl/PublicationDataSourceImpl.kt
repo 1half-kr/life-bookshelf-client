@@ -19,4 +19,7 @@ class PublicationDataSourceImpl(
 
     override suspend fun getMyPublication(page: Int, size: Int): HttpResponse =
         publicationService.getMyPublication(page, size)
+
+    override suspend fun getPublicationProgress(publicationId: Int): HttpResponse =
+        publicationService.getPublicationProgress(publicationId)
 }
