@@ -62,7 +62,7 @@ import com.tdd.bookshelf.domain.entity.enums.PublishStatusType
 import com.tdd.bookshelf.domain.entity.response.publication.PublicationProgressUIContentModel
 import com.tdd.bookshelf.domain.entity.response.publication.PublicationProgressUIModel
 import com.tdd.bookshelf.domain.entity.response.publication.PublicationProgressUIModel.UIModel
-import com.tdd.bookshelf.domain.entity.response.publication.PublishBookListItemModel
+import com.tdd.bookshelf.domain.entity.response.publication.PublishMyListItemModel
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -88,7 +88,7 @@ fun MyScreen() {
 @Composable
 private fun MyContent(
     publishStatus: String,
-    publishBookList: List<PublishBookListItemModel>,
+    publishBookList: List<PublishMyListItemModel>,
     onClickAlarm: () -> Unit,
     isAlarmActivated: Boolean,
     interactionSource: MutableInteractionSource,
@@ -302,7 +302,7 @@ private fun PublicationStatusBox(
 
 @Composable
 private fun PublicationBookBox(
-    publishBookList: List<PublishBookListItemModel>,
+    publishBookList: List<PublishMyListItemModel>,
 ) {
     Text(
         text = PublicationBookTitle,
@@ -340,7 +340,7 @@ private fun PublicationBookBox(
 
 @Composable
 private fun PublicationBookListItem(
-    item: PublishBookListItemModel,
+    item: PublishMyListItemModel,
 ) {
     Box(
         modifier = Modifier

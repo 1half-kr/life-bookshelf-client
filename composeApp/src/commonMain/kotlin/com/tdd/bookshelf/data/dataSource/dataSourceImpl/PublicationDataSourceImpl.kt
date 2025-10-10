@@ -16,4 +16,7 @@ class PublicationDataSourceImpl(
         titlePosition: String,
     ): HttpResponse =
         publicationService.postPublication(title, preSignedCoverImageUrl, title)
+
+    override suspend fun getMyPublication(page: Int, size: Int): HttpResponse =
+        publicationService.getMyPublication(page, size)
 }

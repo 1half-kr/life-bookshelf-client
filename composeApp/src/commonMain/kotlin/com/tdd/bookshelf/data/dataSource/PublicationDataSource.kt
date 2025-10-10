@@ -8,4 +8,5 @@ interface PublicationDataSource {
         preSignedCoverImageUrl: String,
         titlePosition: String,
     ): HttpResponse
+    suspend fun getMyPublication(page: Int, size: Int): HttpResponse
 }
