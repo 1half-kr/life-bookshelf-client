@@ -4,9 +4,11 @@ import androidx.lifecycle.viewModelScope
 import com.tdd.bookshelf.core.ui.base.BaseViewModel
 import com.tdd.bookshelf.domain.entity.request.default.GetQueryDefaultModel
 import com.tdd.bookshelf.domain.entity.response.member.MemberInfoModel
+import com.tdd.bookshelf.domain.entity.response.publication.PublicationProgressModel
 import com.tdd.bookshelf.domain.entity.response.publication.PublishMyListModel
 import com.tdd.bookshelf.domain.usecase.member.GetMemberInfoUseCase
 import com.tdd.bookshelf.domain.usecase.publication.GetMyPublicationUseCase
+import com.tdd.bookshelf.domain.usecase.publication.GetPublicationProgressUseCase
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
@@ -14,6 +16,7 @@ import org.koin.android.annotation.KoinViewModel
 class MyViewModel(
     private val getMemberInfoUseCase: GetMemberInfoUseCase,
     private val getMyPublicationUseCase: GetMyPublicationUseCase,
+    private val getPublicationProgressUseCase: GetPublicationProgressUseCase,
 ) : BaseViewModel<MyPageState>(
     MyPageState()
 ) {
@@ -39,6 +42,10 @@ class MyViewModel(
                 publishBookList = data.results
             )
         )
+
+        if (data.results.isNotEmpty()) {
+            initSetPublicationProgress(data.results[0].publicationId)
+        }
     }
 
     fun changeAlarmActivatedStatus() {
@@ -59,6 +66,25 @@ class MyViewModel(
         updateState(
             uiState.value.copy(
                 memberInfo = data
+            )
+        )
+    }
+
+    private fun initSetPublicationProgress(publicationId: Int) {
+        viewModelScope.launch {
+            getPublicationProgressUseCase(publicationId).collect {
+                resultResponse(
+                    it,
+                    ::onSuccessPublicationProgress
+                )
+            }
+        }
+    }
+
+    private fun onSuccessPublicationProgress(data: PublicationProgressModel) {
+        updateState(
+            uiState.value.copy(
+                publishStatus = data.publishStatus
             )
         )
     }

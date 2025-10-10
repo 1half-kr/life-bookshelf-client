@@ -15,5 +15,5 @@ val viewModelModule = module {
     viewModel { InterviewViewModel() }
     viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
     viewModel { DetailChapterViewModel(get()) }
-    viewModel { MyViewModel(get(), get()) }
+    viewModel { MyViewModel(get(), get(), get()) }
 }
