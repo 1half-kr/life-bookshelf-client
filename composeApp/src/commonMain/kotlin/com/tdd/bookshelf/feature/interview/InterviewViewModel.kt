@@ -5,6 +5,7 @@ import com.tdd.bookshelf.core.ui.base.BaseViewModel
 import com.tdd.bookshelf.domain.entity.enums.ChatType
 import com.tdd.bookshelf.domain.entity.response.interview.InterviewChatItem
 import com.tdd.bookshelf.domain.entity.response.interview.InterviewConversationListModel
+import com.tdd.bookshelf.feature.interview.type.ConversationType
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
@@ -25,17 +26,9 @@ class InterviewViewModel : BaseViewModel<InterviewPageState>(
             hasPreviousPage = false,
             results = listOf(
                 InterviewChatItem(
-                    content = "안녕하세요 안녕하세요 안녕하세요 안녕하세요 안녕하세요",
+                    content = "지금의 본인을 만든 가장 기억에 남는 사건 하나를 말해줘",
                     chatType = ChatType.BOT
                 ),
-                InterviewChatItem(
-                    content = "나는 사람 나는 사람 나는 사람",
-                    chatType = ChatType.HUMAN
-                ),
-                InterviewChatItem(
-                    content = "아아아아아아",
-                    chatType = ChatType.HUMAN
-                )
             )
         )
 
@@ -51,6 +44,26 @@ class InterviewViewModel : BaseViewModel<InterviewPageState>(
         updateState(
             uiState.value.copy(
                 interviewId = interviewId
+            )
+        )
+    }
+
+    fun beginInterview() {
+        updateState(
+            uiState.value.copy(
+                interviewProgressType = ConversationType.ING
+            )
+        )
+    }
+
+    fun setInterviewAnswer(chat: String) {
+        val originalInterviews = uiState.value.interviewChatList
+        val newAnswer = InterviewChatItem(content = chat, chatType = ChatType.HUMAN)
+
+        updateState(
+            uiState.value.copy(
+                interviewChatList = originalInterviews + newAnswer,
+                interviewProgressType = ConversationType.BEFORE
             )
         )
     }

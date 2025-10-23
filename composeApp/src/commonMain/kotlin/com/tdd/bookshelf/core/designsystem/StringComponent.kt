@@ -13,6 +13,10 @@ const val Published = "PUBLISHED"
 const val Rejected = "REJECTED"
 const val NotPublished = "NOT_PUBLISHED"
 
+// Interview Conversation Status
+const val BeforeStart = "진행 전"
+const val InterviewIng = "진행 중"
+
 // Book Title
 const val Top = "TOP"
 const val Middle = "MID"
