@@ -20,6 +20,7 @@ object EndPoints {
 
     object Interview {
         const val INTERVIEWQUESTION = "api/v1/interviews/interview-questions"
+        const val INTERVIEWCONVERSATION = "/api/v1/interviews/{interviewId}/conversations"
     }
 
     object Publication {

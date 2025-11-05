@@ -10,6 +10,7 @@ import com.tdd.bookshelf.domain.usecase.autobiograph.PostCreateAutobiographyChap
 import com.tdd.bookshelf.domain.usecase.autobiograph.PostCreateAutobiographyUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.PostEditAutobiographyDetailUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.PostUpdateCurrentChapterUseCase
+import com.tdd.bookshelf.domain.usecase.interview.GetInterviewConversationUseCase
 import com.tdd.bookshelf.domain.usecase.interview.ai.PostCreateInterviewQuestionUseCase
 import com.tdd.bookshelf.domain.usecase.member.GetMemberInfoUseCase
 import com.tdd.bookshelf.domain.usecase.member.GetMemberProfileUseCase
@@ -51,6 +52,9 @@ val useCaseModule = module {
     factory { GetMyPublicationUseCase(get()) }
     factory { GetPublicationProgressUseCase(get()) }
     factory { DeletePublicationBookUseCase(get()) }
+
+    // Interview
+    factory { GetInterviewConversationUseCase(get()) }
 
     // AI
     // Interview
