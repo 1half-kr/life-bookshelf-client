@@ -13,10 +13,4 @@ class InterviewAIDataSourceImpl(
 
     override suspend fun postInterviewQuestions(body: InterviewQuestionsRequestDto): HttpResponse =
         interviewAIService.postCreateInterviewQuestion(body)
-
-    override suspend fun getInterviewConversation(interviewId: Int): HttpResponse =
-        interviewAIService.getInterviewConversation(interviewId)
-
-    override suspend fun postInterviewRenewal(interviewId: Int): HttpResponse =
-        interviewAIService.postInterviewRenewal(interviewId)
 }
