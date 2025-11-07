@@ -8,4 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface InterviewAIRepository {
     suspend fun postInterviewQuestions(body: InterviewQuestionsRequestModel): Flow<Result<InterviewQuestionsAIResponseModel>>
     suspend fun getInterviewConversation(interviewId: Int): Flow<Result<InterviewConversationListModel>>
+    suspend fun postInterviewRenewal(interviewId: Int): Flow<Result<Boolean>>
 }

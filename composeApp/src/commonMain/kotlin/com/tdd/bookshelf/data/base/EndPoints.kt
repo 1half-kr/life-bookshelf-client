@@ -19,8 +19,11 @@ object EndPoints {
     }
 
     object Interview {
-        const val INTERVIEWQUESTION = "api/v1/interviews/interview-questions"
-        const val INTERVIEWCONVERSATION = "/api/v1/interviews/{interviewId}/conversations"
+        private const val INTERVIEW = "api/v1/interviews"
+        const val INTERVIEWQUESTION = "$INTERVIEW/interview-questions"
+
+        const val INTERVIEWCONVERSATION = "$INTERVIEW/{interviewId}/conversations"
+        const val INTERVIEWRENEWAL = "$INTERVIEW/{interviewId}/questions/current-question"
     }
 
     object Publication {

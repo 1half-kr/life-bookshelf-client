@@ -1,6 +1,7 @@
 package com.tdd.bookshelf.data.repositoryImpl.ai
 
 import com.tdd.bookshelf.data.dataSource.ai.InterviewAIDataSource
+import com.tdd.bookshelf.data.mapper.base.DefaultBooleanMapper
 import com.tdd.bookshelf.data.mapper.interview.GetInterviewConversationMapper
 import com.tdd.bookshelf.data.mapper.interview.ai.CreateInterviewQuestionMapper
 import com.tdd.bookshelf.data.mapper.interview.ai.CreateInterviewQuestionMapper.toDto
@@ -26,5 +27,10 @@ class InterviewAIRepositoryImpl(
     override suspend fun getInterviewConversation(interviewId: Int): Flow<Result<InterviewConversationListModel>> =
         GetInterviewConversationMapper.responseToModel(apiCall = {
             interviewAIDataSource.getInterviewConversation(interviewId)
+        })
+
+    override suspend fun postInterviewRenewal(interviewId: Int): Flow<Result<Boolean>> =
+        DefaultBooleanMapper.responseToModel(apiCall = {
+            interviewAIDataSource.postInterviewRenewal(interviewId)
         })
 }

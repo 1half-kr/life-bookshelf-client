@@ -18,4 +18,9 @@ interface InterviewAIService {
     suspend fun getInterviewConversation(
         @Path("interviewId") interviewId: Int
     ): HttpResponse
+
+    @POST(EndPoints.Interview.INTERVIEWRENEWAL)
+    suspend fun postInterviewRenewal(
+        @Path("interviewId") interviewId: Int
+    ): HttpResponse
 }
