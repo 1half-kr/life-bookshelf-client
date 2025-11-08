@@ -1,7 +1,9 @@
 package com.tdd.bookshelf.data.mapper.interview.ai
 
 import com.tdd.bookshelf.data.base.BaseMapper
+import com.tdd.bookshelf.data.entity.request.interview.ai.ChapterInfoDto
 import com.tdd.bookshelf.data.entity.request.interview.ai.InterviewQuestionsRequestDto
+import com.tdd.bookshelf.data.entity.request.interview.ai.UserInfoDto
 import com.tdd.bookshelf.data.entity.response.interview.ai.InterviewQuestionsResponseDto
 import com.tdd.bookshelf.domain.entity.request.interview.ai.InterviewQuestionsRequestModel
 import com.tdd.bookshelf.domain.entity.response.interview.ai.InterviewQuestionsAIResponseModel
@@ -11,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 object CreateInterviewQuestionMapper : BaseMapper() {
 
     fun InterviewQuestionsRequestModel.toDto() = InterviewQuestionsRequestDto(
-        userInfo = InterviewQuestionsRequestDto.UserInfo(
+        userInfo = UserInfoDto(
             userInfo.name,
             userInfo.bornedAt,
             userInfo.gender,
@@ -20,11 +22,11 @@ object CreateInterviewQuestionMapper : BaseMapper() {
             userInfo.educationLevel ?: "",
             userInfo.maritalStatus ?: ""
         ),
-        chapterInfo = InterviewQuestionsRequestDto.ChapterInfo(
+        chapterInfo = ChapterInfoDto(
             chapterInfo.title,
             chapterInfo.description
         ),
-        subChapterInfo = InterviewQuestionsRequestDto.ChapterInfo(
+        subChapterInfo = ChapterInfoDto(
             chapterInfo.title,
             chapterInfo.description
         )
