@@ -75,7 +75,7 @@ internal fun InterviewScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.setInterviewId(interviewId)
+        viewModel.setInterview(interviewId)
     }
 
     InterviewContent(

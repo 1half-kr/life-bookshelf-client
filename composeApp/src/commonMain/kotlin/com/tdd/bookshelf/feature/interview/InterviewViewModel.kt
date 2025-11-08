@@ -6,19 +6,23 @@ import com.tdd.bookshelf.core.ui.base.BaseViewModel
 import com.tdd.bookshelf.domain.entity.enums.ChatType
 import com.tdd.bookshelf.domain.entity.response.interview.InterviewChatItem
 import com.tdd.bookshelf.domain.entity.response.interview.InterviewConversationListModel
+import com.tdd.bookshelf.domain.entity.response.interview.InterviewQuestionItemModel
+import com.tdd.bookshelf.domain.entity.response.interview.InterviewQuestionListModel
 import com.tdd.bookshelf.domain.usecase.interview.GetInterviewConversationUseCase
+import com.tdd.bookshelf.domain.usecase.interview.GetInterviewQuestionListUseCase
 import com.tdd.bookshelf.feature.interview.type.ConversationType
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 class InterviewViewModel(
-    private val getInterviewConversationUseCase: GetInterviewConversationUseCase
+    private val getInterviewConversationUseCase: GetInterviewConversationUseCase,
+    private val getInterviewQuestionListUseCase: GetInterviewQuestionListUseCase
 ) : BaseViewModel<InterviewPageState>(
     InterviewPageState()
 ) {
 
-    fun setInterviewId(interviewId: Int) {
+    fun setInterview(interviewId: Int) {
         d("[test] interviewViewModel -> $interviewId")
         updateState(
             uiState.value.copy(
@@ -27,6 +31,7 @@ class InterviewViewModel(
         )
 
         initSetInterviewList(interviewId)
+        initSetInterviewQuestion(interviewId)
     }
 
     private fun initSetInterviewList(interviewId: Int) {
@@ -38,11 +43,43 @@ class InterviewViewModel(
     }
 
     private fun onSuccessSetInterviewConversationList(data: InterviewConversationListModel) {
-        d("[test] interviewViewModel -> ${data.results}")
+        d("[test] interview chats: -> ${data.results}")
         updateState(
             uiState.value.copy(
                 interviewConversationModel = data,
                 interviewChatList = data.results
+            )
+        )
+    }
+
+    private fun initSetInterviewQuestion(interviewId: Int) {
+        viewModelScope.launch {
+            getInterviewQuestionListUseCase(interviewId).collect {
+                resultResponse(it, ::onSuccessSetInterviewQuestion)
+            }
+        }
+    }
+
+    private fun onSuccessSetInterviewQuestion(data: InterviewQuestionListModel) {
+        d("[test] interview -> questions: ${data.results}, currentId: ${data.currentQuestionId}")
+        updateState(
+            uiState.value.copy(
+                interviewCurrentQuestionId = data.currentQuestionId,
+                interviewQuestionList = data.results
+            )
+        )
+
+        addInterviewConversation(data.results, data.currentQuestionId)
+    }
+
+    private fun addInterviewConversation(questions: List<InterviewQuestionItemModel>, currentQuestionId: Int) {
+        val currentQuestion: InterviewQuestionItemModel = questions.firstOrNull { it.questionId == currentQuestionId } ?: InterviewQuestionItemModel()
+        val currentConversationModel = InterviewChatItem(content = currentQuestion.questionText, chatType = ChatType.BOT)
+        val updatedChatList = uiState.value.interviewChatList + currentConversationModel
+
+        updateState(
+            uiState.value.copy(
+                interviewChatList = updatedChatList
             )
         )
     }
