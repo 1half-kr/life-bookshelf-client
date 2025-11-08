@@ -24,6 +24,7 @@ object EndPoints {
 
         const val INTERVIEWCONVERSATION = "$INTERVIEW/{interviewId}/conversations"
         const val INTERVIEWRENEWAL = "$INTERVIEW/{interviewId}/questions/current-question"
+        const val INTERVIEWQUESTIONLIST = "$INTERVIEW/{interviewId}/questions"
     }
 
     object Publication {

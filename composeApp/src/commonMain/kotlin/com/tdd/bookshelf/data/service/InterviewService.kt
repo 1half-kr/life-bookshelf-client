@@ -24,4 +24,9 @@ interface InterviewService {
         @Path("interviewId") interviewId: Int,
         @Body body: InterviewConversationRequestDto
     ): HttpResponse
+
+    @GET(EndPoints.Interview.INTERVIEWQUESTIONLIST)
+    suspend fun getInterviewQuestionList(
+        @Path("interviewId") interviewId: Int,
+    ): HttpResponse
 }

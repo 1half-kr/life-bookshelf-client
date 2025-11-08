@@ -21,4 +21,7 @@ class InterviewDataSourceImpl(
         conversation: InterviewConversationRequestDto
     ): HttpResponse =
         interviewService.postInterviewChatBotConversation(interviewId, conversation)
+
+    override suspend fun getInterviewQuestion(interviewId: Int): HttpResponse =
+        interviewService.getInterviewQuestionList(interviewId)
 }
