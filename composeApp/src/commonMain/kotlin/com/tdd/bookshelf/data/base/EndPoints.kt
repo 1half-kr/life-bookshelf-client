@@ -21,6 +21,7 @@ object EndPoints {
     object Interview {
         private const val INTERVIEW = "api/v1/interviews"
         const val INTERVIEWQUESTION = "$INTERVIEW/interview-questions"
+        const val CREATEINTERVIEW = "$INTERVIEW/interview-chat"
 
         const val INTERVIEWCONVERSATION = "$INTERVIEW/{interviewId}/conversations"
         const val INTERVIEWRENEWAL = "$INTERVIEW/{interviewId}/questions/current-question"

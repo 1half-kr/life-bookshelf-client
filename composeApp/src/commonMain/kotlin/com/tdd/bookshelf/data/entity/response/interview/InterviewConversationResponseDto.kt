@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class InterviewConversationResponseDto (
     @SerialName("results")
-    val results: List<InterviewConversation> = emptyList(),
+    val results: List<InterviewConversationDto> = emptyList(),
     @SerialName("currentPage")
     val currentPage: Int = 0,
     @SerialName("totalElements")
@@ -17,12 +17,4 @@ data class InterviewConversationResponseDto (
     val hasNextPage: Boolean = false,
     @SerialName("asPreviousPage")
     val hasPreviousPage: Boolean = false
-) {
-    @Serializable
-    data class InterviewConversation(
-        @SerialName("content")
-        val content: String = "",
-        @SerialName("conversationType")
-        val conversationType: String = ""
-    )
-}
+)

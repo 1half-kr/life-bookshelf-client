@@ -14,6 +14,7 @@ import com.tdd.bookshelf.domain.usecase.interview.GetInterviewConversationUseCas
 import com.tdd.bookshelf.domain.usecase.interview.GetInterviewQuestionListUseCase
 import com.tdd.bookshelf.domain.usecase.interview.PostInterviewConversationUseCase
 import com.tdd.bookshelf.domain.usecase.interview.PostInterviewRenewalUseCase
+import com.tdd.bookshelf.domain.usecase.interview.ai.PostCreateInterviewChatUseCase
 import com.tdd.bookshelf.domain.usecase.interview.ai.PostCreateInterviewQuestionUseCase
 import com.tdd.bookshelf.domain.usecase.member.GetMemberInfoUseCase
 import com.tdd.bookshelf.domain.usecase.member.GetMemberProfileUseCase
@@ -65,4 +66,5 @@ val useCaseModule = module {
     // AI
     // Interview
     factory { PostCreateInterviewQuestionUseCase(get()) }
+    factory { PostCreateInterviewChatUseCase(get()) }
 }

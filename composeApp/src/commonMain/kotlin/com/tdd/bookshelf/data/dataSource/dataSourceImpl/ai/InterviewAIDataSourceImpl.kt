@@ -1,6 +1,7 @@
 package com.tdd.bookshelf.data.dataSource.dataSourceImpl.ai
 
 import com.tdd.bookshelf.data.dataSource.ai.InterviewAIDataSource
+import com.tdd.bookshelf.data.entity.request.interview.ai.CreateInterviewChatRequestDto
 import com.tdd.bookshelf.data.entity.request.interview.ai.InterviewQuestionsRequestDto
 import com.tdd.bookshelf.data.service.ai.InterviewAIService
 import io.ktor.client.statement.HttpResponse
@@ -13,4 +14,7 @@ class InterviewAIDataSourceImpl(
 
     override suspend fun postInterviewQuestions(body: InterviewQuestionsRequestDto): HttpResponse =
         interviewAIService.postCreateInterviewQuestion(body)
+
+    override suspend fun postCreateInterviewChat(body: CreateInterviewChatRequestDto): HttpResponse =
+        interviewAIService.postCreateInterviewChat(body)
 }
