@@ -36,6 +36,7 @@ import bookshelf.composeapp.generated.resources.img_current_chapter_default
 import coil3.compose.AsyncImage
 import com.tdd.bookshelf.core.designsystem.BackGround3
 import com.tdd.bookshelf.core.designsystem.BookShelfTypo
+import com.tdd.bookshelf.core.designsystem.HomeCurrentChapterEmpty
 import com.tdd.bookshelf.core.designsystem.HomeCurrentProgressTitle
 import com.tdd.bookshelf.core.designsystem.HomeSemiTitle
 import com.tdd.bookshelf.core.designsystem.HomeTitle
@@ -221,7 +222,7 @@ private fun HomeCurrentProgressBox(
                     .background(White0)
             ) {
                 Text(
-                    text = currentChapter.chapterName,
+                    text = currentChapter.chapterName.ifEmpty { HomeCurrentChapterEmpty },
                     color = Neutral900,
                     style = BookShelfTypo.SemiBold,
                     fontSize = 17.sp,
