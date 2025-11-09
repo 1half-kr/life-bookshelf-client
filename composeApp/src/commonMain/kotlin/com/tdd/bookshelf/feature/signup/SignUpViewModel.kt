@@ -43,6 +43,8 @@ class SignUpViewModel(
             ).collect {
                 resultResponse(it, ::onSuccessPostEmailSignUp)
             }
+
+            emitEventFlow(SignUpEvent.GoToLogInPage)
         }
     }
 
@@ -50,7 +52,6 @@ class SignUpViewModel(
         d("[ktor] sign up response -> $data")
         if (data.accessToken.isNotEmpty()) {
             saveAccessToken(data.accessToken)
-            emitEventFlow(SignUpEvent.GoToLogInPage)
         }
     }
 
