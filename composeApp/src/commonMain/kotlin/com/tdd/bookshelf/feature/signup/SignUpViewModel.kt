@@ -3,17 +3,18 @@ package com.tdd.bookshelf.feature.signup
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger.Companion.d
 import com.tdd.bookshelf.core.ui.base.BaseViewModel
-import com.tdd.bookshelf.domain.entity.request.auth.EmailLogInRequestModel
+import com.tdd.bookshelf.domain.entity.request.auth.EmailSignUpRequestModel
 import com.tdd.bookshelf.domain.entity.response.auth.AccessTokenModel
+import com.tdd.bookshelf.domain.usecase.auth.PostEmailSignUpUseCase
 import com.tdd.bookshelf.domain.usecase.auth.SaveTokenUseCase
-import com.tdd.bookshelf.feature.login.LogInEvent
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 class SignUpViewModel(
-    private val saveTokenUseCase: SaveTokenUseCase
-): BaseViewModel<SignUpPageState>(
+    private val saveTokenUseCase: SaveTokenUseCase,
+    private val postEmailSignUpUseCase: PostEmailSignUpUseCase,
+) : BaseViewModel<SignUpPageState>(
     SignUpPageState()
 ) {
     fun onEmailValueChange(newValue: String) {
@@ -34,28 +35,28 @@ class SignUpViewModel(
 
     fun postEmailSignUp() {
         viewModelScope.launch {
-//            postEmailLogInUseCase(
-//                EmailLogInRequestModel(
-//                    email = uiState.value.emailInput,
-//                    password = uiState.value.passwordInput,
-//                )
-//            ).collect {
-//                resultResponse(it, ::onSuccessPostEmailLogIn)
-//            }
+            postEmailSignUpUseCase(
+                EmailSignUpRequestModel(
+                    email = uiState.value.emailInput,
+                    password = uiState.value.passwordInput,
+                )
+            ).collect {
+                resultResponse(it, ::onSuccessPostEmailSignUp)
+            }
         }
     }
 
-    private fun onSuccessPostEmailLogIn(data: AccessTokenModel) {
+    private fun onSuccessPostEmailSignUp(data: AccessTokenModel) {
         d("[ktor] sign up response -> $data")
         if (data.accessToken.isNotEmpty()) {
             saveAccessToken(data.accessToken)
-            emitEventFlow(LogInEvent.GoToOnBoardingPage)
+            emitEventFlow(SignUpEvent.GoToLogInPage)
         }
     }
 
     private fun saveAccessToken(data: String) {
         viewModelScope.launch {
-            saveTokenUseCase(data).collect {  }
+            saveTokenUseCase(data).collect { }
         }
     }
 }

@@ -16,4 +16,10 @@ class AuthDataSourceImpl(
         deviceToken: String,
     ): HttpResponse =
         authService.postEmailLogIn(email, password, deviceToken)
+
+    override suspend fun postEmailSignUp(
+        email: String,
+        password: String,
+    ): HttpResponse =
+        authService.postEmailSignUp(email, password)
 }

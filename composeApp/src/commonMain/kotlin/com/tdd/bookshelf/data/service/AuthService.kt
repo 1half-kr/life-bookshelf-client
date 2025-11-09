@@ -15,4 +15,11 @@ interface AuthService {
         @Part("password") password: String,
         @Part("deviceToken") deviceToken: String = "",
     ): HttpResponse
+
+    @Multipart
+    @POST(EndPoints.Auth.EMAILSIGNUP)
+    suspend fun postEmailSignUp(
+        @Part("email") email: String,
+        @Part("password") password: String,
+    ): HttpResponse
 }

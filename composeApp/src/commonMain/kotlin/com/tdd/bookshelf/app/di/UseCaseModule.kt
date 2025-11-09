@@ -1,6 +1,7 @@
 package com.tdd.bookshelf.app.di
 
 import com.tdd.bookshelf.domain.usecase.auth.PostEmailLogInUseCase
+import com.tdd.bookshelf.domain.usecase.auth.PostEmailSignUpUseCase
 import com.tdd.bookshelf.domain.usecase.auth.SaveTokenUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.DeleteAutobiographyUseCase
 import com.tdd.bookshelf.domain.usecase.autobiograph.GetAllAutobiographyUseCase
@@ -35,6 +36,7 @@ val useCaseModule = module {
     // Auth
     factory { PostEmailLogInUseCase(get()) }
     factory { SaveTokenUseCase(get()) }
+    factory { PostEmailSignUpUseCase(get()) }
 
     // Autobiography
     factory { GetAllAutobiographyUseCase(get()) }

@@ -3,7 +3,9 @@ package com.tdd.bookshelf.data.base
 object EndPoints {
 
     object Auth {
-        const val EMAILLOGIN = "api/v1/auth/email-login"
+        private const val AUTH = "api/v1/auth"
+        const val EMAILLOGIN = "$AUTH/email-login"
+        const val EMAILSIGNUP = "$AUTH/email-register"
     }
 
     object Autobiography {

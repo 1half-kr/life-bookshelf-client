@@ -106,7 +106,7 @@ private fun LogInContent(
             fontSize = 20.sp,
             modifier = Modifier
                 .align(Alignment.Start)
-                .padding(top = 20.dp)
+                .padding(top = 20.dp, start = 25.dp)
                 .clickable(
                     onClick = onClickSignUp
                 ),
