@@ -13,6 +13,7 @@ import com.tdd.bookshelf.feature.login.LogInScreen
 import com.tdd.bookshelf.feature.my.MyScreen
 import com.tdd.bookshelf.feature.onboarding.OnboardingScreen
 import com.tdd.bookshelf.feature.publication.PublicationScreen
+import com.tdd.bookshelf.feature.signup.SignUpScreen
 
 fun NavGraphBuilder.loginNavGraph(
     navController: NavController,
@@ -23,7 +24,23 @@ fun NavGraphBuilder.loginNavGraph(
     ) {
         composable(NavRoutes.LogInScreen.route) {
             LogInScreen(
-                goToOnboardingPage = { navController.navigate(NavRoutes.HomeScreen.route) }
+                goToOnboardingPage = { navController.navigate(NavRoutes.HomeScreen.route) },
+                goToSignUp = { navController.navigate(NavRoutes.SignUpScreen.route) }
+            )
+        }
+    }
+}
+
+fun NavGraphBuilder.signupNavGraph(
+    navController: NavController,
+) {
+    navigation(
+        startDestination = NavRoutes.SignUpScreen.route,
+        route = NavRoutes.SignUpGraph.route
+    ) {
+        composable(NavRoutes.SignUpScreen.route) {
+            SignUpScreen(
+                goToLogInPage = { navController.navigate(NavRoutes.LogInScreen.route) }
             )
         }
     }

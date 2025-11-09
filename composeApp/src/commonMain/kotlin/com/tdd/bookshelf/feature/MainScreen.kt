@@ -30,6 +30,7 @@ import com.tdd.bookshelf.core.navigation.loginNavGraph
 import com.tdd.bookshelf.core.navigation.myNavGraph
 import com.tdd.bookshelf.core.navigation.onboardingNavGraph
 import com.tdd.bookshelf.core.navigation.publicationNavGraph
+import com.tdd.bookshelf.core.navigation.signupNavGraph
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -86,6 +87,9 @@ fun MainScreen() {
                 startDestination = NavRoutes.LogInGraph.route
             ) {
                 loginNavGraph(
+                    navController = navController
+                )
+                signupNavGraph(
                     navController = navController
                 )
                 onboardingNavGraph(

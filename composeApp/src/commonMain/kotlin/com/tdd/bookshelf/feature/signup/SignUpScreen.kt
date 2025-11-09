@@ -1,7 +1,6 @@
-package com.tdd.bookshelf.feature.login
+package com.tdd.bookshelf.feature.signup
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,52 +19,47 @@ import com.tdd.bookshelf.core.designsystem.BackGround1
 import com.tdd.bookshelf.core.designsystem.Blue500
 import com.tdd.bookshelf.core.designsystem.BookShelfTypo
 import com.tdd.bookshelf.core.designsystem.EmailHintText
-import com.tdd.bookshelf.core.designsystem.LogInBtn
-import com.tdd.bookshelf.core.designsystem.LogInTitle
 import com.tdd.bookshelf.core.designsystem.PasswordHintText
+import com.tdd.bookshelf.core.designsystem.SignUpBtn
 import com.tdd.bookshelf.core.designsystem.SignUpTitle
 import com.tdd.bookshelf.core.ui.common.button.RectangleBtn
 import com.tdd.bookshelf.core.ui.common.item.TextFieldBox
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-internal fun LogInScreen(
-    goToOnboardingPage: () -> Unit,
-    goToSignUp: () -> Unit
+internal fun SignUpScreen(
+    goToLogInPage: () -> Unit
 ) {
 
-    val viewModel: LogInViewModel = koinViewModel()
+    val viewModel: SignUpViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.eventFlow.collect { event ->
             when (event) {
-                is LogInEvent.GoToOnBoardingPage -> {
-                    goToOnboardingPage()
+                is SignUpEvent.GoToLogInPage -> {
+                    goToLogInPage()
                 }
             }
         }
     }
 
-    LogInContent(
-        onClickLogInBtn = { viewModel.postEmailLogIn() },
+    SignUpContent(
+        onClickSignUpBtn = { viewModel.postEmailSignUp() },
         emailInput = uiState.emailInput,
         onEmailValueChange = { newValue -> viewModel.onEmailValueChange(newValue) },
         passwordInput = uiState.passwordInput,
-        onPasswordValueChange = { newValue -> viewModel.onPasswordValueChange(newValue) },
-        onClickSignUp = { goToSignUp() }
+        onPasswordValueChange = { newValue -> viewModel.onPasswordValueChange(newValue) }
     )
 }
 
 @Composable
-private fun LogInContent(
-    onClickLogInBtn: () -> Unit = {},
+private fun SignUpContent(
+    onClickSignUpBtn: () -> Unit = {},
     emailInput: String = "",
     onEmailValueChange: (String) -> Unit = {},
     passwordInput: String = "",
     onPasswordValueChange: (String) -> Unit = {},
-    onClickSignUp: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -73,7 +67,7 @@ private fun LogInContent(
             .background(BackGround1)
     ) {
         Text(
-            text = LogInTitle,
+            text = SignUpTitle,
             style = BookShelfTypo.SemiBold,
             color = Blue500,
             fontSize = 32.sp,
@@ -99,32 +93,12 @@ private fun LogInContent(
             hintText = PasswordHintText
         )
 
-        Text(
-            text = SignUpTitle,
-            style = BookShelfTypo.SemiBold,
-            color = Blue500,
-            fontSize = 20.sp,
-            modifier = Modifier
-                .align(Alignment.Start)
-                .padding(top = 20.dp)
-                .clickable(
-                    onClick = onClickSignUp
-                ),
-            textAlign = TextAlign.Center
-        )
-
         Spacer(modifier = Modifier.padding(top = 60.dp))
 
         RectangleBtn(
-            btnContent = LogInBtn,
+            btnContent = SignUpBtn,
             isBtnActivated = emailInput.isNotEmpty() && passwordInput.isNotEmpty(),
-            onClickAction = onClickLogInBtn
+            onClickAction = onClickSignUpBtn
         )
     }
-}
-
-@Preview
-@Composable
-fun PreviewLogIn() {
-    LogInContent()
 }
