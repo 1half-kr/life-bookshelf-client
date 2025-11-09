@@ -39,13 +39,13 @@ fun BottomNavBar(
         horizontalArrangement = Arrangement.Absolute.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        BottomNavItem(
-            navIcon = BottomNavType.getBottomNavIcon(BottomNavType.PUBLICATION),
-            isSelected = (type == BottomNavType.PUBLICATION),
-            type = BottomNavType.PUBLICATION,
-            onClick = { onClick(BottomNavType.getDestination(BottomNavType.PUBLICATION)) },
-            interactionSource = interactionSource
-        )
+//        BottomNavItem(
+//            navIcon = BottomNavType.getBottomNavIcon(BottomNavType.PUBLICATION),
+//            isSelected = (type == BottomNavType.PUBLICATION),
+//            type = BottomNavType.PUBLICATION,
+//            onClick = { onClick(BottomNavType.getDestination(BottomNavType.PUBLICATION)) },
+//            interactionSource = interactionSource
+//        )
 
         BottomNavItem(
             navIcon = BottomNavType.getBottomNavIcon(BottomNavType.HOME),

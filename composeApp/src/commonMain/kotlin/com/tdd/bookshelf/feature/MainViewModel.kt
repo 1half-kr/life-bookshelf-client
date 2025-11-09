@@ -15,9 +15,9 @@ class MainViewModel: BaseViewModel<MainPageState>(
             NavRoutes.HomeScreen.route -> {
                 BottomNavType.HOME
             }
-            NavRoutes.PublicationScreen.route -> {
-                BottomNavType.PUBLICATION
-            }
+//            NavRoutes.PublicationScreen.route -> {
+//                BottomNavType.PUBLICATION
+//            }
             NavRoutes.MyPageScreen.route -> {
                 BottomNavType.MY
             }

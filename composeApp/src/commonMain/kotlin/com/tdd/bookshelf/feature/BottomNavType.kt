@@ -18,7 +18,7 @@ enum class BottomNavType(
     val destination: String,
 ) {
     HOME(Home, Res.drawable.img_home, NavRoutes.HomeScreen.route),
-    PUBLICATION(Publication, Res.drawable.img_book, NavRoutes.PublicationScreen.route),
+//    PUBLICATION(Publication, Res.drawable.img_book, NavRoutes.PublicationScreen.route),
     MY(MyPage, Res.drawable.img_profile, NavRoutes.MyPageScreen.route),
     DEFAULT(Empty, Res.drawable.ic_transparent, "");
 
