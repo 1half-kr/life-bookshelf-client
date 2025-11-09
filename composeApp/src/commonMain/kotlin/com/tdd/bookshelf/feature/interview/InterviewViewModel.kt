@@ -31,18 +31,18 @@ class InterviewViewModel(
         )
 
         initSetInterviewList(interviewId)
-        initSetInterviewQuestion(interviewId)
+//        initSetInterviewQuestion(interviewId)
     }
 
     private fun initSetInterviewList(interviewId: Int) {
         viewModelScope.launch {
             getInterviewConversationUseCase(interviewId).collect {
-                resultResponse(it, ::onSuccessSetInterviewConversationList)
+                resultResponse(it, { data -> onSuccessSetInterviewConversationList(data, interviewId) })
             }
         }
     }
 
-    private fun onSuccessSetInterviewConversationList(data: InterviewConversationListModel) {
+    private fun onSuccessSetInterviewConversationList(data: InterviewConversationListModel, interviewId: Int) {
         d("[test] interview chats: -> ${data.results}")
         updateState(
             uiState.value.copy(
@@ -50,6 +50,8 @@ class InterviewViewModel(
                 interviewChatList = data.results
             )
         )
+
+        initSetInterviewQuestion(interviewId)
     }
 
     private fun initSetInterviewQuestion(interviewId: Int) {
