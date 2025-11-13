@@ -7,3 +7,7 @@ max_line_length = off
 ktlint_function_naming_ignore_annotated = Composable,Preview
 ktlint_standard_import-ordering = disabled
 ktlint_standard_function-naming = disabled
+ktlint_standard_no-wildcard-imports = disabled
+
+[composeApp/src/commonMain/kotlin/com/tdd/bookshelf/core/designsystem/**.kt]
+ktlint_standard_property-naming = disabled

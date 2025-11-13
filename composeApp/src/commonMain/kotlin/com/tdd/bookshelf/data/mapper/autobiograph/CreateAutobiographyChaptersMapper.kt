@@ -1,21 +1,21 @@
 package com.tdd.bookshelf.data.mapper.autobiograph
 
 import com.tdd.bookshelf.data.base.BaseMapper
-import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyChaptersRequestDto
+import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyChapterRequestDto
 import com.tdd.bookshelf.domain.entity.request.autobiography.CreateAutobiographyChaptersRequestModel
 
 object CreateAutobiographyChaptersMapper : BaseMapper() {
     fun CreateAutobiographyChaptersRequestModel.toDto() =
-        PostCreateAutobiographyChaptersRequestDto(
+        PostCreateAutobiographyChapterRequestDto(
             chapters =
                 chapters.map { chapterItem ->
-                    PostCreateAutobiographyChaptersRequestDto.ChapterItem(
+                    PostCreateAutobiographyChapterRequestDto.ChapterItem(
                         number = chapterItem.number,
                         name = chapterItem.name,
                         description = chapterItem.description,
                         subchapters =
                             chapterItem.subchapters.map { subChapterItem ->
-                                PostCreateAutobiographyChaptersRequestDto.ChapterItem.SubChapterItem(
+                                PostCreateAutobiographyChapterRequestDto.ChapterItem.SubChapterItem(
                                     number = subChapterItem.number,
                                     name = subChapterItem.name,
                                     description = subChapterItem.description,
