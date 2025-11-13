@@ -8,11 +8,12 @@ import com.tdd.bookshelf.data.dataStore.dataStoreFileName
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
-val androidDataStoreModule = module {
-    single<DataStore<Preferences>> {
-        val context: Context = androidContext()
-        val path = context.filesDir.resolve(dataStoreFileName).absolutePath
+val androidDataStoreModule =
+    module {
+        single<DataStore<Preferences>> {
+            val context: Context = androidContext()
+            val path = context.filesDir.resolve(dataStoreFileName).absolutePath
 
-        createDataStore { path }
+            createDataStore { path }
+        }
     }
-}

@@ -28,31 +28,45 @@ private class AndroidSpeechToText(private val app: Application) : SpeechToText {
             partialCb = onPartial
             finalResult = ""
             val sr = SpeechRecognizer.createSpeechRecognizer(app)
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-                putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-                putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
-                putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
-            }
-            sr.setRecognitionListener(object : RecognitionListener {
-                override fun onReadyForSpeech(params: Bundle?) {}
-                override fun onBeginningOfSpeech() {}
-                override fun onRmsChanged(rmsdB: Float) {}
-                override fun onBufferReceived(buffer: ByteArray?) {}
-                override fun onEndOfSpeech() {}
-                override fun onError(error: Int) {
-                    isRunning = false
+            val intent =
+                Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                    putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                    putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
+                    putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ko-KR")
                 }
-                override fun onResults(results: Bundle) {
-                    val list = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-                    finalResult = list?.firstOrNull().orEmpty()
-                    isRunning = false
-                }
-                override fun onPartialResults(partialResults: Bundle) {
-                    val list = partialResults.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-                    list?.firstOrNull()?.let { partialCb?.invoke(it) }
-                }
-                override fun onEvent(eventType: Int, params: Bundle?) {}
-            })
+            sr.setRecognitionListener(
+                object : RecognitionListener {
+                    override fun onReadyForSpeech(params: Bundle?) {}
+
+                    override fun onBeginningOfSpeech() {}
+
+                    override fun onRmsChanged(rmsdB: Float) {}
+
+                    override fun onBufferReceived(buffer: ByteArray?) {}
+
+                    override fun onEndOfSpeech() {}
+
+                    override fun onError(error: Int) {
+                        isRunning = false
+                    }
+
+                    override fun onResults(results: Bundle) {
+                        val list = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                        finalResult = list?.firstOrNull().orEmpty()
+                        isRunning = false
+                    }
+
+                    override fun onPartialResults(partialResults: Bundle) {
+                        val list = partialResults.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                        list?.firstOrNull()?.let { partialCb?.invoke(it) }
+                    }
+
+                    override fun onEvent(
+                        eventType: Int,
+                        params: Bundle?,
+                    ) {}
+                },
+            )
             recognizer = sr
             isRunning = true
             sr.startListening(intent)
@@ -67,7 +81,8 @@ private class AndroidSpeechToText(private val app: Application) : SpeechToText {
                 recognizer = null
                 try {
                     sr?.stopListening()
-                } catch (_: Exception) {  }
+                } catch (_: Exception) {
+                }
                 cont.resume(finalResult)
             }
         }

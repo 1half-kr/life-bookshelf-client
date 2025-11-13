@@ -14,11 +14,9 @@ fun Application.initKoin(): KoinApplication =
         modules(
             androidDataStoreModule,
             dataStoreModule,
-
             KtorModule.module,
             NoAuthModule.module,
             KtorAIModule.module,
-
             ServiceModule().module,
             dataSourceModule,
             repositoryModule,
