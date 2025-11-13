@@ -12,17 +12,19 @@ import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
 @OptIn(ExperimentalForeignApi::class)
-val iosDataStoreModule = module {
-    single<DataStore<Preferences>> {
-        val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
-            directory = NSDocumentDirectory,
-            inDomain = NSUserDomainMask,
-            appropriateForURL = null,
-            create = false,
-            error = null
-        )
-        val path = requireNotNull(documentDirectory).path + "/$dataStoreFileName"
+val iosDataStoreModule =
+    module {
+        single<DataStore<Preferences>> {
+            val documentDirectory: NSURL? =
+                NSFileManager.defaultManager.URLForDirectory(
+                    directory = NSDocumentDirectory,
+                    inDomain = NSUserDomainMask,
+                    appropriateForURL = null,
+                    create = false,
+                    error = null,
+                )
+            val path = requireNotNull(documentDirectory).path + "/$dataStoreFileName"
 
-        createDataStore { path }
+            createDataStore { path }
+        }
     }
-}

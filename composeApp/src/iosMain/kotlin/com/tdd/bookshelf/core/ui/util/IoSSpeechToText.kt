@@ -25,7 +25,6 @@ import platform.Speech.SFSpeechAudioBufferRecognitionRequest
 import platform.Speech.SFSpeechRecognitionTask
 import platform.Speech.SFSpeechRecognizer
 import platform.Speech.SFSpeechRecognizerAuthorizationStatus
-import platform.darwin.NSObject
 import kotlin.coroutines.resume
 
 private class IOSSpeechToText : SpeechToText {
@@ -46,11 +45,12 @@ private class IOSSpeechToText : SpeechToText {
             finalText = ""
 
             // 권한
-            val auth = suspendCancellableCoroutine<SFSpeechRecognizerAuthorizationStatus> { cont ->
-                SFSpeechRecognizer.requestAuthorization { status ->
-                    cont.resume(status)
+            val auth =
+                suspendCancellableCoroutine<SFSpeechRecognizerAuthorizationStatus> { cont ->
+                    SFSpeechRecognizer.requestAuthorization { status ->
+                        cont.resume(status)
+                    }
                 }
-            }
             if (auth != SFSpeechRecognizerAuthorizationStatus.SFSpeechRecognizerAuthorizationStatusAuthorized) {
                 return@withContext
             }
@@ -60,9 +60,10 @@ private class IOSSpeechToText : SpeechToText {
             session.setMode(AVAudioSessionModeMeasurement, error = null)
             session.setActive(true, error = null)
 
-            request = SFSpeechAudioBufferRecognitionRequest().apply {
-                shouldReportPartialResults = true
-            }
+            request =
+                SFSpeechAudioBufferRecognitionRequest().apply {
+                    shouldReportPartialResults = true
+                }
 
             val inputNode = audioEngine.inputNode
             val format = inputNode.outputFormatForBus(0u)
@@ -75,19 +76,20 @@ private class IOSSpeechToText : SpeechToText {
             audioEngine.prepare()
             audioEngine.startAndReturnError(null)
 
-            task = recognizer?.recognitionTaskWithRequest(request!!, resultHandler = { result, error ->
-                if (result != null) {
-                    val text = result.bestTranscription.formattedString
-                    if (result.isFinal()) {
-                        finalText = text
+            task =
+                recognizer?.recognitionTaskWithRequest(request!!, resultHandler = { result, error ->
+                    if (result != null) {
+                        val text = result.bestTranscription.formattedString
+                        if (result.isFinal()) {
+                            finalText = text
+                            stopInternal()
+                        } else {
+                            partialCb?.invoke(text)
+                        }
+                    } else if (error != null) {
                         stopInternal()
-                    } else {
-                        partialCb?.invoke(text)
                     }
-                } else if (error != null) {
-                    stopInternal()
-                }
-            })
+                })
 
             isRunning = true
         }
@@ -105,7 +107,8 @@ private class IOSSpeechToText : SpeechToText {
         try {
             audioEngine.stop()
             audioEngine.inputNode.removeTapOnBus(0u)
-        } catch (_: Throwable) {}
+        } catch (_: Throwable) {
+        }
         request?.endAudio()
         task?.cancel()
         request = null
