@@ -9,5 +9,5 @@ ktlint_standard_import-ordering = disabled
 ktlint_standard_function-naming = disabled
 ktlint_standard_no-wildcard-imports = disabled
 
-[composeApp/src/commonMain/kotlin/com/tdd/bookshelf/core/designsystem/**.kt]
+[**/core/designsystem/**.kt]
 ktlint_standard_property-naming = disabled

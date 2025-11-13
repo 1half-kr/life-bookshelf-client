@@ -1,5 +1,6 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
 import java.util.Properties
 
 plugins {
@@ -156,8 +157,13 @@ tasks.named("runKtlintFormatOverCommonMainSourceSet") {
     dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
 }
 
-ktlint {
+configure<KtlintExtension> {
     filter {
-        exclude("**/build/generated/**")
+        exclude { treeEntry ->
+            val path = treeEntry.file.path
+            path.contains("build/generated/compose/resourceGenerator") ||
+                    path.contains("androidMainResourceCollectors") ||
+                    path.endsWith("ActualResourceCollectors.kt")
+        }
     }
 }

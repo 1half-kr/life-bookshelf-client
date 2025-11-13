@@ -3,7 +3,7 @@ package com.tdd.bookshelf.app.di
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.tdd.bookshelf.data.dataStore.createDataStore
-import com.tdd.bookshelf.data.dataStore.dataStoreFileName
+import com.tdd.bookshelf.data.dataStore.DATA_STORE_FILE_NAME
 import kotlinx.cinterop.ExperimentalForeignApi
 import org.koin.dsl.module
 import platform.Foundation.NSDocumentDirectory
@@ -23,7 +23,7 @@ val iosDataStoreModule =
                     create = false,
                     error = null,
                 )
-            val path = requireNotNull(documentDirectory).path + "/$dataStoreFileName"
+            val path = requireNotNull(documentDirectory).path + "/$DATA_STORE_FILE_NAME"
 
             createDataStore { path }
         }
