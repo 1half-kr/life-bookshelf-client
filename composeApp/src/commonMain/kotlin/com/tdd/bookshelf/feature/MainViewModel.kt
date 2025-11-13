@@ -1,12 +1,11 @@
 package com.tdd.bookshelf.feature
 
-import androidx.navigation.compose.NavHost
 import com.tdd.bookshelf.core.navigation.NavRoutes
 import com.tdd.bookshelf.core.ui.base.BaseViewModel
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class MainViewModel: BaseViewModel<MainPageState>(
+class MainViewModel : BaseViewModel<MainPageState>(
     MainPageState()
 ) {
 
@@ -15,12 +14,11 @@ class MainViewModel: BaseViewModel<MainPageState>(
             NavRoutes.HomeScreen.route -> {
                 BottomNavType.HOME
             }
-//            NavRoutes.PublicationScreen.route -> {
-//                BottomNavType.PUBLICATION
-//            }
+
             NavRoutes.MyPageScreen.route -> {
                 BottomNavType.MY
             }
+
             else -> {
                 BottomNavType.DEFAULT
             }
