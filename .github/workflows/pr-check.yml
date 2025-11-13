@@ -49,7 +49,7 @@ jobs:
         working-directory: iosApp
         run: |
           xcodebuild \
-            -scheme BookShelfXcode \
+            -scheme iosApp \
             -sdk iphonesimulator \
             -configuration Debug \
             -destination 'platform=iOS Simulator,name=iPhone 15'
