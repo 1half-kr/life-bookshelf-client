@@ -14,12 +14,13 @@ import com.tdd.bookshelf.data.dataSource.dataSourceImpl.PublicationDataSourceImp
 import com.tdd.bookshelf.data.dataSource.dataSourceImpl.ai.InterviewAIDataSourceImpl
 import org.koin.dsl.module
 
-val dataSourceModule = module {
-    single<AuthDataSource> { AuthDataSourceImpl(get()) }
-    single<AutobiographyDataSource> { AutobiographyDataSourceImpl(get()) }
-    single<MemberDataSource> { MemberDataSourceImpl(get()) }
-    single<PublicationDataSource> { PublicationDataSourceImpl(get()) }
-    single<InterviewDataSource> { InterviewDataSourceImpl(get()) }
+val dataSourceModule =
+    module {
+        single<AuthDataSource> { AuthDataSourceImpl(get()) }
+        single<AutobiographyDataSource> { AutobiographyDataSourceImpl(get()) }
+        single<MemberDataSource> { MemberDataSourceImpl(get()) }
+        single<PublicationDataSource> { PublicationDataSourceImpl(get()) }
+        single<InterviewDataSource> { InterviewDataSourceImpl(get()) }
 
-    single<InterviewAIDataSource> { InterviewAIDataSourceImpl(get()) }
-}
+        single<InterviewAIDataSource> { InterviewAIDataSourceImpl(get()) }
+    }

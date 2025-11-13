@@ -9,5 +9,6 @@ interface AuthRepository {
     suspend fun saveToken(request: String): Flow<Result<Unit>>
 
     suspend fun postEmailLogIn(request: EmailLogInRequestModel): Flow<Result<AccessTokenModel>>
+
     suspend fun postEmailSignUp(request: EmailSignUpRequestModel): Flow<Result<AccessTokenModel>>
 }

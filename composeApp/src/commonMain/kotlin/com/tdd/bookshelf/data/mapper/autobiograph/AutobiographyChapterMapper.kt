@@ -9,7 +9,6 @@ import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 
 object AutobiographyChapterMapper : BaseMapper() {
-
     fun responseToModel(apiCall: suspend () -> HttpResponse): Flow<Result<ChapterListModel>> {
         return baseMapper(
             apiCall = { apiCall() },
@@ -18,27 +17,29 @@ object AutobiographyChapterMapper : BaseMapper() {
                 response?.let { data ->
                     ChapterListModel(
                         currentChapterId = data.currentChapterId,
-                        results = data.results.map { chapterItem ->
-                            ChapterItemModel(
-                                chapterId = chapterItem.chapterId,
-                                chapterNumber = chapterItem.chapterNumber,
-                                chapterName = chapterItem.chapterName,
-                                chapterDescription = chapterItem.chapterDescription,
-                                chapterCreatedAt = chapterItem.chapterCreatedAt,
-                                subChapters = chapterItem.subChapters.map { subItem ->
-                                    SubChapterItemModel(
-                                        chapterId = subItem.chapterId,
-                                        chapterNumber = subItem.chapterNumber,
-                                        chapterName = subItem.chapterName,
-                                        chapterDescription = subItem.chapterDescription,
-                                        chapterCreatedAt = subItem.chapterCreatedAt
-                                    )
-                                }
-                            )
-                        }
+                        results =
+                            data.results.map { chapterItem ->
+                                ChapterItemModel(
+                                    chapterId = chapterItem.chapterId,
+                                    chapterNumber = chapterItem.chapterNumber,
+                                    chapterName = chapterItem.chapterName,
+                                    chapterDescription = chapterItem.chapterDescription,
+                                    chapterCreatedAt = chapterItem.chapterCreatedAt,
+                                    subChapters =
+                                        chapterItem.subChapters.map { subItem ->
+                                            SubChapterItemModel(
+                                                chapterId = subItem.chapterId,
+                                                chapterNumber = subItem.chapterNumber,
+                                                chapterName = subItem.chapterName,
+                                                chapterDescription = subItem.chapterDescription,
+                                                chapterCreatedAt = subItem.chapterCreatedAt,
+                                            )
+                                        },
+                                )
+                            },
                     )
                 } ?: ChapterListModel()
-            }
+            },
         )
     }
 }

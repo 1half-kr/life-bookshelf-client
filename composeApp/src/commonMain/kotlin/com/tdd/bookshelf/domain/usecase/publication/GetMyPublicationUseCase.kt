@@ -11,7 +11,6 @@ import org.koin.core.annotation.Factory
 class GetMyPublicationUseCase(
     private val repository: PublicationRepository,
 ) : UseCase<GetQueryDefaultModel, Result<PublishMyListModel>>() {
-
     override suspend fun invoke(request: GetQueryDefaultModel): Flow<Result<PublishMyListModel>> =
         repository.getMyPublication(request)
 }

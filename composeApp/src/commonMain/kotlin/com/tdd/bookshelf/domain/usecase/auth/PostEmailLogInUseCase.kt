@@ -11,7 +11,6 @@ import org.koin.core.annotation.Factory
 class PostEmailLogInUseCase(
     private val repository: AuthRepository,
 ) : UseCase<EmailLogInRequestModel, Result<AccessTokenModel>>() {
-
     override suspend fun invoke(request: EmailLogInRequestModel): Flow<Result<AccessTokenModel>> =
         repository.postEmailLogIn(request)
 }

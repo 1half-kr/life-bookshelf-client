@@ -14,12 +14,13 @@ import com.tdd.bookshelf.domain.repository.MemberRepository
 import com.tdd.bookshelf.domain.repository.PublicationRepository
 import org.koin.dsl.module
 
-val repositoryModule = module {
-    single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
-    single<AutobiographyRepository> { AutobiographyRepositoryImpl(get()) }
-    single<MemberRepository> { MemberRepositoryImpl(get()) }
-    single<PublicationRepository> { PublicationRepositoryImpl(get()) }
-    single<InterviewRepository> { InterviewRepositoryImpl(get()) }
+val repositoryModule =
+    module {
+        single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
+        single<AutobiographyRepository> { AutobiographyRepositoryImpl(get()) }
+        single<MemberRepository> { MemberRepositoryImpl(get()) }
+        single<PublicationRepository> { PublicationRepositoryImpl(get()) }
+        single<InterviewRepository> { InterviewRepositoryImpl(get()) }
 
-    single<InterviewAIRepository> { InterviewAIRepositoryImpl(get()) }
-}
+        single<InterviewAIRepository> { InterviewAIRepositoryImpl(get()) }
+    }

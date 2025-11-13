@@ -37,11 +37,10 @@ fun TextFieldBox(
     onValueChange: (String) -> Unit,
     hintText: String,
 ) {
-
     TextFieldBoxContent(
         textInput = textInput,
         onValueChange = onValueChange,
-        hintText = hintText
+        hintText = hintText,
     )
 }
 
@@ -63,40 +62,46 @@ fun TextFieldBoxContent(
     }
 
     Box(
-        modifier = Modifier
-            .height(60.dp)
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)
-            .clip(RoundedCornerShape(14.dp))
-            .background(Gray50)
+        modifier =
+            Modifier
+                .height(60.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp)
+                .clip(RoundedCornerShape(14.dp))
+                .background(Gray50),
     ) {
         BasicTextField(
             value = textInput,
             onValueChange = { input ->
                 onValueChange(input)
             },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 18.dp)
-                .onFocusChanged { focusState ->
-                    isFocused = focusState.isFocused
-                },
-            textStyle = BookShelfTypo.Regular.copy(
-                color = Gray900,
-                fontSize = 16.sp
-            ),
-            keyboardOptions = KeyboardOptions.Default.copy(
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    focusManager.clearFocus()
-                }
-            ),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 18.dp)
+                    .onFocusChanged { focusState ->
+                        isFocused = focusState.isFocused
+                    },
+            textStyle =
+                BookShelfTypo.Regular.copy(
+                    color = Gray900,
+                    fontSize = 16.sp,
+                ),
+            keyboardOptions =
+                KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done,
+                ),
+            keyboardActions =
+                KeyboardActions(
+                    onDone = {
+                        focusManager.clearFocus()
+                    },
+                ),
             decorationBox = { innerTextField ->
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth(),
                 ) {
                     if (textInput.isEmpty() && !isFocused) {
                         Text(
@@ -107,7 +112,7 @@ fun TextFieldBoxContent(
                     }
                     innerTextField()
                 }
-            }
+            },
         )
     }
 }

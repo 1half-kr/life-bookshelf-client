@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class InterviewConversationResponseDto (
+data class InterviewConversationResponseDto(
     @SerialName("results")
     val results: List<InterviewConversationDto> = emptyList(),
     @SerialName("currentPage")
@@ -16,5 +16,5 @@ data class InterviewConversationResponseDto (
     @SerialName("hasNextPage")
     val hasNextPage: Boolean = false,
     @SerialName("asPreviousPage")
-    val hasPreviousPage: Boolean = false
+    val hasPreviousPage: Boolean = false,
 )

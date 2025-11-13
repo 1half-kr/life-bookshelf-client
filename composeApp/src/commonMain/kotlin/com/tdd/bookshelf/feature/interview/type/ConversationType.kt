@@ -12,7 +12,8 @@ enum class ConversationType(
     val btnImg: DrawableResource,
 ) {
     BEFORE(BeforeStart, Res.drawable.img_interview_before),
-    ING(InterviewIng, Res.drawable.img_interview_ing);
+    ING(InterviewIng, Res.drawable.img_interview_ing),
+    ;
 
     companion object {
         fun getConversationBtnImg(type: ConversationType): DrawableResource =

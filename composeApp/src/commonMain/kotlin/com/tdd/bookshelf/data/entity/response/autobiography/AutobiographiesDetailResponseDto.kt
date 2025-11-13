@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AutobiographiesDetailResponseDto (
+data class AutobiographiesDetailResponseDto(
     @SerialName("autobiographyId")
     val autobiographyId: Int = 0,
     @SerialName("interviewId")
@@ -18,5 +18,5 @@ data class AutobiographiesDetailResponseDto (
     @SerialName("createdAt")
     val createdAt: String = "",
     @SerialName("updatedAt")
-    val updatedAt: String = ""
+    val updatedAt: String = "",
 )

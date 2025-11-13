@@ -24,35 +24,38 @@ fun TopBarContent(
     content: String,
     onClickIcon: () -> Unit = {},
     interactionSource: MutableInteractionSource,
-    iconVisible: Boolean = true
+    iconVisible: Boolean = true,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier =
+            Modifier
+                .fillMaxWidth(),
     ) {
         Text(
             text = content,
             style = BookShelfTypo.SemiBold,
             color = Neutral900,
             fontSize = 20.sp,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(vertical = 30.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.Center)
+                    .padding(vertical = 30.dp),
         )
 
         if (iconVisible) {
             AsyncImage(
                 model = Res.getUri("files/ic_back.svg"),
                 contentDescription = "",
-                modifier = Modifier
-                    .align(Alignment.CenterStart)
-                    .padding(start = 20.dp)
-                    .size(24.dp)
-                    .clickable(
-                        interactionSource = interactionSource,
-                        indication = null,
-                        onClick = onClickIcon
-                    )
+                modifier =
+                    Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = 20.dp)
+                        .size(24.dp)
+                        .clickable(
+                            interactionSource = interactionSource,
+                            indication = null,
+                            onClick = onClickIcon,
+                        ),
             )
         }
     }

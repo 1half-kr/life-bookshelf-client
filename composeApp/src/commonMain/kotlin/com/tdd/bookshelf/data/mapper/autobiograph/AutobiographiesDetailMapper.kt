@@ -7,7 +7,6 @@ import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 
 object AutobiographiesDetailMapper : BaseMapper() {
-
     fun responseToModel(apiCall: suspend () -> HttpResponse): Flow<Result<AutobiographiesDetailModel>> {
         return baseMapper(
             apiCall = { apiCall() },
@@ -21,10 +20,10 @@ object AutobiographiesDetailMapper : BaseMapper() {
                         content = data.content,
                         coverImageUrl = data.coverImageUrl,
                         createdAt = data.createdAt,
-                        updatedAt = data.updatedAt
+                        updatedAt = data.updatedAt,
                     )
                 } ?: AutobiographiesDetailModel()
-            }
+            },
         )
     }
 }

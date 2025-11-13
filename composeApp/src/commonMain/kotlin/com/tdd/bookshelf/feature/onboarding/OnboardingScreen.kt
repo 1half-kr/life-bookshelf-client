@@ -9,17 +9,16 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun OnboardingScreen() {
-
     OnboardingContent()
 }
 
 @Composable
 private fun OnboardingContent() {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier =
+            Modifier
+                .fillMaxSize(),
     ) {
-
         Text(text = "Onboarding")
     }
 }

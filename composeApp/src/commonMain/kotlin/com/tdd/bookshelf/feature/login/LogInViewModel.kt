@@ -13,24 +13,23 @@ import org.koin.android.annotation.KoinViewModel
 @KoinViewModel
 class LogInViewModel(
     private val postEmailLogInUseCase: PostEmailLogInUseCase,
-    private val saveTokenUseCase: SaveTokenUseCase
+    private val saveTokenUseCase: SaveTokenUseCase,
 ) : BaseViewModel<LogInPageState>(
-    LogInPageState()
-) {
-
+        LogInPageState(),
+    ) {
     fun onEmailValueChange(newValue: String) {
         updateState(
             uiState.value.copy(
-                emailInput = newValue
-            )
+                emailInput = newValue,
+            ),
         )
     }
 
     fun onPasswordValueChange(newValue: String) {
         updateState(
             uiState.value.copy(
-                passwordInput = newValue
-            )
+                passwordInput = newValue,
+            ),
         )
     }
 
@@ -40,7 +39,7 @@ class LogInViewModel(
                 EmailLogInRequestModel(
                     email = uiState.value.emailInput,
                     password = uiState.value.passwordInput,
-                )
+                ),
             ).collect {
                 resultResponse(it, ::onSuccessPostEmailLogIn)
             }
@@ -57,7 +56,7 @@ class LogInViewModel(
 
     private fun saveAccessToken(data: String) {
         viewModelScope.launch {
-            saveTokenUseCase(data).collect {  }
+            saveTokenUseCase(data).collect { }
         }
     }
 }

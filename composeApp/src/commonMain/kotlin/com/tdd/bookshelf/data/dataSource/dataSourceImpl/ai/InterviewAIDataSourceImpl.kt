@@ -9,9 +9,8 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [InterviewAIDataSource::class])
 class InterviewAIDataSourceImpl(
-    private val interviewAIService: InterviewAIService
-): InterviewAIDataSource {
-
+    private val interviewAIService: InterviewAIService,
+) : InterviewAIDataSource {
     override suspend fun postInterviewQuestions(body: InterviewQuestionsRequestDto): HttpResponse =
         interviewAIService.postCreateInterviewQuestion(body)
 

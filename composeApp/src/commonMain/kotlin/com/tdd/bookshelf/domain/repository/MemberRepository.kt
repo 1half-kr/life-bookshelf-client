@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface MemberRepository {
     suspend fun getMemberInfo(): Flow<Result<MemberInfoModel>>
+
     suspend fun putEditMemberInfo(request: EditMemberInfoModel): Flow<Result<Boolean>>
+
     suspend fun getMemberProfile(): Flow<Result<MemberProfileModel>>
 }

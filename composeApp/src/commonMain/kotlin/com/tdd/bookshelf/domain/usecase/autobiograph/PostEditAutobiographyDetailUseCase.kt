@@ -10,7 +10,6 @@ import org.koin.core.annotation.Factory
 class PostEditAutobiographyDetailUseCase(
     private val repository: AutobiographyRepository,
 ) : UseCase<EditAutobiographyDetailRequestModel, Result<Boolean>>() {
-
     override suspend fun invoke(request: EditAutobiographyDetailRequestModel): Flow<Result<Boolean>> =
         repository.postEditAutobiographiesDetail(request)
 }

@@ -17,7 +17,8 @@ enum class BottomNavType(
 ) {
     HOME(Home, Res.drawable.img_home, NavRoutes.HomeScreen.route),
     MY(MyPage, Res.drawable.img_profile, NavRoutes.MyPageScreen.route),
-    DEFAULT(Empty, Res.drawable.ic_transparent, "");
+    DEFAULT(Empty, Res.drawable.ic_transparent, ""),
+    ;
 
     companion object {
         fun getBottomNavIcon(navType: BottomNavType): DrawableResource =
@@ -26,5 +27,4 @@ enum class BottomNavType(
         fun getDestination(navType: BottomNavType): String =
             entries.firstOrNull { it == navType }?.destination ?: ""
     }
-
 }

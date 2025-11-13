@@ -8,5 +8,5 @@ data class InterviewConversationDto(
     @SerialName("content")
     val content: String = "",
     @SerialName("conversationType")
-    val conversationType: String = ""
+    val conversationType: String = "",
 )

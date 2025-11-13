@@ -18,8 +18,8 @@ class MyViewModel(
     private val getMyPublicationUseCase: GetMyPublicationUseCase,
     private val getPublicationProgressUseCase: GetPublicationProgressUseCase,
 ) : BaseViewModel<MyPageState>(
-    MyPageState()
-) {
+        MyPageState(),
+    ) {
     init {
         initSetPublishBookList()
         initSetMemberInfo()
@@ -30,7 +30,7 @@ class MyViewModel(
             getMyPublicationUseCase(GetQueryDefaultModel(PUBLISH_PAGE, PUBLISH_SIZE)).collect {
                 resultResponse(
                     it,
-                    ::onSuccessPublishBookList
+                    ::onSuccessPublishBookList,
                 )
             }
         }
@@ -39,8 +39,8 @@ class MyViewModel(
     private fun onSuccessPublishBookList(data: PublishMyListModel) {
         updateState(
             uiState.value.copy(
-                publishBookList = data.results
-            )
+                publishBookList = data.results,
+            ),
         )
 
         if (data.results.isNotEmpty()) {
@@ -51,8 +51,8 @@ class MyViewModel(
     fun changeAlarmActivatedStatus() {
         updateState(
             uiState.value.copy(
-                isAlarmActivated = !uiState.value.isAlarmActivated
-            )
+                isAlarmActivated = !uiState.value.isAlarmActivated,
+            ),
         )
     }
 
@@ -65,8 +65,8 @@ class MyViewModel(
     private fun onSuccessGetMemberInfo(data: MemberInfoModel) {
         updateState(
             uiState.value.copy(
-                memberInfo = data
-            )
+                memberInfo = data,
+            ),
         )
     }
 
@@ -75,7 +75,7 @@ class MyViewModel(
             getPublicationProgressUseCase(publicationId).collect {
                 resultResponse(
                     it,
-                    ::onSuccessPublicationProgress
+                    ::onSuccessPublicationProgress,
                 )
             }
         }
@@ -84,8 +84,8 @@ class MyViewModel(
     private fun onSuccessPublicationProgress(data: PublicationProgressModel) {
         updateState(
             uiState.value.copy(
-                publishStatus = data.publishStatus
-            )
+                publishStatus = data.publishStatus,
+            ),
         )
     }
 

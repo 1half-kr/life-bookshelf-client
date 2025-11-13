@@ -68,7 +68,6 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MyScreen() {
-
     val viewModel: MyViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -81,7 +80,7 @@ fun MyScreen() {
         isAlarmActivated = uiState.isAlarmActivated,
         interactionSource = interactionSource,
         userName = uiState.memberInfo.name,
-        userBirthDay = uiState.memberInfo.bornedAt
+        userBirthDay = uiState.memberInfo.bornedAt,
     )
 }
 
@@ -96,35 +95,36 @@ private fun MyContent(
     userBirthDay: String,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackGround4)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(BackGround4),
     ) {
         TopBarContent(
             content = MyTitle,
             interactionSource = interactionSource,
-            iconVisible = false
+            iconVisible = false,
         )
 
         MyProfileBox(
             userName = userName,
-            userBirthDay = userBirthDay
+            userBirthDay = userBirthDay,
         )
 
         PublicationStatus(
             submitUI = publicationStatusUI(publishStatus).submitUI,
             progressUI = publicationStatusUI(publishStatus).progressUI,
-            completeUI = publicationStatusUI(publishStatus).completeUI
+            completeUI = publicationStatusUI(publishStatus).completeUI,
         )
 
         PublicationBookBox(
-            publishBookList = publishBookList
+            publishBookList = publishBookList,
         )
 
         MySettingBox(
             onClickAlarm = onClickAlarm,
             isAlarmActivated = isAlarmActivated,
-            interactionSource = interactionSource
+            interactionSource = interactionSource,
         )
     }
 }
@@ -136,47 +136,51 @@ private fun MyProfileBox(
     userBirthDay: String,
 ) {
     Row(
-        modifier = Modifier
-            .padding(20.dp)
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(Blue900)
+        modifier =
+            Modifier
+                .padding(20.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(Blue900),
     ) {
         AsyncImage(
             model = Res.getUri("files/ic_profile_default.svg"),
             contentDescription = "",
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .padding(start = 22.dp, top = 17.dp, bottom = 17.dp)
-                .size(42.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(start = 22.dp, top = 17.dp, bottom = 17.dp)
+                    .size(42.dp),
         )
 
         Column(
-            modifier = Modifier
-                .padding(start = 13.dp, top = 21.dp, bottom = 21.dp)
-                .weight(1f)
+            modifier =
+                Modifier
+                    .padding(start = 13.dp, top = 21.dp, bottom = 21.dp)
+                    .weight(1f),
         ) {
             Text(
                 text = userName,
                 color = White0,
                 style = BookShelfTypo.Medium,
-                fontSize = 16.sp
+                fontSize = 16.sp,
             )
 
             Text(
                 text = userBirthDay,
                 color = White0,
                 style = BookShelfTypo.Medium,
-                fontSize = 11.sp
+                fontSize = 11.sp,
             )
         }
 
         AsyncImage(
             model = Res.getUri("files/ic_pen.svg"),
             contentDescription = "edit",
-            modifier = Modifier
-                .padding(horizontal = 22.dp, vertical = 26.dp)
-                .size(24.dp)
+            modifier =
+                Modifier
+                    .padding(horizontal = 22.dp, vertical = 26.dp)
+                    .size(24.dp),
         )
     }
 }
@@ -192,47 +196,51 @@ private fun PublicationStatus(
         color = Black900,
         style = BookShelfTypo.Bold,
         fontSize = 15.sp,
-        modifier = Modifier
-            .padding(top = 17.dp, start = 22.dp, bottom = 10.dp)
+        modifier =
+            Modifier
+                .padding(top = 17.dp, start = 22.dp, bottom = 10.dp),
     )
 
     PublicationStatusBox(
         statusUI = submitUI,
-        progressContent = PublicationProgressUIContentModel(
-            5,
-            5,
-            0,
-            0,
-            SubmitStatusTitle,
-            SubmitStatusSubTitle,
-            "files/ic_step_first.svg"
-        )
+        progressContent =
+            PublicationProgressUIContentModel(
+                5,
+                5,
+                0,
+                0,
+                SubmitStatusTitle,
+                SubmitStatusSubTitle,
+                "files/ic_step_first.svg",
+            ),
     )
 
     PublicationStatusBox(
         statusUI = progressUI,
-        progressContent = PublicationProgressUIContentModel(
-            0,
-            0,
-            0,
-            0,
-            ProgressStatusTitle,
-            ProgressStatusSubTitle,
-            "files/ic_step_second.svg"
-        )
+        progressContent =
+            PublicationProgressUIContentModel(
+                0,
+                0,
+                0,
+                0,
+                ProgressStatusTitle,
+                ProgressStatusSubTitle,
+                "files/ic_step_second.svg",
+            ),
     )
 
     PublicationStatusBox(
         statusUI = completeUI,
-        progressContent = PublicationProgressUIContentModel(
-            0,
-            0,
-            5,
-            5,
-            CompleteStatusTitle,
-            CompleteStatusSubTitle,
-            "files/ic_step_third.svg"
-        )
+        progressContent =
+            PublicationProgressUIContentModel(
+                0,
+                0,
+                5,
+                5,
+                CompleteStatusTitle,
+                CompleteStatusSubTitle,
+                "files/ic_step_third.svg",
+            ),
     )
 }
 
@@ -242,50 +250,55 @@ private fun PublicationStatusBox(
     statusUI: UIModel,
     progressContent: PublicationProgressUIContentModel,
 ) {
-    val shape = RoundedCornerShape(
-        topStart = progressContent.topStartCorner.dp,
-        topEnd = progressContent.topEndCorner.dp,
-        bottomStart = progressContent.bottomStartCorner.dp,
-        bottomEnd = progressContent.bottomEndCorner.dp
-    )
+    val shape =
+        RoundedCornerShape(
+            topStart = progressContent.topStartCorner.dp,
+            topEnd = progressContent.topEndCorner.dp,
+            bottomStart = progressContent.bottomStartCorner.dp,
+            bottomEnd = progressContent.bottomEndCorner.dp,
+        )
 
     Row(
-        modifier = Modifier
-            .padding(horizontal = 20.dp)
-            .fillMaxWidth()
-            .clip(shape)
-            .border(1.dp, statusUI.strokeColor, shape)
-            .background(statusUI.backgroundColor)
+        modifier =
+            Modifier
+                .padding(horizontal = 20.dp)
+                .fillMaxWidth()
+                .clip(shape)
+                .border(1.dp, statusUI.strokeColor, shape)
+                .background(statusUI.backgroundColor),
     ) {
         if (statusUI.isChecked) {
             AsyncImage(
                 model = Res.getUri("files/ic_step_check.svg"),
                 contentDescription = "step",
-                modifier = Modifier
-                    .padding(vertical = 13.dp, horizontal = 19.dp)
-                    .size(31.dp)
-                    .clip(CircleShape)
+                modifier =
+                    Modifier
+                        .padding(vertical = 13.dp, horizontal = 19.dp)
+                        .size(31.dp)
+                        .clip(CircleShape),
             )
         } else {
             AsyncImage(
                 model = Res.getUri(progressContent.stepImg),
                 contentDescription = "step",
-                modifier = Modifier
-                    .padding(vertical = 13.dp, horizontal = 19.dp)
-                    .size(31.dp)
-                    .clip(CircleShape)
+                modifier =
+                    Modifier
+                        .padding(vertical = 13.dp, horizontal = 19.dp)
+                        .size(31.dp)
+                        .clip(CircleShape),
             )
         }
 
         Column(
-            modifier = Modifier
-                .padding(vertical = 13.dp)
+            modifier =
+                Modifier
+                    .padding(vertical = 13.dp),
         ) {
             Text(
                 text = progressContent.titleText,
                 color = statusUI.titleColor,
                 style = BookShelfTypo.Medium,
-                fontSize = 11.sp
+                fontSize = 11.sp,
             )
 
             Spacer(modifier = Modifier.padding(top = 2.dp))
@@ -294,7 +307,7 @@ private fun PublicationStatusBox(
                 text = progressContent.subTitleText,
                 color = statusUI.subTitleColor,
                 style = BookShelfTypo.Medium,
-                fontSize = 11.sp
+                fontSize = 11.sp,
             )
         }
     }
@@ -309,8 +322,9 @@ private fun PublicationBookBox(
         color = Black900,
         style = BookShelfTypo.Bold,
         fontSize = 14.sp,
-        modifier = Modifier
-            .padding(top = 31.dp, start = 26.dp)
+        modifier =
+            Modifier
+                .padding(top = 31.dp, start = 26.dp),
     )
 
     Text(
@@ -318,21 +332,22 @@ private fun PublicationBookBox(
         color = Gray900,
         style = BookShelfTypo.Medium,
         fontSize = 10.sp,
-        modifier = Modifier
-            .padding(start = 26.dp)
+        modifier =
+            Modifier
+                .padding(start = 26.dp),
     )
 
     LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 5.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 5.dp),
         horizontalArrangement = Arrangement.spacedBy(9.dp),
-        contentPadding = PaddingValues(horizontal = 20.dp)
-
+        contentPadding = PaddingValues(horizontal = 20.dp),
     ) {
         items(publishBookList) { item ->
             PublicationBookListItem(
-                item = item
+                item = item,
             )
         }
     }
@@ -343,21 +358,22 @@ private fun PublicationBookListItem(
     item: PublishMyListItemModel,
 ) {
     Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(5.dp))
-            .background(Black1000)
+        modifier =
+            Modifier
+                .clip(RoundedCornerShape(5.dp))
+                .background(Black1000),
     ) {
         Text(
             text = item.title,
             color = White0,
             style = BookShelfTypo.SemiBold,
             fontSize = 10.sp,
-            modifier = Modifier
-                .padding(top = 15.dp, bottom = 15.dp, start = 8.dp, end = 30.dp)
+            modifier =
+                Modifier
+                    .padding(top = 15.dp, bottom = 15.dp, start = 8.dp, end = 30.dp),
         )
     }
 }
-
 
 @Composable
 private fun MySettingBox(
@@ -370,21 +386,23 @@ private fun MySettingBox(
         color = Black900,
         style = BookShelfTypo.Bold,
         fontSize = 14.sp,
-        modifier = Modifier
-            .padding(top = 15.dp, start = 31.dp)
+        modifier =
+            Modifier
+                .padding(top = 15.dp, start = 31.dp),
     )
 
     Column(
-        modifier = Modifier
-            .padding(horizontal = 20.dp, vertical = 11.dp)
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(White0)
+        modifier =
+            Modifier
+                .padding(horizontal = 20.dp, vertical = 11.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(White0),
     ) {
         SettingAlarm(
             onClickAction = onClickAlarm,
             isActivated = isAlarmActivated,
-            interactionSource = interactionSource
+            interactionSource = interactionSource,
         )
 
         SettingUserDelete()
@@ -402,22 +420,24 @@ private fun SettingAlarm(
         AsyncImage(
             model = Res.getUri("files/ic_alarm.svg"),
             contentDescription = "",
-            modifier = Modifier
-                .padding(top = 30.dp, start = 17.dp, bottom = 12.dp, end = 16.dp)
-                .size(40.dp)
-                .clip(CircleShape)
+            modifier =
+                Modifier
+                    .padding(top = 30.dp, start = 17.dp, bottom = 12.dp, end = 16.dp)
+                    .size(40.dp)
+                    .clip(CircleShape),
         )
 
         Column(
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .weight(1f)
+            modifier =
+                Modifier
+                    .align(Alignment.CenterVertically)
+                    .weight(1f),
         ) {
             Text(
                 text = SettingAlarmTitle,
                 color = Gray900,
                 style = BookShelfTypo.Medium,
-                fontSize = 13.sp
+                fontSize = 13.sp,
             )
 
             Text(
@@ -425,31 +445,34 @@ private fun SettingAlarm(
                 color = Gray300,
                 style = BookShelfTypo.Medium,
                 fontSize = 11.sp,
-                modifier = Modifier
-                    .padding(top = 3.dp)
+                modifier =
+                    Modifier
+                        .padding(top = 3.dp),
             )
         }
 
         Box(
-            modifier = Modifier
-                .padding(end = 25.dp)
-                .width(51.dp)
-                .align(Alignment.CenterVertically)
-                .clip(RoundedCornerShape(20.dp))
-                .background(Gray100)
-                .clickable(
-                    onClick = onClickAction,
-                    interactionSource = interactionSource,
-                    indication = null
-                )
+            modifier =
+                Modifier
+                    .padding(end = 25.dp)
+                    .width(51.dp)
+                    .align(Alignment.CenterVertically)
+                    .clip(RoundedCornerShape(20.dp))
+                    .background(Gray100)
+                    .clickable(
+                        onClick = onClickAction,
+                        interactionSource = interactionSource,
+                        indication = null,
+                    ),
         ) {
             Box(
-                modifier = Modifier
-                    .padding(5.dp)
-                    .size(20.dp)
-                    .align(if (isActivated) Alignment.CenterEnd else Alignment.CenterStart)
-                    .clip(CircleShape)
-                    .background(if (isActivated) Blue300 else Gray300)
+                modifier =
+                    Modifier
+                        .padding(5.dp)
+                        .size(20.dp)
+                        .align(if (isActivated) Alignment.CenterEnd else Alignment.CenterStart)
+                        .clip(CircleShape)
+                        .background(if (isActivated) Blue300 else Gray300),
             )
         }
     }
@@ -462,22 +485,24 @@ private fun SettingUserDelete() {
         AsyncImage(
             model = Res.getUri("files/ic_user_delete.svg"),
             contentDescription = "",
-            modifier = Modifier
-                .padding(top = 12.dp, start = 17.dp, bottom = 30.dp, end = 16.dp)
-                .size(40.dp)
-                .clip(CircleShape)
+            modifier =
+                Modifier
+                    .padding(top = 12.dp, start = 17.dp, bottom = 30.dp, end = 16.dp)
+                    .size(40.dp)
+                    .clip(CircleShape),
         )
 
         Column(
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .weight(1f)
+            modifier =
+                Modifier
+                    .align(Alignment.CenterVertically)
+                    .weight(1f),
         ) {
             Text(
                 text = ProfileDeleteTitle,
                 color = Gray900,
                 style = BookShelfTypo.Medium,
-                fontSize = 13.sp
+                fontSize = 13.sp,
             )
 
             Text(
@@ -485,8 +510,9 @@ private fun SettingUserDelete() {
                 color = Gray300,
                 style = BookShelfTypo.Medium,
                 fontSize = 11.sp,
-                modifier = Modifier
-                    .padding(top = 3.dp)
+                modifier =
+                    Modifier
+                        .padding(top = 3.dp),
             )
         }
     }
@@ -500,43 +526,48 @@ private fun publicationStatusUI(
 
     when (statusType) {
         PublishStatusType.REQUEST -> {
-            progressUI = PublicationProgressUIModel(
-                submitUI = publicationStatusProgress(),
-                progressUI = publicationStatusYet(),
-                completeUI = publicationStatusYet()
-            )
+            progressUI =
+                PublicationProgressUIModel(
+                    submitUI = publicationStatusProgress(),
+                    progressUI = publicationStatusYet(),
+                    completeUI = publicationStatusYet(),
+                )
         }
 
         PublishStatusType.REQUEST_CONFIRM -> {
-            progressUI = PublicationProgressUIModel(
-                submitUI = publicationStatusCompleted(),
-                progressUI = publicationStatusProgress(),
-                completeUI = publicationStatusYet()
-            )
+            progressUI =
+                PublicationProgressUIModel(
+                    submitUI = publicationStatusCompleted(),
+                    progressUI = publicationStatusProgress(),
+                    completeUI = publicationStatusYet(),
+                )
         }
 
         PublishStatusType.IN_PUBLISHING -> {
-            progressUI = PublicationProgressUIModel(
-                submitUI = publicationStatusCompleted(),
-                progressUI = publicationStatusProgress(),
-                completeUI = publicationStatusYet()
-            )
+            progressUI =
+                PublicationProgressUIModel(
+                    submitUI = publicationStatusCompleted(),
+                    progressUI = publicationStatusProgress(),
+                    completeUI = publicationStatusYet(),
+                )
         }
 
         PublishStatusType.PUBLISHED -> {
-            progressUI = PublicationProgressUIModel(
-                submitUI = publicationStatusCompleted(),
-                progressUI = publicationStatusCompleted(),
-                completeUI = publicationStatusProgress()
-            )
+            progressUI =
+                PublicationProgressUIModel(
+                    submitUI = publicationStatusCompleted(),
+                    progressUI = publicationStatusCompleted(),
+                    completeUI = publicationStatusProgress(),
+                )
         }
 
         else -> {
-            progressUI = PublicationProgressUIModel(
-                submitUI = publicationStatusYet(),
-                progressUI = publicationStatusYet(),
-                completeUI = publicationStatusYet()
-            )
+            progressUI =
+                PublicationProgressUIModel(
+                    submitUI = publicationStatusYet(),
+                    progressUI = publicationStatusYet(),
+                    completeUI = publicationStatusYet(),
+                )
         }
     }
 

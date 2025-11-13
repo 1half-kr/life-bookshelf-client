@@ -6,5 +6,6 @@ import io.ktor.client.statement.HttpResponse
 
 interface InterviewAIDataSource {
     suspend fun postInterviewQuestions(body: InterviewQuestionsRequestDto): HttpResponse
+
     suspend fun postCreateInterviewChat(body: CreateInterviewChatRequestDto): HttpResponse
 }

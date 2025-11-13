@@ -6,23 +6,23 @@ import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 class MainViewModel : BaseViewModel<MainPageState>(
-    MainPageState()
+    MainPageState(),
 ) {
-
     fun setBottomNavType(route: String?) {
-        val type = when (route) {
-            NavRoutes.HomeScreen.route -> {
-                BottomNavType.HOME
-            }
+        val type =
+            when (route) {
+                NavRoutes.HomeScreen.route -> {
+                    BottomNavType.HOME
+                }
 
-            NavRoutes.MyPageScreen.route -> {
-                BottomNavType.MY
-            }
+                NavRoutes.MyPageScreen.route -> {
+                    BottomNavType.MY
+                }
 
-            else -> {
-                BottomNavType.DEFAULT
+                else -> {
+                    BottomNavType.DEFAULT
+                }
             }
-        }
 
         updateBottomNav(type)
     }
@@ -30,8 +30,8 @@ class MainViewModel : BaseViewModel<MainPageState>(
     private fun updateBottomNav(type: BottomNavType) {
         updateState(
             uiState.value.copy(
-                bottomNavType = type
-            )
+                bottomNavType = type,
+            ),
         )
     }
 }

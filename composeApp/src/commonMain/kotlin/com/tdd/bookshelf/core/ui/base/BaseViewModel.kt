@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel<STATE : PageState>(
     initialState: STATE,
 ) : ViewModel() {
-
     private val _uiState = MutableStateFlow(initialState)
     val uiState = _uiState.asStateFlow()
 
@@ -45,7 +44,7 @@ abstract class BaseViewModel<STATE : PageState>(
                 onFailure = { exception ->
                     e("[에러 발생]") { exception.stackTraceToString() }
                     errorCallback?.invoke(exception)
-                }
+                },
             )
         }
     }

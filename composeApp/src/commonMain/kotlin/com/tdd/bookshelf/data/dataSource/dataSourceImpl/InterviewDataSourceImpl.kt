@@ -8,8 +8,8 @@ import org.koin.core.annotation.Single
 
 @Single(binds = [InterviewDataSource::class])
 class InterviewDataSourceImpl(
-    private val interviewService: InterviewService
-): InterviewDataSource {
+    private val interviewService: InterviewService,
+) : InterviewDataSource {
     override suspend fun getInterviewConversation(interviewId: Int): HttpResponse =
         interviewService.getInterviewConversation(interviewId)
 
@@ -18,7 +18,7 @@ class InterviewDataSourceImpl(
 
     override suspend fun postInterviewConversation(
         interviewId: Int,
-        conversation: InterviewConversationRequestDto
+        conversation: InterviewConversationRequestDto,
     ): HttpResponse =
         interviewService.postInterviewChatBotConversation(interviewId, conversation)
 

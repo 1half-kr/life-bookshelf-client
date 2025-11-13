@@ -20,60 +20,62 @@ import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Single
 
-
 @Module
 @ComponentScan
 object NoAuthModule {
-
     private const val HEADER_VALUE = "utf-8"
 
     @Single
-    fun provideJson(): Json = Json {
-        ignoreUnknownKeys = true
-        coerceInputValues = true
-    }
+    fun provideJson(): Json =
+        Json {
+            ignoreUnknownKeys = true
+            coerceInputValues = true
+        }
 
     @Single
     @NoAuthKtor
     fun provideHttpClient(
         json: Json,
-    ): HttpClient = HttpClient {
-        install(ContentNegotiation) {
-            json(json)
-            register(
-                ContentType.Text.Plain,
-                KotlinxSerializationConverter(json)
-            )
-        }
+    ): HttpClient =
+        HttpClient {
+            install(ContentNegotiation) {
+                json(json)
+                register(
+                    ContentType.Text.Plain,
+                    KotlinxSerializationConverter(json),
+                )
+            }
 
-        install(HttpTimeout) {
-            connectTimeoutMillis = 10_000
-            socketTimeoutMillis = 10_000
-            requestTimeoutMillis = 10_000
-        }
+            install(HttpTimeout) {
+                connectTimeoutMillis = 10_000
+                socketTimeoutMillis = 10_000
+                requestTimeoutMillis = 10_000
+            }
 
-        install(Logging) {
-            level = LogLevel.ALL
-            logger = object : Logger {
-                override fun log(message: String) {
-                    println("[Ktor] -> $message")
-                }
+            install(Logging) {
+                level = LogLevel.ALL
+                logger =
+                    object : Logger {
+                        override fun log(message: String) {
+                            println("[Ktor] -> $message")
+                        }
+                    }
+            }
+
+            defaultRequest {
+                contentType(ContentType.Application.Json)
+                accept(ContentType.Application.Json)
+                headers.append(HttpHeaders.AcceptCharset, HEADER_VALUE)
             }
         }
-
-        defaultRequest {
-            contentType(ContentType.Application.Json)
-            accept(ContentType.Application.Json)
-            headers.append(HttpHeaders.AcceptCharset, HEADER_VALUE)
-        }
-    }
 
     @Single
     @NoAuthKtor
     fun provideKtorfit(
         @NoAuthKtor httpClient: HttpClient,
-    ): Ktorfit = Ktorfit.Builder()
-        .baseUrl(BuildKonfig.BASE_URL)
-        .httpClient(client = httpClient)
-        .build()
+    ): Ktorfit =
+        Ktorfit.Builder()
+            .baseUrl(BuildKonfig.BASE_URL)
+            .httpClient(client = httpClient)
+            .build()
 }

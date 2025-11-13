@@ -10,7 +10,6 @@ import org.koin.core.annotation.Factory
 class PostCreateInterviewChatUseCase(
     private val repository: InterviewAIRepository,
 ) : UseCase<CreateInterviewChatRequestModel, Result<String>>() {
-
     override suspend fun invoke(request: CreateInterviewChatRequestModel): Flow<Result<String>> =
         repository.postCreateInterviewChat(request)
 }

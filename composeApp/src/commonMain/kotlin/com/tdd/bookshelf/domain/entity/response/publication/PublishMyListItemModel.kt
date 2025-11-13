@@ -1,6 +1,6 @@
 package com.tdd.bookshelf.domain.entity.response.publication
 
-data class PublishMyListItemModel (
+data class PublishMyListItemModel(
     val bookId: Int = 0,
     val publicationId: Int = 0,
     val title: String = "",
@@ -8,5 +8,5 @@ data class PublishMyListItemModel (
     val coverImageUrl: String = "",
     val visibleScope: String = "",
     val page: Int = 0,
-    val createdAt: String = ""
+    val createdAt: String = "",
 )

@@ -32,9 +32,8 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 internal fun LogInScreen(
     goToOnboardingPage: () -> Unit,
-    goToSignUp: () -> Unit
+    goToSignUp: () -> Unit,
 ) {
-
     val viewModel: LogInViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -54,7 +53,7 @@ internal fun LogInScreen(
         onEmailValueChange = { newValue -> viewModel.onEmailValueChange(newValue) },
         passwordInput = uiState.passwordInput,
         onPasswordValueChange = { newValue -> viewModel.onPasswordValueChange(newValue) },
-        onClickSignUp = { goToSignUp() }
+        onClickSignUp = { goToSignUp() },
     )
 }
 
@@ -65,22 +64,24 @@ private fun LogInContent(
     onEmailValueChange: (String) -> Unit = {},
     passwordInput: String = "",
     onPasswordValueChange: (String) -> Unit = {},
-    onClickSignUp: () -> Unit = {}
+    onClickSignUp: () -> Unit = {},
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackGround1)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(BackGround1),
     ) {
         Text(
             text = LogInTitle,
             style = BookShelfTypo.SemiBold,
             color = Blue500,
             fontSize = 32.sp,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 180.dp),
-            textAlign = TextAlign.Center
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 180.dp),
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.padding(top = 150.dp))
@@ -88,7 +89,7 @@ private fun LogInContent(
         TextFieldBox(
             textInput = emailInput,
             onValueChange = onEmailValueChange,
-            hintText = EmailHintText
+            hintText = EmailHintText,
         )
 
         Spacer(modifier = Modifier.padding(top = 16.dp))
@@ -96,7 +97,7 @@ private fun LogInContent(
         TextFieldBox(
             textInput = passwordInput,
             onValueChange = onPasswordValueChange,
-            hintText = PasswordHintText
+            hintText = PasswordHintText,
         )
 
         Text(
@@ -104,13 +105,14 @@ private fun LogInContent(
             style = BookShelfTypo.SemiBold,
             color = Blue500,
             fontSize = 20.sp,
-            modifier = Modifier
-                .align(Alignment.Start)
-                .padding(top = 20.dp, start = 25.dp)
-                .clickable(
-                    onClick = onClickSignUp
-                ),
-            textAlign = TextAlign.Center
+            modifier =
+                Modifier
+                    .align(Alignment.Start)
+                    .padding(top = 20.dp, start = 25.dp)
+                    .clickable(
+                        onClick = onClickSignUp,
+                    ),
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.padding(top = 60.dp))
@@ -118,7 +120,7 @@ private fun LogInContent(
         RectangleBtn(
             btnContent = LogInBtn,
             isBtnActivated = emailInput.isNotEmpty() && passwordInput.isNotEmpty(),
-            onClickAction = onClickLogInBtn
+            onClickAction = onClickLogInBtn,
         )
     }
 }

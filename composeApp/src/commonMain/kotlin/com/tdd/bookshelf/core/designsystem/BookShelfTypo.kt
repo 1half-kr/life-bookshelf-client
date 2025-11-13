@@ -19,70 +19,80 @@ import org.jetbrains.compose.resources.Font
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun setFont(): FontFamily = FontFamily(
-    Font(Res.font.pretendard_black, FontWeight.Black),
-    Font(Res.font.pretendard_bold, FontWeight.Bold),
-    Font(Res.font.pretendard_extrabold, FontWeight.ExtraBold),
-    Font(Res.font.pretendard_extralight, FontWeight.ExtraLight),
-    Font(Res.font.pretendard_light, FontWeight.Light),
-    Font(Res.font.pretendard_medium, FontWeight.Medium),
-    Font(Res.font.pretendard_regular, FontWeight.Normal),
-    Font(Res.font.pretendard_semibold, FontWeight.SemiBold),
-    Font(Res.font.pretendard_thin, FontWeight.Thin)
-)
+fun setFont(): FontFamily =
+    FontFamily(
+        Font(Res.font.pretendard_black, FontWeight.Black),
+        Font(Res.font.pretendard_bold, FontWeight.Bold),
+        Font(Res.font.pretendard_extrabold, FontWeight.ExtraBold),
+        Font(Res.font.pretendard_extralight, FontWeight.ExtraLight),
+        Font(Res.font.pretendard_light, FontWeight.Light),
+        Font(Res.font.pretendard_medium, FontWeight.Medium),
+        Font(Res.font.pretendard_regular, FontWeight.Normal),
+        Font(Res.font.pretendard_semibold, FontWeight.SemiBold),
+        Font(Res.font.pretendard_thin, FontWeight.Thin),
+    )
 
 object BookShelfTypo {
     val Black: TextStyle
-        @Composable get() = TextStyle(
-            fontFamily = setFont(),
-            fontWeight = FontWeight.Black
-        )
+        @Composable get() =
+            TextStyle(
+                fontFamily = setFont(),
+                fontWeight = FontWeight.Black,
+            )
 
     val Bold: TextStyle
-        @Composable get() = TextStyle(
-            fontFamily = setFont(),
-            fontWeight = FontWeight.Bold
-        )
+        @Composable get() =
+            TextStyle(
+                fontFamily = setFont(),
+                fontWeight = FontWeight.Bold,
+            )
 
     val ExtraBold: TextStyle
-        @Composable get() = TextStyle(
-            fontFamily = setFont(),
-            fontWeight = FontWeight.ExtraBold
-        )
+        @Composable get() =
+            TextStyle(
+                fontFamily = setFont(),
+                fontWeight = FontWeight.ExtraBold,
+            )
 
     val ExtraLight: TextStyle
-        @Composable get() = TextStyle(
-            fontFamily = setFont(),
-            fontWeight = FontWeight.ExtraLight
-        )
+        @Composable get() =
+            TextStyle(
+                fontFamily = setFont(),
+                fontWeight = FontWeight.ExtraLight,
+            )
 
     val Light: TextStyle
-        @Composable get() = TextStyle(
-            fontFamily = setFont(),
-            fontWeight = FontWeight.Light
-        )
+        @Composable get() =
+            TextStyle(
+                fontFamily = setFont(),
+                fontWeight = FontWeight.Light,
+            )
 
     val Medium: TextStyle
-        @Composable get() = TextStyle(
-            fontFamily = setFont(),
-            fontWeight = FontWeight.Medium
-        )
+        @Composable get() =
+            TextStyle(
+                fontFamily = setFont(),
+                fontWeight = FontWeight.Medium,
+            )
 
     val Regular: TextStyle
-        @Composable get() = TextStyle(
-            fontFamily = setFont(),
-            fontWeight = FontWeight.Normal
-        )
+        @Composable get() =
+            TextStyle(
+                fontFamily = setFont(),
+                fontWeight = FontWeight.Normal,
+            )
 
     val SemiBold: TextStyle
-        @Composable get() = TextStyle(
-            fontFamily = setFont(),
-            fontWeight = FontWeight.SemiBold
-        )
+        @Composable get() =
+            TextStyle(
+                fontFamily = setFont(),
+                fontWeight = FontWeight.SemiBold,
+            )
 
     val Thin: TextStyle
-        @Composable get() = TextStyle(
-            fontFamily = setFont(),
-            fontWeight = FontWeight.Thin
-        )
+        @Composable get() =
+            TextStyle(
+                fontFamily = setFont(),
+                fontWeight = FontWeight.Thin,
+            )
 }

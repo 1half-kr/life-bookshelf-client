@@ -8,7 +8,6 @@ import de.jensklingenberg.ktorfit.http.Part
 import io.ktor.client.statement.HttpResponse
 
 interface MemberService {
-
     @GET(EndPoints.Member.MEMBER)
     suspend fun getMemberInfo(): HttpResponse
 
@@ -21,7 +20,7 @@ interface MemberService {
         @Part("hasChildren") hasChildren: Boolean,
         @Part("occupation") occupation: String,
         @Part("educationLevel") educationLevel: String,
-        @Part("maritalStatus") maritalStatus: String
+        @Part("maritalStatus") maritalStatus: String,
     ): HttpResponse
 
     @GET(EndPoints.Member.PROFILE)

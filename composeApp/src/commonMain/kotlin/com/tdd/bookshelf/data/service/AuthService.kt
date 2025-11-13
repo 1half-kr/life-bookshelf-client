@@ -7,7 +7,6 @@ import de.jensklingenberg.ktorfit.http.Part
 import io.ktor.client.statement.HttpResponse
 
 interface AuthService {
-
     @Multipart
     @POST(EndPoints.Auth.EMAILLOGIN)
     suspend fun postEmailLogIn(

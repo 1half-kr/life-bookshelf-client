@@ -9,7 +9,6 @@ import org.koin.core.annotation.Single
 class MemberDataSourceImpl(
     private val memberService: MemberService,
 ) : MemberDataSource {
-
     override suspend fun getMemberInfo(): HttpResponse =
         memberService.getMemberInfo()
 
@@ -23,7 +22,13 @@ class MemberDataSourceImpl(
         maritalStatus: String,
     ): HttpResponse =
         memberService.editMemberInfo(
-            name, bornedAt, gender, hasChildren, occupation, educationLevel, maritalStatus
+            name,
+            bornedAt,
+            gender,
+            hasChildren,
+            occupation,
+            educationLevel,
+            maritalStatus,
         )
 
     override suspend fun getMemberProfile(): HttpResponse =

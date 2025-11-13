@@ -4,11 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PublicationProgressResponseDto (
+data class PublicationProgressResponseDto(
     @SerialName("publicationId")
     val publicationId: Int,
     @SerialName("bookId")
-    val  bookId: Int,
+    val bookId: Int,
     @SerialName("title")
     val title: String,
     @SerialName("coverImageUrl")
@@ -28,5 +28,5 @@ data class PublicationProgressResponseDto (
     @SerialName("requestedAt")
     val requestedAt: String,
     @SerialName("willPublishedAt")
-    val willPublishedAt: String
+    val willPublishedAt: String,
 )

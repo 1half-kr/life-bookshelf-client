@@ -6,8 +6,7 @@ import com.tdd.bookshelf.domain.entity.response.auth.AccessTokenModel
 import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 
-object EmailSignUpMapper: BaseMapper() {
-
+object EmailSignUpMapper : BaseMapper() {
     fun responseToModel(apiCall: suspend () -> HttpResponse): Flow<Result<AccessTokenModel>> {
         return baseMapper(
             apiCall = { apiCall() },
@@ -15,10 +14,10 @@ object EmailSignUpMapper: BaseMapper() {
             responseToModel = { response ->
                 response?.let { data ->
                     AccessTokenModel(
-                        accessToken = data.accessToken
+                        accessToken = data.accessToken,
                     )
                 } ?: AccessTokenModel()
-            }
+            },
         )
     }
 }

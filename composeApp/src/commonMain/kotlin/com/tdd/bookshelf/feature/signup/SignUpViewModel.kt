@@ -15,21 +15,21 @@ class SignUpViewModel(
     private val saveTokenUseCase: SaveTokenUseCase,
     private val postEmailSignUpUseCase: PostEmailSignUpUseCase,
 ) : BaseViewModel<SignUpPageState>(
-    SignUpPageState()
-) {
+        SignUpPageState(),
+    ) {
     fun onEmailValueChange(newValue: String) {
         updateState(
             uiState.value.copy(
-                emailInput = newValue
-            )
+                emailInput = newValue,
+            ),
         )
     }
 
     fun onPasswordValueChange(newValue: String) {
         updateState(
             uiState.value.copy(
-                passwordInput = newValue
-            )
+                passwordInput = newValue,
+            ),
         )
     }
 
@@ -39,7 +39,7 @@ class SignUpViewModel(
                 EmailSignUpRequestModel(
                     email = uiState.value.emailInput,
                     password = uiState.value.passwordInput,
-                )
+                ),
             ).collect {
                 resultResponse(it, ::onSuccessPostEmailSignUp)
             }

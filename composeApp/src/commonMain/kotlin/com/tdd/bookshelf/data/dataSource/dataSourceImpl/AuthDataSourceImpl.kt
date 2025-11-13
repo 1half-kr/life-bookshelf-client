@@ -9,7 +9,6 @@ import org.koin.core.annotation.Single
 class AuthDataSourceImpl(
     private val authService: AuthService,
 ) : AuthDataSource {
-
     override suspend fun postEmailLogIn(
         email: String,
         password: String,

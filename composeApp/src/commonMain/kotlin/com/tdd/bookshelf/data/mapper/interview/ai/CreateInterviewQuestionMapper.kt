@@ -11,26 +11,29 @@ import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 
 object CreateInterviewQuestionMapper : BaseMapper() {
-
-    fun InterviewQuestionsRequestModel.toDto() = InterviewQuestionsRequestDto(
-        userInfo = UserInfoDto(
-            userInfo.name,
-            userInfo.bornedAt,
-            userInfo.gender,
-            userInfo.hasChildren,
-            userInfo.occupation ?: "",
-            userInfo.educationLevel ?: "",
-            userInfo.maritalStatus ?: ""
-        ),
-        chapterInfo = ChapterInfoDto(
-            chapterInfo.title,
-            chapterInfo.description
-        ),
-        subChapterInfo = ChapterInfoDto(
-            chapterInfo.title,
-            chapterInfo.description
+    fun InterviewQuestionsRequestModel.toDto() =
+        InterviewQuestionsRequestDto(
+            userInfo =
+                UserInfoDto(
+                    userInfo.name,
+                    userInfo.bornedAt,
+                    userInfo.gender,
+                    userInfo.hasChildren,
+                    userInfo.occupation ?: "",
+                    userInfo.educationLevel ?: "",
+                    userInfo.maritalStatus ?: "",
+                ),
+            chapterInfo =
+                ChapterInfoDto(
+                    chapterInfo.title,
+                    chapterInfo.description,
+                ),
+            subChapterInfo =
+                ChapterInfoDto(
+                    chapterInfo.title,
+                    chapterInfo.description,
+                ),
         )
-    )
 
     fun responseToModel(apiCall: suspend () -> HttpResponse): Flow<Result<InterviewQuestionsAIResponseModel>> {
         return baseMapper(
@@ -39,10 +42,10 @@ object CreateInterviewQuestionMapper : BaseMapper() {
             responseToModel = { response ->
                 response?.let { data ->
                     InterviewQuestionsAIResponseModel(
-                        interviewQuestions = data.interviewQuestions
+                        interviewQuestions = data.interviewQuestions,
                     )
                 } ?: InterviewQuestionsAIResponseModel()
-            }
+            },
         )
     }
 }

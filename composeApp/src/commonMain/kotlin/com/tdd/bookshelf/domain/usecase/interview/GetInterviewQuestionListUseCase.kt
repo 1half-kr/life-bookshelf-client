@@ -10,7 +10,6 @@ import org.koin.core.annotation.Factory
 class GetInterviewQuestionListUseCase(
     private val repository: InterviewRepository,
 ) : UseCase<Int, Result<InterviewQuestionListModel>>() {
-
     override suspend fun invoke(request: Int): Flow<Result<InterviewQuestionListModel>> =
         repository.getInterviewQuestionList(request)
 }

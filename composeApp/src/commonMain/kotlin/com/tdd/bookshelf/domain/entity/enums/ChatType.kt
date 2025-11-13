@@ -1,10 +1,11 @@
 package com.tdd.bookshelf.domain.entity.enums
 
 enum class ChatType(
-    val content: String
+    val content: String,
 ) {
     HUMAN("HUMAN"),
-    BOT("BOT");
+    BOT("BOT"),
+    ;
 
     companion object {
         fun getType(type: String): ChatType =

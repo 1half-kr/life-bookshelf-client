@@ -4,6 +4,7 @@ import io.ktor.client.statement.HttpResponse
 
 interface MemberDataSource {
     suspend fun getMemberInfo(): HttpResponse
+
     suspend fun editMemberInfo(
         name: String,
         bornedAt: String,
@@ -13,5 +14,6 @@ interface MemberDataSource {
         educationLevel: String,
         maritalStatus: String,
     ): HttpResponse
+
     suspend fun getMemberProfile(): HttpResponse
 }

@@ -8,7 +8,7 @@ import com.tdd.bookshelf.domain.entity.response.interview.InterviewConversationL
 import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 
-object GetInterviewConversationMapper: BaseMapper() {
+object GetInterviewConversationMapper : BaseMapper() {
     fun responseToModel(apiCall: suspend () -> HttpResponse): Flow<Result<InterviewConversationListModel>> {
         return baseMapper(
             apiCall = { apiCall() },
@@ -16,20 +16,21 @@ object GetInterviewConversationMapper: BaseMapper() {
             responseToModel = { response ->
                 response?.let { data ->
                     InterviewConversationListModel(
-                        results = data.results.map { result ->
-                            InterviewChatItem(
-                                content = result.content,
-                                chatType = ChatType.getType(result.conversationType)
-                            )
-                        },
+                        results =
+                            data.results.map { result ->
+                                InterviewChatItem(
+                                    content = result.content,
+                                    chatType = ChatType.getType(result.conversationType),
+                                )
+                            },
                         currentPage = data.currentPage,
                         totalElements = data.totalElements,
                         totalPages = data.totalPages,
                         hasNextPage = data.hasNextPage,
-                        hasPreviousPage = data.hasPreviousPage
+                        hasPreviousPage = data.hasPreviousPage,
                     )
                 } ?: InterviewConversationListModel()
-            }
+            },
         )
     }
 }

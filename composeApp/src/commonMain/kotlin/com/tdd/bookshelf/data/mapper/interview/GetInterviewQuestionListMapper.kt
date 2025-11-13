@@ -7,8 +7,7 @@ import com.tdd.bookshelf.domain.entity.response.interview.InterviewQuestionListM
 import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 
-object GetInterviewQuestionListMapper: BaseMapper() {
-
+object GetInterviewQuestionListMapper : BaseMapper() {
     fun responseToModel(apiCall: suspend () -> HttpResponse): Flow<Result<InterviewQuestionListModel>> {
         return baseMapper(
             apiCall = { apiCall() },
@@ -17,16 +16,17 @@ object GetInterviewQuestionListMapper: BaseMapper() {
                 response?.let { data ->
                     InterviewQuestionListModel(
                         currentQuestionId = data.currentQuestionId,
-                        results = data.results.map { result ->
-                            InterviewQuestionItemModel(
-                                questionId = result.questionId,
-                                order = result.order,
-                                questionText = result.questionText
-                            )
-                        }
+                        results =
+                            data.results.map { result ->
+                                InterviewQuestionItemModel(
+                                    questionId = result.questionId,
+                                    order = result.order,
+                                    questionText = result.questionText,
+                                )
+                            },
                     )
                 } ?: InterviewQuestionListModel()
-            }
+            },
         )
     }
 }

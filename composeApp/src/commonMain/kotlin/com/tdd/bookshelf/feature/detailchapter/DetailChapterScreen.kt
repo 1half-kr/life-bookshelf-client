@@ -45,7 +45,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 internal fun DetailChapterScreen(
     autobiographyId: Int,
-    goBackPage: () -> Unit
+    goBackPage: () -> Unit,
 ) {
     val viewModel: DetailChapterViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -59,7 +59,7 @@ internal fun DetailChapterScreen(
     DetailChapterContent(
         chapterDetail = uiState.detailChapter,
         onClickBackBtn = { goBackPage() },
-        interactionSource = interactionSource
+        interactionSource = interactionSource,
     )
 }
 
@@ -67,36 +67,38 @@ internal fun DetailChapterScreen(
 private fun DetailChapterContent(
     chapterDetail: AutobiographiesDetailModel = AutobiographiesDetailModel(),
     onClickBackBtn: () -> Unit = {},
-    interactionSource: MutableInteractionSource = MutableInteractionSource()
+    interactionSource: MutableInteractionSource = MutableInteractionSource(),
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackGround3)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(BackGround3),
     ) {
         TopBarContent(
             content = DetailChapterTitle,
             interactionSource = interactionSource,
-            onClickIcon = onClickBackBtn
+            onClickIcon = onClickBackBtn,
         )
 
         DetailTopBar(
-            title = chapterDetail.title
+            title = chapterDetail.title,
         )
 
         Image(
             painter = painterResource(Res.drawable.img_chapter_detail),
             contentDescription = "chapter edit",
-            modifier = Modifier
-                .padding(horizontal = 27.dp)
-                .padding(top = 26.dp)
-                .fillMaxWidth()
-                .height(290.dp)
-                .clip(RoundedCornerShape(13.dp))
+            modifier =
+                Modifier
+                    .padding(horizontal = 27.dp)
+                    .padding(top = 26.dp)
+                    .fillMaxWidth()
+                    .height(290.dp)
+                    .clip(RoundedCornerShape(13.dp)),
         )
 
         DetailTitleBar(
-            title = chapterDetail.title
+            title = chapterDetail.title,
         )
 
         Text(
@@ -104,66 +106,72 @@ private fun DetailChapterContent(
             color = Gray800,
             style = BookShelfTypo.Medium,
             fontSize = 15.sp,
-            modifier = Modifier
-                .padding(horizontal = 37.dp)
-                .padding(top = 12.dp, bottom = 30.dp)
-                .fillMaxWidth()
-                .weight(1f)
+            modifier =
+                Modifier
+                    .padding(horizontal = 37.dp)
+                    .padding(top = 12.dp, bottom = 30.dp)
+                    .fillMaxWidth()
+                    .weight(1f),
         )
     }
 }
 
 @Composable
 private fun DetailTopBar(
-    title: String
+    title: String,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 27.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 27.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = title,
             color = Black900,
             style = BookShelfTypo.SemiBold,
             fontSize = 16.sp,
-            modifier = Modifier
-                .weight(1f)
+            modifier =
+                Modifier
+                    .weight(1f),
         )
 
         DetailChatAgainBtn(
-            onClick = {}
+            onClick = {},
         )
     }
 }
 
 @Composable
 private fun DetailTitleBar(
-    title: String
+    title: String,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 27.dp)
-            .padding(top = 24.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 27.dp)
+                .padding(top = 24.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = title,
             color = Black900,
             style = BookShelfTypo.SemiBold,
             fontSize = 20.sp,
-            modifier = Modifier
-                .weight(1f)
+            modifier =
+                Modifier
+                    .weight(1f),
         )
 
         Image(
             painter = painterResource(Res.drawable.img_edit),
             contentDescription = "chapter edit",
-            modifier = Modifier
-                .padding(end = 5.dp)
-                .size(width = 35.dp, height = 45.dp)
+            modifier =
+                Modifier
+                    .padding(end = 5.dp)
+                    .size(width = 35.dp, height = 45.dp),
         )
     }
 }
@@ -173,20 +181,22 @@ private fun DetailChatAgainBtn(
     onClick: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(8.dp))
-            .border(1.dp, Gray600, RoundedCornerShape(8.dp))
-            .clickable(
-                onClick = onClick
-            )
+        modifier =
+            Modifier
+                .clip(RoundedCornerShape(8.dp))
+                .border(1.dp, Gray600, RoundedCornerShape(8.dp))
+                .clickable(
+                    onClick = onClick,
+                ),
     ) {
         Text(
             text = ChatAgainBtn,
             color = Neutral900,
             style = BookShelfTypo.SemiBold,
             fontSize = 13.sp,
-            modifier = Modifier
-                .padding(vertical = 7.dp, horizontal = 18.dp)
+            modifier =
+                Modifier
+                    .padding(vertical = 7.dp, horizontal = 18.dp),
         )
     }
 }

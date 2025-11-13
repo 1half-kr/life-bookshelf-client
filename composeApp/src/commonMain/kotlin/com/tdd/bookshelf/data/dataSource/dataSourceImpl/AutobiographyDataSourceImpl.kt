@@ -12,7 +12,6 @@ import org.koin.core.annotation.Single
 class AutobiographyDataSourceImpl(
     private val autobiographyService: AutobiographyService,
 ) : AutobiographyDataSource {
-
     override suspend fun getAllAutobiographies(): HttpResponse =
         autobiographyService.getAllAutobiographies()
 

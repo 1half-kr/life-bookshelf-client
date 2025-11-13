@@ -10,12 +10,13 @@ import com.tdd.bookshelf.feature.signup.SignUpViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
-val viewModelModule = module {
-    viewModel { MainViewModel() }
-    viewModel { LogInViewModel(get(), get()) }
-    viewModel { SignUpViewModel(get(), get()) }
-    viewModel { InterviewViewModel(get(), get()) }
-    viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
-    viewModel { DetailChapterViewModel(get()) }
-    viewModel { MyViewModel(get(), get(), get()) }
-}
+val viewModelModule =
+    module {
+        viewModel { MainViewModel() }
+        viewModel { LogInViewModel(get(), get()) }
+        viewModel { SignUpViewModel(get(), get()) }
+        viewModel { InterviewViewModel(get(), get()) }
+        viewModel { HomeViewModel(get(), get(), get(), get(), get()) }
+        viewModel { DetailChapterViewModel(get()) }
+        viewModel { MyViewModel(get(), get(), get()) }
+    }

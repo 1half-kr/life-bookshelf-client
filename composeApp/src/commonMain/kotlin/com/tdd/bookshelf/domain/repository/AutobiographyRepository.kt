@@ -10,11 +10,18 @@ import kotlinx.coroutines.flow.Flow
 
 interface AutobiographyRepository {
     suspend fun getAllAutobiographies(): Flow<Result<AllAutobiographyListModel>>
+
     suspend fun postCreateAutobiographies(body: CreateAutobiographyRequestModel): Flow<Result<Boolean>>
+
     suspend fun getAutobiographiesDetail(autobiographyId: Int): Flow<Result<AutobiographiesDetailModel>>
+
     suspend fun postEditAutobiographiesDetail(body: EditAutobiographyDetailRequestModel): Flow<Result<Boolean>>
+
     suspend fun deleteAutobiography(autobiographyId: Int): Flow<Result<Boolean>>
+
     suspend fun getAutobiographyChapter(): Flow<Result<ChapterListModel>>
+
     suspend fun postCreateChapterList(body: CreateAutobiographyChaptersRequestModel): Flow<Result<Boolean>>
+
     suspend fun postUpdateCurrentChapter(): Flow<Result<Boolean>>
 }

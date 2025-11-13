@@ -11,28 +11,27 @@ import de.jensklingenberg.ktorfit.http.Query
 import io.ktor.client.statement.HttpResponse
 
 interface PublicationService {
-
     @Multipart
     @POST(EndPoints.Publication.PUBLICATIONS)
     suspend fun postPublication(
         @Part("title") title: String,
         @Part("preSignedCoverImageUrl") preSignedCoverImageUrl: String,
-        @Part("titlePosition") titlePosition: String
+        @Part("titlePosition") titlePosition: String,
     ): HttpResponse
 
     @GET(EndPoints.Publication.MYPUBLICATIONS)
     suspend fun getMyPublication(
         @Query("page") page: Int,
-        @Query("size") size: Int
+        @Query("size") size: Int,
     ): HttpResponse
 
     @GET(EndPoints.Publication.PROGRESS)
     suspend fun getPublicationProgress(
-        @Path("publicationId") publicationId: Int
+        @Path("publicationId") publicationId: Int,
     ): HttpResponse
 
     @DELETE(EndPoints.Publication.DELETE)
     suspend fun deletePublicationBook(
-        @Path("bookId") bookId: Int
+        @Path("bookId") bookId: Int,
     ): HttpResponse
 }

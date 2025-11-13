@@ -28,9 +28,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 internal fun SignUpScreen(
-    goToLogInPage: () -> Unit
+    goToLogInPage: () -> Unit,
 ) {
-
     val viewModel: SignUpViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -49,7 +48,7 @@ internal fun SignUpScreen(
         emailInput = uiState.emailInput,
         onEmailValueChange = { newValue -> viewModel.onEmailValueChange(newValue) },
         passwordInput = uiState.passwordInput,
-        onPasswordValueChange = { newValue -> viewModel.onPasswordValueChange(newValue) }
+        onPasswordValueChange = { newValue -> viewModel.onPasswordValueChange(newValue) },
     )
 }
 
@@ -62,19 +61,21 @@ private fun SignUpContent(
     onPasswordValueChange: (String) -> Unit = {},
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackGround1)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(BackGround1),
     ) {
         Text(
             text = SignUpTitle,
             style = BookShelfTypo.SemiBold,
             color = Blue500,
             fontSize = 32.sp,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 180.dp),
-            textAlign = TextAlign.Center
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 180.dp),
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.padding(top = 150.dp))
@@ -82,7 +83,7 @@ private fun SignUpContent(
         TextFieldBox(
             textInput = emailInput,
             onValueChange = onEmailValueChange,
-            hintText = EmailHintText
+            hintText = EmailHintText,
         )
 
         Spacer(modifier = Modifier.padding(top = 16.dp))
@@ -90,7 +91,7 @@ private fun SignUpContent(
         TextFieldBox(
             textInput = passwordInput,
             onValueChange = onPasswordValueChange,
-            hintText = PasswordHintText
+            hintText = PasswordHintText,
         )
 
         Spacer(modifier = Modifier.padding(top = 60.dp))
@@ -98,7 +99,7 @@ private fun SignUpContent(
         RectangleBtn(
             btnContent = SignUpBtn,
             isBtnActivated = emailInput.isNotEmpty() && passwordInput.isNotEmpty(),
-            onClickAction = onClickSignUpBtn
+            onClickAction = onClickSignUpBtn,
         )
     }
 }

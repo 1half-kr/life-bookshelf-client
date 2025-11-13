@@ -17,17 +17,16 @@ import org.koin.android.annotation.KoinViewModel
 @KoinViewModel
 class InterviewViewModel(
     private val getInterviewConversationUseCase: GetInterviewConversationUseCase,
-    private val getInterviewQuestionListUseCase: GetInterviewQuestionListUseCase
+    private val getInterviewQuestionListUseCase: GetInterviewQuestionListUseCase,
 ) : BaseViewModel<InterviewPageState>(
-    InterviewPageState()
-) {
-
+        InterviewPageState(),
+    ) {
     fun setInterview(interviewId: Int) {
         d("[test] interviewViewModel -> $interviewId")
         updateState(
             uiState.value.copy(
-                interviewId = interviewId
-            )
+                interviewId = interviewId,
+            ),
         )
 
         initSetInterviewList(interviewId)
@@ -42,13 +41,16 @@ class InterviewViewModel(
         }
     }
 
-    private fun onSuccessSetInterviewConversationList(data: InterviewConversationListModel, interviewId: Int) {
+    private fun onSuccessSetInterviewConversationList(
+        data: InterviewConversationListModel,
+        interviewId: Int,
+    ) {
         d("[test] interview chats: -> ${data.results}")
         updateState(
             uiState.value.copy(
                 interviewConversationModel = data,
-                interviewChatList = data.results
-            )
+                interviewChatList = data.results,
+            ),
         )
 
         initSetInterviewQuestion(interviewId)
@@ -67,30 +69,33 @@ class InterviewViewModel(
         updateState(
             uiState.value.copy(
                 interviewCurrentQuestionId = data.currentQuestionId,
-                interviewQuestionList = data.results
-            )
+                interviewQuestionList = data.results,
+            ),
         )
 
         addInterviewConversation(data.results, data.currentQuestionId)
     }
 
-    private fun addInterviewConversation(questions: List<InterviewQuestionItemModel>, currentQuestionId: Int) {
+    private fun addInterviewConversation(
+        questions: List<InterviewQuestionItemModel>,
+        currentQuestionId: Int,
+    ) {
         val currentQuestion: InterviewQuestionItemModel = questions.firstOrNull { it.questionId == currentQuestionId } ?: InterviewQuestionItemModel()
         val currentConversationModel = InterviewChatItem(content = currentQuestion.questionText, chatType = ChatType.BOT)
         val updatedChatList = uiState.value.interviewChatList + currentConversationModel
 
         updateState(
             uiState.value.copy(
-                interviewChatList = updatedChatList
-            )
+                interviewChatList = updatedChatList,
+            ),
         )
     }
 
     fun beginInterview() {
         updateState(
             uiState.value.copy(
-                interviewProgressType = ConversationType.ING
-            )
+                interviewProgressType = ConversationType.ING,
+            ),
         )
     }
 
@@ -101,8 +106,8 @@ class InterviewViewModel(
         updateState(
             uiState.value.copy(
                 interviewChatList = originalInterviews + newAnswer,
-                interviewProgressType = ConversationType.BEFORE
-            )
+                interviewProgressType = ConversationType.BEFORE,
+            ),
         )
     }
 }

@@ -20,7 +20,6 @@ import org.koin.core.annotation.Single
 @Module
 @ComponentScan
 class ServiceModule {
-
     @Single
     fun provideAuthService(
         @NoAuthKtor ktorfit: Ktorfit,

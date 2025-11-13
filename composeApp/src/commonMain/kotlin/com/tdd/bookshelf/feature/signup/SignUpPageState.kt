@@ -2,7 +2,7 @@ package com.tdd.bookshelf.feature.signup
 
 import com.tdd.bookshelf.core.ui.base.PageState
 
-data class SignUpPageState (
+data class SignUpPageState(
     val emailInput: String = "",
-    val passwordInput: String = ""
-): PageState
+    val passwordInput: String = "",
+) : PageState

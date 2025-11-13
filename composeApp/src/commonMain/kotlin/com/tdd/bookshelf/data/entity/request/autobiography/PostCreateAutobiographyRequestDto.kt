@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostCreateAutobiographyRequestDto (
+data class PostCreateAutobiographyRequestDto(
     @SerialName("title")
     val title: String = "",
     @SerialName("content")
@@ -12,13 +12,13 @@ data class PostCreateAutobiographyRequestDto (
     @SerialName("preSignedCoverImageUrl")
     val preSignedCoverImageUrl: String = "",
     @SerialName("interviewQuestions")
-    val interviewQuestions: List<InterviewQuestion> = emptyList()
+    val interviewQuestions: List<InterviewQuestion> = emptyList(),
 ) {
     @Serializable
     data class InterviewQuestion(
         @SerialName("order")
         val order: Int = 0,
         @SerialName("questionText")
-        val questionText: String = ""
+        val questionText: String = "",
     )
 }

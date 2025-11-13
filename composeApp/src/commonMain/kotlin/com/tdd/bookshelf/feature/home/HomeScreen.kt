@@ -94,17 +94,19 @@ private fun HomeContent(
     currentChapter: SubChapterItemModel = SubChapterItemModel(),
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(White0)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(White0),
     ) {
         Text(
             text = HomeSemiTitle,
             color = Neutral500,
             style = BookShelfTypo.SemiBold,
             fontSize = 13.sp,
-            modifier = Modifier
-                .padding(top = 45.dp, start = 25.dp)
+            modifier =
+                Modifier
+                    .padding(top = 45.dp, start = 25.dp),
         )
 
         Text(
@@ -112,8 +114,9 @@ private fun HomeContent(
             color = Neutral900,
             style = BookShelfTypo.SemiBold,
             fontSize = 21.sp,
-            modifier = Modifier
-                .padding(top = 2.dp, start = 25.dp)
+            modifier =
+                Modifier
+                    .padding(top = 2.dp, start = 25.dp),
         )
 
         Spacer(modifier = Modifier.padding(top = 28.dp))
@@ -141,23 +144,24 @@ private fun HomeChapter(
     currentChapter: SubChapterItemModel,
 ) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(BackGround3)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(BackGround3),
     ) {
         Spacer(modifier = Modifier.padding(top = 25.dp))
 
         HomeCurrentProgressBox(
             onClickAction = onClickCurrentChapterInterview,
             interactionSource = interactionSource,
-            currentChapter = currentChapter
+            currentChapter = currentChapter,
         )
 
         Spacer(modifier = Modifier.padding(top = 50.dp))
 
         HomeChapterList(
             chapterList = chapterList,
-            onClickChapterDetail = onClickChapterDetail
+            onClickChapterDetail = onClickChapterDetail,
         )
     }
 }
@@ -169,79 +173,89 @@ private fun HomeCurrentProgressBox(
     currentChapter: SubChapterItemModel,
 ) {
     Column(
-        modifier = Modifier
-            .clickable(
-                onClick = onClickAction,
-                indication = null,
-                interactionSource = interactionSource
-            )
+        modifier =
+            Modifier
+                .clickable(
+                    onClick = onClickAction,
+                    indication = null,
+                    interactionSource = interactionSource,
+                ),
     ) {
         Box(
-            modifier = Modifier
-                .padding(horizontal = 28.dp)
-                .fillMaxWidth()
-                .height(90.dp)
+            modifier =
+                Modifier
+                    .padding(horizontal = 28.dp)
+                    .fillMaxWidth()
+                    .height(90.dp),
         ) {
             Image(
                 painter = painterResource(Res.drawable.img_current_chapter_default),
                 contentDescription = "current chapter img",
                 contentScale = ContentScale.FillBounds,
-                modifier = Modifier
-                    .fillMaxSize()
+                modifier =
+                    Modifier
+                        .fillMaxSize(),
             )
 
             Box(
-                modifier = Modifier
-                    .padding(end = 53.dp)
-                    .fillMaxWidth()
-                    .align(Alignment.BottomStart)
-                    .clip(RoundedCornerShape(topEnd = 8.dp))
-                    .background(White100)
+                modifier =
+                    Modifier
+                        .padding(end = 53.dp)
+                        .fillMaxWidth()
+                        .align(Alignment.BottomStart)
+                        .clip(RoundedCornerShape(topEnd = 8.dp))
+                        .background(White100),
             ) {
                 Text(
                     text = HomeCurrentProgressTitle,
                     color = White0,
                     style = BookShelfTypo.Regular,
                     fontSize = 13.sp,
-                    modifier = Modifier
-                        .padding(top = 8.dp, bottom = 8.dp, start = 17.dp)
+                    modifier =
+                        Modifier
+                            .padding(top = 8.dp, bottom = 8.dp, start = 17.dp),
                 )
             }
         }
 
         Row(
-            modifier = Modifier
-                .padding(horizontal = 28.dp)
-                .fillMaxWidth()
+            modifier =
+                Modifier
+                    .padding(horizontal = 28.dp)
+                    .fillMaxWidth(),
         ) {
             Box(
-                modifier = Modifier
-                    .padding(end = 14.dp)
-                    .weight(1f)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(White0)
+                modifier =
+                    Modifier
+                        .padding(end = 14.dp)
+                        .weight(1f)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(White0),
             ) {
                 Text(
                     text = currentChapter.chapterName.ifEmpty { HomeCurrentChapterEmpty },
                     color = Neutral900,
                     style = BookShelfTypo.SemiBold,
                     fontSize = 17.sp,
-                    modifier = Modifier
-                        .padding(top = 10.dp, start = 17.dp, bottom = 10.dp)
+                    modifier =
+                        Modifier
+                            .padding(top = 10.dp, start = 17.dp, bottom = 10.dp),
                 )
             }
 
             Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(7.dp))
-                    .background(White0)
+                modifier =
+                    Modifier
+                        .clip(RoundedCornerShape(7.dp))
+                        .background(White0),
             ) {
                 Image(
                     painter = painterResource(Res.drawable.ic_send),
                     contentDescription = "chapter start",
-                    modifier = Modifier
-                        .padding(7.dp)
-                        .size(21.dp)
+                    modifier =
+                        Modifier
+                            .padding(7.dp)
+                            .size(21.dp),
                 )
             }
         }
@@ -254,11 +268,12 @@ private fun HomeChapterList(
     onClickChapterDetail: (Int) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .padding(start = 22.dp, end = 22.dp, bottom = 30.dp)
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(17.dp)
+        modifier =
+            Modifier
+                .padding(start = 22.dp, end = 22.dp, bottom = 30.dp)
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(17.dp),
     ) {
         chapterList.forEachIndexed { index, chapterItem ->
             Text(
@@ -266,20 +281,22 @@ private fun HomeChapterList(
                 style = BookShelfTypo.SemiBold,
                 fontSize = 17.sp,
                 color = Neutral900,
-                modifier = Modifier
-                    .padding(bottom = 5.dp)
+                modifier =
+                    Modifier
+                        .padding(bottom = 5.dp),
             )
 
             Column(
-                modifier = Modifier
-                    .padding(horizontal = 22.dp)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(17.dp)
+                modifier =
+                    Modifier
+                        .padding(horizontal = 22.dp)
+                        .fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(17.dp),
             ) {
                 chapterItem.subChapters.forEachIndexed { subIndex, subChapterItem ->
                     HomeSubChapterListItem(
                         subItem = subChapterItem,
-                        onClickAction = { onClickChapterDetail(subChapterItem.chapterId) }
+                        onClickAction = { onClickChapterDetail(subChapterItem.chapterId) },
                     )
                 }
             }
@@ -294,53 +311,58 @@ private fun HomeSubChapterListItem(
     onClickAction: () -> Unit,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(
-                onClick = onClickAction
-            )
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clickable(
+                    onClick = onClickAction,
+                ),
     ) {
         AsyncImage(
             model = Res.getUri("files/ic_chapter_circle.svg"),
             contentDescription = "",
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .padding(end = 12.dp)
-                .size(14.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(end = 12.dp)
+                    .size(14.dp),
         )
 
         Row(
-            modifier = Modifier
-                .weight(1f)
+            modifier =
+                Modifier
+                    .weight(1f),
         ) {
             Image(
                 painter = painterResource(Res.drawable.img_chapter_default),
                 contentDescription = "sub chapter img",
-                modifier = Modifier
-                    .size(86.dp)
-                    .clip(RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp))
+                modifier =
+                    Modifier
+                        .size(86.dp)
+                        .clip(RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp)),
             )
 
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .height(86.dp)
-                    .clip(RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp))
-                    .background(White0)
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .height(86.dp)
+                        .clip(RoundedCornerShape(topEnd = 8.dp, bottomEnd = 8.dp))
+                        .background(White0),
             ) {
                 Text(
                     text = subItem.chapterNumber,
                     color = Neutral500,
                     style = BookShelfTypo.SemiBold,
                     fontSize = 12.sp,
-                    modifier = Modifier.padding(top = 15.dp, start = 11.dp)
+                    modifier = Modifier.padding(top = 15.dp, start = 11.dp),
                 )
                 Text(
                     text = subItem.chapterName,
                     color = Neutral900,
                     style = BookShelfTypo.SemiBold,
                     fontSize = 14.sp,
-                    modifier = Modifier.padding(start = 12.dp, top = 5.dp)
+                    modifier = Modifier.padding(start = 12.dp, top = 5.dp),
                 )
             }
         }

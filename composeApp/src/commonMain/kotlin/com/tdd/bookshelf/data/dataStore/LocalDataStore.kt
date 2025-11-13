@@ -11,10 +11,10 @@ import kotlinx.coroutines.flow.map
 class LocalDataStore(
     private val dataStore: DataStore<Preferences>,
 ) {
-
-    val accessToken: Flow<String?> = dataStore.data.map { preferences ->
-        preferences[ACCESS_TOKEN_KEY]
-    }
+    val accessToken: Flow<String?> =
+        dataStore.data.map { preferences ->
+            preferences[ACCESS_TOKEN_KEY]
+        }
 
     suspend fun saveAccessToken(token: String) {
         dataStore.edit { preferences ->
@@ -22,7 +22,6 @@ class LocalDataStore(
             d("[dataStore] access token: $token")
         }
     }
-
 
     companion object {
         val ACCESS_TOKEN_KEY = stringPreferencesKey("access_token")

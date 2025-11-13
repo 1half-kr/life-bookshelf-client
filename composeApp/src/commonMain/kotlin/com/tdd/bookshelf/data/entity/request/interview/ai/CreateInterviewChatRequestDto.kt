@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CreateInterviewChatRequestDto (
+data class CreateInterviewChatRequestDto(
     @SerialName("user_info")
     val userInfo: UserInfoDto = UserInfoDto(),
     @SerialName("chapter_info")
@@ -17,5 +17,5 @@ data class CreateInterviewChatRequestDto (
     @SerialName("current_answer")
     val currentAnswer: String = "",
     @SerialName("question_limit")
-    val questionLimit: Int = 0
+    val questionLimit: Int = 0,
 )

@@ -4,11 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AutobiographyChapterResponseDto (
+data class AutobiographyChapterResponseDto(
     @SerialName("currentChapterId")
     val currentChapterId: Int = 0,
     @SerialName("results")
-    val results: List<ChapterListItem> = emptyList()
+    val results: List<ChapterListItem> = emptyList(),
 ) {
     @Serializable
     data class ChapterListItem(
@@ -23,7 +23,7 @@ data class AutobiographyChapterResponseDto (
         @SerialName("chapterCreatedAt")
         val chapterCreatedAt: String = "",
         @SerialName("subChapters")
-        val subChapters: List<SubChapterItem> = emptyList()
+        val subChapters: List<SubChapterItem> = emptyList(),
     ) {
         @Serializable
         data class SubChapterItem(
@@ -37,6 +37,6 @@ data class AutobiographyChapterResponseDto (
             val chapterDescription: String = "",
             @SerialName("chapterCreatedAt")
             val chapterCreatedAt: String = "",
-            )
+        )
     }
 }

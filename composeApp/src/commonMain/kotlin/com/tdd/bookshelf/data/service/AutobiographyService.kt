@@ -12,7 +12,6 @@ import de.jensklingenberg.ktorfit.http.Path
 import io.ktor.client.statement.HttpResponse
 
 interface AutobiographyService {
-
     @GET(EndPoints.Autobiography.AUTOBIOGRAPHIES)
     suspend fun getAllAutobiographies(): HttpResponse
 

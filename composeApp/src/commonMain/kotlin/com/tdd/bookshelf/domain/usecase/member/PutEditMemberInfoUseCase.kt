@@ -10,7 +10,6 @@ import org.koin.core.annotation.Factory
 class PutEditMemberInfoUseCase(
     private val repository: MemberRepository,
 ) : UseCase<EditMemberInfoModel, Result<Boolean>>() {
-
     override suspend fun invoke(request: EditMemberInfoModel): Flow<Result<Boolean>> =
         repository.putEditMemberInfo(request)
 }

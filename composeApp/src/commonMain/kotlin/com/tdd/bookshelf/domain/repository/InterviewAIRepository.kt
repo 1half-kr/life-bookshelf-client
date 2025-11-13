@@ -7,5 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface InterviewAIRepository {
     suspend fun postInterviewQuestions(body: InterviewQuestionsRequestModel): Flow<Result<InterviewQuestionsAIResponseModel>>
+
     suspend fun postCreateInterviewChat(body: CreateInterviewChatRequestModel): Flow<Result<String>>
 }

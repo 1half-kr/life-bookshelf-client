@@ -32,41 +32,42 @@ import org.koin.dsl.module
 @ComponentScan("com.tdd.bookshelf.domain")
 class UseCaseModule
 
-val useCaseModule = module {
-    // Auth
-    factory { PostEmailLogInUseCase(get()) }
-    factory { SaveTokenUseCase(get()) }
-    factory { PostEmailSignUpUseCase(get()) }
+val useCaseModule =
+    module {
+        // Auth
+        factory { PostEmailLogInUseCase(get()) }
+        factory { SaveTokenUseCase(get()) }
+        factory { PostEmailSignUpUseCase(get()) }
 
-    // Autobiography
-    factory { GetAllAutobiographyUseCase(get()) }
-    factory { PostCreateAutobiographyUseCase(get()) }
-    factory { GetAutobiographiesDetailUseCase(get()) }
-    factory { PostEditAutobiographyDetailUseCase(get()) }
-    factory { DeleteAutobiographyUseCase(get()) }
-    factory { GetAutobiographiesChapterListUseCase(get()) }
-    factory { PostCreateAutobiographyChaptersUseCase(get()) }
-    factory { PostUpdateCurrentChapterUseCase(get()) }
+        // Autobiography
+        factory { GetAllAutobiographyUseCase(get()) }
+        factory { PostCreateAutobiographyUseCase(get()) }
+        factory { GetAutobiographiesDetailUseCase(get()) }
+        factory { PostEditAutobiographyDetailUseCase(get()) }
+        factory { DeleteAutobiographyUseCase(get()) }
+        factory { GetAutobiographiesChapterListUseCase(get()) }
+        factory { PostCreateAutobiographyChaptersUseCase(get()) }
+        factory { PostUpdateCurrentChapterUseCase(get()) }
 
-    // Member
-    factory { GetMemberInfoUseCase(get()) }
-    factory { PutEditMemberInfoUseCase(get()) }
-    factory { GetMemberProfileUseCase(get()) }
+        // Member
+        factory { GetMemberInfoUseCase(get()) }
+        factory { PutEditMemberInfoUseCase(get()) }
+        factory { GetMemberProfileUseCase(get()) }
 
-    // Publication
-    factory { PostPublicationUseCase(get()) }
-    factory { GetMyPublicationUseCase(get()) }
-    factory { GetPublicationProgressUseCase(get()) }
-    factory { DeletePublicationBookUseCase(get()) }
+        // Publication
+        factory { PostPublicationUseCase(get()) }
+        factory { GetMyPublicationUseCase(get()) }
+        factory { GetPublicationProgressUseCase(get()) }
+        factory { DeletePublicationBookUseCase(get()) }
 
-    // Interview
-    factory { GetInterviewConversationUseCase(get()) }
-    factory { PostInterviewRenewalUseCase(get()) }
-    factory { PostInterviewConversationUseCase(get()) }
-    factory { GetInterviewQuestionListUseCase(get()) }
+        // Interview
+        factory { GetInterviewConversationUseCase(get()) }
+        factory { PostInterviewRenewalUseCase(get()) }
+        factory { PostInterviewConversationUseCase(get()) }
+        factory { GetInterviewQuestionListUseCase(get()) }
 
-    // AI
-    // Interview
-    factory { PostCreateInterviewQuestionUseCase(get()) }
-    factory { PostCreateInterviewChatUseCase(get()) }
-}
+        // AI
+        // Interview
+        factory { PostCreateInterviewQuestionUseCase(get()) }
+        factory { PostCreateInterviewChatUseCase(get()) }
+    }

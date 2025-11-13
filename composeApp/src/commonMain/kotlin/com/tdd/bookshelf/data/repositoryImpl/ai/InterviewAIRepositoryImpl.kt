@@ -16,18 +16,17 @@ import org.koin.core.annotation.Single
 class InterviewAIRepositoryImpl(
     private val interviewAIDataSource: InterviewAIDataSource,
 ) : InterviewAIRepository {
-
     override suspend fun postInterviewQuestions(body: InterviewQuestionsRequestModel): Flow<Result<InterviewQuestionsAIResponseModel>> =
         CreateInterviewQuestionMapper.responseToModel(apiCall = {
             interviewAIDataSource.postInterviewQuestions(
-                body.toDto()
+                body.toDto(),
             )
         })
 
     override suspend fun postCreateInterviewChat(body: CreateInterviewChatRequestModel): Flow<Result<String>> =
         CreateInterviewConversationMapper.responseToModel(apiCall = {
             interviewAIDataSource.postCreateInterviewChat(
-                body.toDto()
+                body.toDto(),
             )
         })
 }

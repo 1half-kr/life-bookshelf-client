@@ -31,21 +31,20 @@ fun BottomNavBar(
     type: BottomNavType = BottomNavType.HOME,
     onClick: (String) -> Unit = {},
 ) {
-
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(White0),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(White0),
         horizontalArrangement = Arrangement.Absolute.SpaceEvenly,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
-
         BottomNavItem(
             navIcon = BottomNavType.getBottomNavIcon(BottomNavType.HOME),
             isSelected = (type == BottomNavType.HOME),
             type = BottomNavType.HOME,
             onClick = { onClick(BottomNavType.getDestination(BottomNavType.HOME)) },
-            interactionSource = interactionSource
+            interactionSource = interactionSource,
         )
 
         BottomNavItem(
@@ -53,7 +52,7 @@ fun BottomNavBar(
             isSelected = (type == BottomNavType.MY),
             type = BottomNavType.MY,
             onClick = { onClick(BottomNavType.getDestination(BottomNavType.MY)) },
-            interactionSource = interactionSource
+            interactionSource = interactionSource,
         )
     }
 }
@@ -67,20 +66,22 @@ private fun BottomNavItem(
     interactionSource: MutableInteractionSource,
 ) {
     Column(
-        modifier = Modifier
-            .padding(vertical = 7.dp)
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                onClick = onClick
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier =
+            Modifier
+                .padding(vertical = 7.dp)
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    onClick = onClick,
+                ),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(
             painter = painterResource(navIcon),
             contentDescription = "nav icon",
-            modifier = Modifier
-                .size(25.dp)
+            modifier =
+                Modifier
+                    .size(25.dp),
         )
 
         Spacer(modifier = Modifier.height(6.dp))
@@ -88,7 +89,7 @@ private fun BottomNavItem(
         Text(
             text = type.navName,
             style = BookShelfTypo.Regular,
-            color = if (isSelected) Blue500 else Gray400
+            color = if (isSelected) Blue500 else Gray400,
         )
     }
 }

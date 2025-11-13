@@ -9,5 +9,5 @@ data class MyPageState(
     val publishStatus: String = Rejected,
     val publishBookList: List<PublishMyListItemModel> = emptyList(),
     val isAlarmActivated: Boolean = false,
-    val memberInfo: MemberInfoModel = MemberInfoModel()
+    val memberInfo: MemberInfoModel = MemberInfoModel(),
 ) : PageState

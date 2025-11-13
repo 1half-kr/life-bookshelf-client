@@ -15,6 +15,6 @@ interface InterviewAIService {
 
     @POST(EndPoints.Interview.CREATEINTERVIEW)
     suspend fun postCreateInterviewChat(
-        @Body body: CreateInterviewChatRequestDto
+        @Body body: CreateInterviewChatRequestDto,
     ): HttpResponse
 }

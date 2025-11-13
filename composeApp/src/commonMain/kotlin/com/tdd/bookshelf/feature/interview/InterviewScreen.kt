@@ -53,7 +53,6 @@ internal fun InterviewScreen(
     interviewId: Int,
     goBackPage: () -> Unit,
 ) {
-
     val viewModel: InterviewViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -62,17 +61,19 @@ internal fun InterviewScreen(
     val stt = rememberSpeechToText()
     val scope = rememberCoroutineScope()
     var partial by remember { mutableStateOf("") }
-    val mergedChat = remember(uiState.interviewChatList, uiState.interviewProgressType, partial) {
-        if (uiState.interviewProgressType == ConversationType.ING && partial.isNotBlank()) {
-            d("[인터뷰] 대화 -> $partial")
-            uiState.interviewChatList + InterviewChatItem(
-                content = partial,
-                chatType = ChatType.HUMAN
-            )
-        } else {
-            uiState.interviewChatList
+    val mergedChat =
+        remember(uiState.interviewChatList, uiState.interviewProgressType, partial) {
+            if (uiState.interviewProgressType == ConversationType.ING && partial.isNotBlank()) {
+                d("[인터뷰] 대화 -> $partial")
+                uiState.interviewChatList +
+                    InterviewChatItem(
+                        content = partial,
+                        chatType = ChatType.HUMAN,
+                    )
+            } else {
+                uiState.interviewChatList
+            }
         }
-    }
 
     LaunchedEffect(Unit) {
         viewModel.setInterview(interviewId)
@@ -98,7 +99,7 @@ internal fun InterviewScreen(
                 viewModel.setInterviewAnswer(text)
                 partial = ""
             }
-        }
+        },
     )
 }
 
@@ -114,50 +115,54 @@ private fun InterviewContent(
     onFinishInterview: () -> Unit = {},
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(White0)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(White0),
     ) {
         TopBarContent(
             content = InterviewScreenTitle,
             interactionSource = interactionSource,
-            onClickIcon = onClickBack
+            onClickIcon = onClickBack,
         )
 
         InterviewChat(
             modifier = Modifier.weight(1f),
-            interviewChatList = interviewChatList
+            interviewChatList = interviewChatList,
         )
 
         Box(
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(bottom = 35.dp)
-                .size(80.dp)
-                .clip(CircleShape)
-                .background(Blue300)
-                .clickable(
-                    interactionSource = interactionSource,
-                    indication = null,
-                    onClick = {
-                        if (isInterviewProgressIng) {
-                            onFinishInterview()
-                        } else {
-                            onStartInterview()
-                        }
-                    }
-                )
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(bottom = 35.dp)
+                    .size(80.dp)
+                    .clip(CircleShape)
+                    .background(Blue300)
+                    .clickable(
+                        interactionSource = interactionSource,
+                        indication = null,
+                        onClick = {
+                            if (isInterviewProgressIng) {
+                                onFinishInterview()
+                            } else {
+                                onStartInterview()
+                            }
+                        },
+                    ),
         ) {
             Image(
-                painter = painterResource(
-                    ConversationType.getConversationBtnImg(
-                        interviewProgressType
-                    )
-                ),
+                painter =
+                    painterResource(
+                        ConversationType.getConversationBtnImg(
+                            interviewProgressType,
+                        ),
+                    ),
                 contentDescription = "interview btn",
-                modifier = Modifier
-                    .width(45.dp)
-                    .align(Alignment.Center)
+                modifier =
+                    Modifier
+                        .width(45.dp)
+                        .align(Alignment.Center),
             )
         }
     }
@@ -169,35 +174,38 @@ private fun InterviewChat(
     interviewChatList: List<InterviewChatItem>,
 ) {
     BoxWithConstraints(
-        modifier = modifier
-            .padding(bottom = 120.dp)
-            .fillMaxWidth()
+        modifier =
+            modifier
+                .padding(bottom = 120.dp)
+                .fillMaxWidth(),
     ) {
         val chatMaxWidth = maxWidth * 0.7f
 
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(15.dp)
+            verticalArrangement = Arrangement.spacedBy(15.dp),
         ) {
             interviewChatList.forEachIndexed { index, chatItem ->
                 when (chatItem.chatType) {
                     ChatType.BOT -> {
                         InterviewBotChatItem(
                             content = chatItem.content,
-                            modifier = Modifier
-                                .align(Alignment.Start)
-                                .padding(start = 20.dp)
-                                .widthIn(max = chatMaxWidth)
+                            modifier =
+                                Modifier
+                                    .align(Alignment.Start)
+                                    .padding(start = 20.dp)
+                                    .widthIn(max = chatMaxWidth),
                         )
                     }
 
                     ChatType.HUMAN -> {
                         InterviewHumanChatItem(
                             content = chatItem.content,
-                            modifier = Modifier
-                                .align(Alignment.End)
-                                .padding(end = 20.dp)
-                                .widthIn(max = chatMaxWidth)
+                            modifier =
+                                Modifier
+                                    .align(Alignment.End)
+                                    .padding(end = 20.dp)
+                                    .widthIn(max = chatMaxWidth),
                         )
                     }
                 }
@@ -212,17 +220,19 @@ private fun InterviewBotChatItem(
     modifier: Modifier,
 ) {
     Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp, bottomEnd = 12.dp))
-            .background(Gray50)
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp, bottomEnd = 12.dp))
+                .background(Gray50),
     ) {
         Text(
             text = content,
             color = Gray600,
             style = BookShelfTypo.Regular,
             fontSize = 14.sp,
-            modifier = Modifier
-                .padding(top = 20.dp, bottom = 20.dp, start = 16.dp, end = 20.dp)
+            modifier =
+                Modifier
+                    .padding(top = 20.dp, bottom = 20.dp, start = 16.dp, end = 20.dp),
         )
     }
 }
@@ -233,17 +243,19 @@ private fun InterviewHumanChatItem(
     modifier: Modifier,
 ) {
     Box(
-        modifier = modifier
-            .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp, bottomStart = 12.dp))
-            .background(Blue300)
+        modifier =
+            modifier
+                .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp, bottomStart = 12.dp))
+                .background(Blue300),
     ) {
         Text(
             text = content,
             color = White0,
             style = BookShelfTypo.Regular,
             fontSize = 14.sp,
-            modifier = Modifier
-                .padding(top = 20.dp, bottom = 20.dp, end = 16.dp, start = 20.dp)
+            modifier =
+                Modifier
+                    .padding(top = 20.dp, bottom = 20.dp, end = 16.dp, start = 20.dp),
         )
     }
 }

@@ -11,18 +11,18 @@ import io.ktor.client.statement.HttpResponse
 interface InterviewService {
     @GET(EndPoints.Interview.INTERVIEWCONVERSATION)
     suspend fun getInterviewConversation(
-        @Path("interviewId") interviewId: Int
+        @Path("interviewId") interviewId: Int,
     ): HttpResponse
 
     @POST(EndPoints.Interview.INTERVIEWRENEWAL)
     suspend fun postInterviewRenewal(
-        @Path("interviewId") interviewId: Int
+        @Path("interviewId") interviewId: Int,
     ): HttpResponse
 
     @POST(EndPoints.Interview.INTERVIEWCONVERSATION)
     suspend fun postInterviewChatBotConversation(
         @Path("interviewId") interviewId: Int,
-        @Body body: InterviewConversationRequestDto
+        @Body body: InterviewConversationRequestDto,
     ): HttpResponse
 
     @GET(EndPoints.Interview.INTERVIEWQUESTIONLIST)
