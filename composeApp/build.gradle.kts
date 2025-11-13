@@ -1,6 +1,5 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jlleitschuh.gradle.ktlint.KtlintExtension
 import java.util.Properties
 
 plugins {
@@ -15,7 +14,6 @@ plugins {
     alias(libs.plugins.ktorfit)
     alias(libs.plugins.compose.hotreload)
     alias(libs.plugins.buildkonfig)
-    alias(libs.plugins.ktlint)
 }
 
 val properties =
@@ -143,27 +141,10 @@ dependencies {
     add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
 }
 
-afterEvaluate {
-    tasks.named("kspDebugKotlinAndroid") {
-        dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
-    }
-}
-
 tasks.named("runKtlintCheckOverCommonMainSourceSet") {
     dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
 }
 
 tasks.named("runKtlintFormatOverCommonMainSourceSet") {
     dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
-}
-
-configure<KtlintExtension> {
-    filter {
-        exclude { treeEntry ->
-            val path = treeEntry.file.path
-            path.contains("build/generated/compose/resourceGenerator") ||
-                    path.contains("androidMainResourceCollectors") ||
-                    path.endsWith("ActualResourceCollectors.kt")
-        }
-    }
 }
