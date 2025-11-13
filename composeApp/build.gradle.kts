@@ -155,3 +155,9 @@ tasks.named("runKtlintCheckOverCommonMainSourceSet") {
 tasks.named("runKtlintFormatOverCommonMainSourceSet") {
     dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
 }
+
+ktlint {
+    filter {
+        exclude("**/build/generated/**")
+    }
+}
