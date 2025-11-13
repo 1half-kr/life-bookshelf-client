@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.ktorfit)
     alias(libs.plugins.compose.hotreload)
     alias(libs.plugins.buildkonfig)
+    alias(libs.plugins.ktlint)
 }
 
 val properties = Properties().apply {
