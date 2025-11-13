@@ -22,4 +22,5 @@ plugins {
     alias(libs.plugins.ktorfit) apply false
     alias(libs.plugins.compose.hotreload) apply false
     alias(libs.plugins.kotest.multiplatform) apply false
+    alias(libs.plugins.ktlint) apply  false
 }
