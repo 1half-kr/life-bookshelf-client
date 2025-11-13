@@ -49,6 +49,7 @@ jobs:
         working-directory: iosApp
         run: |
           xcodebuild \
+            -project iosApp.xcodeproj \
             -scheme iosApp \
             -sdk iphonesimulator \
             -configuration Debug \
