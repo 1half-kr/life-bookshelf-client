@@ -13,6 +13,6 @@ data class PublicationProgressUIModel(
         val strokeColor: Color = White0,
         val titleColor: Color = White0,
         val subTitleColor: Color = White0,
-        val isChecked: Boolean = false
+        val isChecked: Boolean = false,
     )
 }

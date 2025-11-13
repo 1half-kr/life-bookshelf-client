@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class InterviewQuestionsResponseDto (
+data class InterviewQuestionsResponseDto(
     @SerialName("interview_questions")
-    val interviewQuestions: List<String> = emptyList()
+    val interviewQuestions: List<String> = emptyList(),
 )

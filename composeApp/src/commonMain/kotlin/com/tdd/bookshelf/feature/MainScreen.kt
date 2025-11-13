@@ -30,12 +30,12 @@ import com.tdd.bookshelf.core.navigation.loginNavGraph
 import com.tdd.bookshelf.core.navigation.myNavGraph
 import com.tdd.bookshelf.core.navigation.onboardingNavGraph
 import com.tdd.bookshelf.core.navigation.publicationNavGraph
+import com.tdd.bookshelf.core.navigation.signupNavGraph
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MainScreen() {
-
     val viewModel: MainViewModel = koinViewModel()
     val uiState: MainPageState by viewModel.uiState.collectAsStateWithLifecycle()
     val navController = rememberNavController()
@@ -55,7 +55,7 @@ fun MainScreen() {
                 visible = uiState.bottomNavType != BottomNavType.DEFAULT,
                 modifier = Modifier.background(White0),
                 enter = fadeIn() + slideIn { IntOffset(0, 0) },
-                exit = fadeOut() + slideOut { IntOffset(0, 0) }
+                exit = fadeOut() + slideOut { IntOffset(0, 0) },
             ) {
                 BottomNavBar(
                     modifier = Modifier.navigationBarsPadding(),
@@ -70,41 +70,45 @@ fun MainScreen() {
                                 launchSingleTop = true
                             }
                         }
-                    }
+                    },
                 )
             }
         },
-        snackbarHost = {}
+        snackbarHost = {},
     ) { innerPadding ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
         ) {
             NavHost(
                 navController = navController,
-                startDestination = NavRoutes.LogInGraph.route
+                startDestination = NavRoutes.LogInGraph.route,
             ) {
                 loginNavGraph(
-                    navController = navController
+                    navController = navController,
+                )
+                signupNavGraph(
+                    navController = navController,
                 )
                 onboardingNavGraph(
-                    navController = navController
+                    navController = navController,
                 )
                 homeNavGraph(
-                    navController = navController
+                    navController = navController,
                 )
                 interviewNavGraph(
-                    navController = navController
+                    navController = navController,
                 )
                 detailChapterNavGraph(
-                    navController = navController
+                    navController = navController,
                 )
                 publicationNavGraph(
-                    navController = navController
+                    navController = navController,
                 )
                 myNavGraph(
-                    navController = navController
+                    navController = navController,
                 )
             }
         }

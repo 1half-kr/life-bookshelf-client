@@ -10,16 +10,15 @@ import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
 class DetailChapterViewModel(
-    private val getAutobiographiesDetailUseCase: GetAutobiographiesDetailUseCase
-): BaseViewModel<DetailChapterPageState>(
-    DetailChapterPageState()
-) {
-
+    private val getAutobiographiesDetailUseCase: GetAutobiographiesDetailUseCase,
+) : BaseViewModel<DetailChapterPageState>(
+        DetailChapterPageState(),
+    ) {
     fun setAutobiographyId(autobiographyId: Int) {
         updateState(
             uiState.value.copy(
-                selectedAutobiographyId = autobiographyId
-            )
+                selectedAutobiographyId = autobiographyId,
+            ),
         )
 
         initSetAutobiographyDetail(autobiographyId)
@@ -35,8 +34,8 @@ class DetailChapterViewModel(
         d("[ktor] detailChapterViewModel -> $data")
         updateState(
             uiState.value.copy(
-                detailChapter = data
-            )
+                detailChapter = data,
+            ),
         )
     }
 }

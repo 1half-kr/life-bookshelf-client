@@ -4,9 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostCreateAutobiographyChaptersRequestDto (
+data class PostCreateAutobiographyChapterRequestDto(
     @SerialName("chapters")
-    val chapters: List<ChapterItem> = emptyList()
+    val chapters: List<ChapterItem> = emptyList(),
 ) {
     @Serializable
     data class ChapterItem(
@@ -17,7 +17,7 @@ data class PostCreateAutobiographyChaptersRequestDto (
         @SerialName("description")
         val description: String = "",
         @SerialName("subchapters")
-        val subchapters: List<SubChapterItem> = emptyList()
+        val subchapters: List<SubChapterItem> = emptyList(),
     ) {
         @Serializable
         data class SubChapterItem(

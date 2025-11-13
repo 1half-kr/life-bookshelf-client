@@ -4,11 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class EmailLogInRequestDto (
+data class EmailLogInRequestDto(
     @SerialName("email")
     val email: String = "",
     @SerialName("password")
     val password: String = "",
     @SerialName("deviceToken")
-    val deviceToken: String = ""
+    val deviceToken: String = "",
 )

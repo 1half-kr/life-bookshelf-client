@@ -9,7 +9,6 @@ import org.koin.core.annotation.Factory
 class PostUpdateCurrentChapterUseCase(
     private val repository: AutobiographyRepository,
 ) : UseCase<Unit, Result<Boolean>>() {
-
     override suspend fun invoke(request: Unit): Flow<Result<Boolean>> =
         repository.postUpdateCurrentChapter()
 }

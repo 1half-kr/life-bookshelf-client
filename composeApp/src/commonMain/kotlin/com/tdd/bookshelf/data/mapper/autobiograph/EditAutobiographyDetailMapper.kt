@@ -5,10 +5,10 @@ import com.tdd.bookshelf.data.entity.request.autobiography.PostEditAutobiography
 import com.tdd.bookshelf.domain.entity.request.autobiography.EditAutobiographyDetailRequestModel
 
 object EditAutobiographyDetailMapper : BaseMapper() {
-
-    fun EditAutobiographyDetailRequestModel.toDto() = PostEditAutobiographyRequestDto(
-        title = title,
-        content = content,
-        preSignedCoverImageUrl = preSignedCoverImageUrl
-    )
+    fun EditAutobiographyDetailRequestModel.toDto() =
+        PostEditAutobiographyRequestDto(
+            title = title,
+            content = content,
+            preSignedCoverImageUrl = preSignedCoverImageUrl,
+        )
 }

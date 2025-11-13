@@ -15,7 +15,6 @@ import org.koin.core.annotation.Single
 class MemberRepositoryImpl(
     private val memberDataSource: MemberDataSource,
 ) : MemberRepository {
-
     override suspend fun getMemberInfo(): Flow<Result<MemberInfoModel>> =
         MemberInfoMapper.responseToModel(apiCall = { memberDataSource.getMemberInfo() })
 
@@ -28,7 +27,7 @@ class MemberRepositoryImpl(
                 request.hasChildren,
                 request.occupation,
                 request.educationLevel,
-                request.maritalStatus
+                request.maritalStatus,
             )
         })
 

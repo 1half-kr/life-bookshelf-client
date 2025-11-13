@@ -4,6 +4,7 @@ androidGradlePlugin = "8.13.0"
 android-compileSdk = "35"
 android-minSdk = "28"
 android-targetSdk = "35"
+ktlint = "12.1.1"
 
 # https://github.com/google/desugar_jdk_libs/blob/master/CHANGELOG.md
 androidDesugarJdkLibs = "2.1.5"
@@ -298,3 +299,4 @@ ktorfit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
 compose-hotreload = { id = "org.jetbrains.compose-hot-reload", version.ref = "compose-hot-reload" }
 kotest-multiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildKonfig" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }

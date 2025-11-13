@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ApiStatusResponse (
+data class ApiStatusResponse(
     @SerialName("statusCode")
     val statusCode: Int? = null,
     @SerialName("code")

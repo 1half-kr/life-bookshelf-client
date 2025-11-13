@@ -9,11 +9,12 @@ import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 
 object EmailLogInMapper : BaseMapper() {
-    fun EmailLogInRequestModel.toDto() = EmailLogInRequestDto(
-        email = email,
-        password = password,
-        deviceToken = deviceToken
-    )
+    fun EmailLogInRequestModel.toDto() =
+        EmailLogInRequestDto(
+            email = email,
+            password = password,
+            deviceToken = deviceToken,
+        )
 
     fun responseToModel(apiCall: suspend () -> HttpResponse): Flow<Result<AccessTokenModel>> {
         return baseMapper(
@@ -22,10 +23,10 @@ object EmailLogInMapper : BaseMapper() {
             responseToModel = { response ->
                 response?.let { data ->
                     AccessTokenModel(
-                        accessToken = data.accessToken
+                        accessToken = data.accessToken,
                     )
                 } ?: AccessTokenModel()
-            }
+            },
         )
     }
 }

@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MemberInfoResponseDto (
+data class MemberInfoResponseDto(
     @SerialName("name")
     val name: String = "",
     @SerialName("bornedAt")
@@ -18,5 +18,5 @@ data class MemberInfoResponseDto (
     @SerialName("educationLevel")
     val educationLevel: String? = null,
     @SerialName("maritalStatus")
-    val maritalStatus: String? = null
+    val maritalStatus: String? = null,
 )

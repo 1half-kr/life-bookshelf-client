@@ -9,7 +9,6 @@ import org.koin.core.annotation.Factory
 class DeletePublicationBookUseCase(
     private val repository: PublicationRepository,
 ) : UseCase<Int, Result<Boolean>>() {
-
     override suspend fun invoke(request: Int): Flow<Result<Boolean>> =
         repository.deletePublicationBook(request)
 }

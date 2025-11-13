@@ -9,7 +9,6 @@ import org.koin.core.annotation.Factory
 class SaveTokenUseCase(
     private val repository: AuthRepository,
 ) : UseCase<String, Result<Unit>>() {
-
     override suspend fun invoke(request: String): Flow<Result<Unit>> =
         repository.saveToken(request)
 }

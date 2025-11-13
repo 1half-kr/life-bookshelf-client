@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class EmailLogInResponseDto (
+data class EmailLogInResponseDto(
     @SerialName("accessToken")
-    val accessToken: String = ""
+    val accessToken: String = "",
 )

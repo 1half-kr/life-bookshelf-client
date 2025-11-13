@@ -15,7 +15,8 @@ enum class PublishStatusType(
     IN_PUBLISHING(InPublishing),
     PUBLISHED(Published),
     REJECTED(Rejected),
-    NOT_PUBLISHED(NotPublished);
+    NOT_PUBLISHED(NotPublished),
+    ;
 
     companion object {
         fun getPublishStatus(type: String): PublishStatusType =

@@ -16,36 +16,34 @@ import org.koin.core.annotation.Single
 class PublicationRepositoryImpl(
     private val publicationDataSource: PublicationDataSource,
 ) : PublicationRepository {
-
     override suspend fun postPublication(request: PostPublicationModel): Flow<Result<Boolean>> =
         DefaultBooleanMapper.responseToModel(apiCall = {
             publicationDataSource.postPublication(
                 request.title,
                 request.preCoverImage,
-                request.titlePosition.value
+                request.titlePosition.value,
             )
         })
-
 
     override suspend fun getMyPublication(request: GetQueryDefaultModel): Flow<Result<PublishMyListModel>> =
         PublishMyMapper.responseToModel(apiCall = {
             publicationDataSource.getMyPublication(
                 request.page,
-                request.size
+                request.size,
             )
         })
 
     override suspend fun getPublicationProgress(request: Int): Flow<Result<PublicationProgressModel>> =
         PublishProgressMapper.responseToModel(apiCall = {
             publicationDataSource.getPublicationProgress(
-                request
+                request,
             )
         })
 
     override suspend fun deletePublicationBook(bookId: Int): Flow<Result<Boolean>> =
         DefaultBooleanMapper.responseToModel(apiCall = {
             publicationDataSource.deletePublicationBook(
-                bookId
+                bookId,
             )
         })
 }

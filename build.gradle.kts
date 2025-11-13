@@ -1,3 +1,5 @@
+import org.jlleitschuh.gradle.ktlint.KtlintExtension
+
 buildscript {
     repositories {
         google()
@@ -22,4 +24,23 @@ plugins {
     alias(libs.plugins.ktorfit) apply false
     alias(libs.plugins.compose.hotreload) apply false
     alias(libs.plugins.kotest.multiplatform) apply false
+    alias(libs.plugins.ktlint) apply false
+}
+
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+    extensions.configure<KtlintExtension>("ktlint") {
+        version.set("1.2.1")
+        android.set(true)
+        ignoreFailures.set(false)
+
+        filter {
+            exclude { tree ->
+                val path = tree.file.path
+                path.contains("${File.separator}build${File.separator}")
+            }
+
+        }
+    }
 }

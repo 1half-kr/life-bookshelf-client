@@ -10,7 +10,6 @@ import org.koin.core.annotation.Factory
 class GetPublicationProgressUseCase(
     private val repository: PublicationRepository,
 ) : UseCase<Int, Result<PublicationProgressModel>>() {
-
     override suspend fun invoke(request: Int): Flow<Result<PublicationProgressModel>> =
         repository.getPublicationProgress(request)
 }

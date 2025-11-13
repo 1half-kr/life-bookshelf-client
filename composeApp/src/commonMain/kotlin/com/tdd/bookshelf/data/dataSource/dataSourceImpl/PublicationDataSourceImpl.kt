@@ -9,7 +9,6 @@ import org.koin.core.annotation.Single
 class PublicationDataSourceImpl(
     private val publicationService: PublicationService,
 ) : PublicationDataSource {
-
     override suspend fun postPublication(
         title: String,
         preSignedCoverImageUrl: String,
@@ -17,7 +16,10 @@ class PublicationDataSourceImpl(
     ): HttpResponse =
         publicationService.postPublication(title, preSignedCoverImageUrl, title)
 
-    override suspend fun getMyPublication(page: Int, size: Int): HttpResponse =
+    override suspend fun getMyPublication(
+        page: Int,
+        size: Int,
+    ): HttpResponse =
         publicationService.getMyPublication(page, size)
 
     override suspend fun getPublicationProgress(publicationId: Int): HttpResponse =

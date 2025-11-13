@@ -10,7 +10,6 @@ import org.koin.core.annotation.Factory
 class GetMemberProfileUseCase(
     private val repository: MemberRepository,
 ) : UseCase<Unit, Result<MemberProfileModel>>() {
-
     override suspend fun invoke(request: Unit): Flow<Result<MemberProfileModel>> =
         repository.getMemberProfile()
 }

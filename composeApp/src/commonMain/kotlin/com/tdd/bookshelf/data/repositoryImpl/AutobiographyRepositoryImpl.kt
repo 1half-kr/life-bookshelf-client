@@ -28,14 +28,14 @@ class AutobiographyRepositoryImpl(
     override suspend fun postCreateAutobiographies(body: CreateAutobiographyRequestModel): Flow<Result<Boolean>> =
         DefaultBooleanMapper.responseToModel(apiCall = {
             autobiographyDataSource.postCreateAutobiographies(
-                body.toDto()
+                body.toDto(),
             )
         })
 
     override suspend fun getAutobiographiesDetail(autobiographyId: Int): Flow<Result<AutobiographiesDetailModel>> =
         AutobiographiesDetailMapper.responseToModel(apiCall = {
             autobiographyDataSource.getAutobiographiesDetail(
-                autobiographyId
+                autobiographyId,
             )
         })
 
@@ -45,14 +45,14 @@ class AutobiographyRepositoryImpl(
         DefaultBooleanMapper.responseToModel(apiCall = {
             autobiographyDataSource.postEditAutobiographiesDetail(
                 body.autobiographyId,
-                body.toDto()
+                body.toDto(),
             )
         })
 
     override suspend fun deleteAutobiography(autobiographyId: Int): Flow<Result<Boolean>> =
         DefaultBooleanMapper.responseToModel(apiCall = {
             autobiographyDataSource.deleteAutobiography(
-                autobiographyId
+                autobiographyId,
             )
         })
 
@@ -62,7 +62,7 @@ class AutobiographyRepositoryImpl(
     override suspend fun postCreateChapterList(body: CreateAutobiographyChaptersRequestModel): Flow<Result<Boolean>> =
         DefaultBooleanMapper.responseToModel(apiCall = {
             autobiographyDataSource.postCreateChapterList(
-                body.toDto()
+                body.toDto(),
             )
         })
 

@@ -8,9 +8,8 @@ import org.koin.core.annotation.Factory
 
 @Factory
 class GetMemberInfoUseCase(
-    private val repository: MemberRepository
-): UseCase<Unit, Result<MemberInfoModel>>() {
-
+    private val repository: MemberRepository,
+) : UseCase<Unit, Result<MemberInfoModel>>() {
     override suspend fun invoke(request: Unit): Flow<Result<MemberInfoModel>> =
         repository.getMemberInfo()
 }

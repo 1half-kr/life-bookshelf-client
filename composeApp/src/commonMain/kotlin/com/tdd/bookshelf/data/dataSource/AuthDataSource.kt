@@ -8,4 +8,9 @@ interface AuthDataSource {
         password: String,
         deviceToken: String,
     ): HttpResponse
+
+    suspend fun postEmailSignUp(
+        email: String,
+        password: String,
+    ): HttpResponse
 }

@@ -1,9 +1,10 @@
 package com.tdd.bookshelf.data.base
 
 object EndPoints {
-
     object Auth {
-        const val EMAILLOGIN = "api/v1/auth/email-login"
+        private const val AUTH = "api/v1/auth"
+        const val EMAILLOGIN = "$AUTH/email-login"
+        const val EMAILSIGNUP = "$AUTH/email-register"
     }
 
     object Autobiography {
@@ -19,7 +20,13 @@ object EndPoints {
     }
 
     object Interview {
-        const val INTERVIEWQUESTION = "api/v1/interviews/interview-questions"
+        private const val INTERVIEW = "api/v1/interviews"
+        const val INTERVIEWQUESTION = "$INTERVIEW/interview-questions"
+        const val CREATEINTERVIEW = "$INTERVIEW/interview-chat"
+
+        const val INTERVIEWCONVERSATION = "$INTERVIEW/{interviewId}/conversations"
+        const val INTERVIEWRENEWAL = "$INTERVIEW/{interviewId}/questions/current-question"
+        const val INTERVIEWQUESTIONLIST = "$INTERVIEW/{interviewId}/questions"
     }
 
     object Publication {

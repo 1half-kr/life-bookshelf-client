@@ -10,7 +10,6 @@ import org.koin.core.annotation.Factory
 class GetAllAutobiographyUseCase(
     private val repository: AutobiographyRepository,
 ) : UseCase<Unit, Result<AllAutobiographyListModel>>() {
-
     override suspend fun invoke(request: Unit): Flow<Result<AllAutobiographyListModel>> =
         repository.getAllAutobiographies()
 }

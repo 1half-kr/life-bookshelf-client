@@ -11,5 +11,5 @@ enum class BookTitlePositionType(
     TOP(Top),
     MIDDLE(Middle),
     BOTTOM(Bottom),
-    LEFT(Left)
+    LEFT(Left),
 }

@@ -1,6 +1,6 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
-import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
 
 plugins {
     id("com.android.application")
@@ -16,9 +16,10 @@ plugins {
     alias(libs.plugins.buildkonfig)
 }
 
-val properties = Properties().apply {
-    load(rootProject.file("local.properties").inputStream())
-}
+val properties =
+    Properties().apply {
+        load(rootProject.file("local.properties").inputStream())
+    }
 
 kotlin {
     androidTarget {
@@ -29,7 +30,7 @@ kotlin {
 
     listOf(
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
@@ -83,7 +84,6 @@ kotlin {
         }
     }
 }
-
 
 android {
     namespace = "com.tdd.bookshelf"
@@ -141,8 +141,10 @@ dependencies {
     add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
 }
 
-afterEvaluate {
-    tasks.named("kspDebugKotlinAndroid") {
-        dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
-    }
+tasks.named("runKtlintCheckOverCommonMainSourceSet") {
+    dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
+}
+
+tasks.named("runKtlintFormatOverCommonMainSourceSet") {
+    dependsOn(tasks.named("kspCommonMainKotlinMetadata"))
 }

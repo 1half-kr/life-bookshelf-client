@@ -7,8 +7,7 @@ import com.tdd.bookshelf.domain.entity.response.publication.PublishMyListModel
 import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 
-object PublishMyMapper: BaseMapper() {
-
+object PublishMyMapper : BaseMapper() {
     fun responseToModel(apiCall: suspend () -> HttpResponse): Flow<Result<PublishMyListModel>> {
         return baseMapper(
             apiCall = { apiCall() },
@@ -16,26 +15,27 @@ object PublishMyMapper: BaseMapper() {
             responseToModel = { response ->
                 response?.let { data ->
                     PublishMyListModel(
-                        results = data.results.map { item ->
-                            PublishMyListItemModel(
-                                bookId = item.bookId,
-                                publicationId = item.publicationId,
-                                title = item.title,
-                                contentPreview = item.contentPreview,
-                                coverImageUrl = item.coverImageUrl,
-                                visibleScope = item.visibleScope,
-                                page = item.page,
-                                createdAt = item.createdAt
-                            )
-                        },
+                        results =
+                            data.results.map { item ->
+                                PublishMyListItemModel(
+                                    bookId = item.bookId,
+                                    publicationId = item.publicationId,
+                                    title = item.title,
+                                    contentPreview = item.contentPreview,
+                                    coverImageUrl = item.coverImageUrl,
+                                    visibleScope = item.visibleScope,
+                                    page = item.page,
+                                    createdAt = item.createdAt,
+                                )
+                            },
                         currentPage = data.currentPage,
                         totalElements = data.totalElements,
                         totalPages = data.totalPages,
                         hasNextPage = data.hasNextPage,
-                        hasPreviousPage = data.hasPreviousPage
+                        hasPreviousPage = data.hasPreviousPage,
                     )
                 } ?: PublishMyListModel()
-            }
+            },
         )
     }
 }

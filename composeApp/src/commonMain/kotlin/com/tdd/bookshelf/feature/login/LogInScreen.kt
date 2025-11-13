@@ -1,6 +1,7 @@
 package com.tdd.bookshelf.feature.login
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,6 +23,7 @@ import com.tdd.bookshelf.core.designsystem.EmailHintText
 import com.tdd.bookshelf.core.designsystem.LogInBtn
 import com.tdd.bookshelf.core.designsystem.LogInTitle
 import com.tdd.bookshelf.core.designsystem.PasswordHintText
+import com.tdd.bookshelf.core.designsystem.SignUpTitle
 import com.tdd.bookshelf.core.ui.common.button.RectangleBtn
 import com.tdd.bookshelf.core.ui.common.item.TextFieldBox
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -30,8 +32,8 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 internal fun LogInScreen(
     goToOnboardingPage: () -> Unit,
+    goToSignUp: () -> Unit,
 ) {
-
     val viewModel: LogInViewModel = koinViewModel()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -50,7 +52,8 @@ internal fun LogInScreen(
         emailInput = uiState.emailInput,
         onEmailValueChange = { newValue -> viewModel.onEmailValueChange(newValue) },
         passwordInput = uiState.passwordInput,
-        onPasswordValueChange = { newValue -> viewModel.onPasswordValueChange(newValue) }
+        onPasswordValueChange = { newValue -> viewModel.onPasswordValueChange(newValue) },
+        onClickSignUp = { goToSignUp() },
     )
 }
 
@@ -61,21 +64,24 @@ private fun LogInContent(
     onEmailValueChange: (String) -> Unit = {},
     passwordInput: String = "",
     onPasswordValueChange: (String) -> Unit = {},
+    onClickSignUp: () -> Unit = {},
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackGround1)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(BackGround1),
     ) {
         Text(
             text = LogInTitle,
             style = BookShelfTypo.SemiBold,
             color = Blue500,
             fontSize = 32.sp,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 180.dp),
-            textAlign = TextAlign.Center
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 180.dp),
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.padding(top = 150.dp))
@@ -83,7 +89,7 @@ private fun LogInContent(
         TextFieldBox(
             textInput = emailInput,
             onValueChange = onEmailValueChange,
-            hintText = EmailHintText
+            hintText = EmailHintText,
         )
 
         Spacer(modifier = Modifier.padding(top = 16.dp))
@@ -91,7 +97,22 @@ private fun LogInContent(
         TextFieldBox(
             textInput = passwordInput,
             onValueChange = onPasswordValueChange,
-            hintText = PasswordHintText
+            hintText = PasswordHintText,
+        )
+
+        Text(
+            text = SignUpTitle,
+            style = BookShelfTypo.SemiBold,
+            color = Blue500,
+            fontSize = 20.sp,
+            modifier =
+                Modifier
+                    .align(Alignment.Start)
+                    .padding(top = 20.dp, start = 25.dp)
+                    .clickable(
+                        onClick = onClickSignUp,
+                    ),
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.padding(top = 60.dp))
@@ -99,7 +120,7 @@ private fun LogInContent(
         RectangleBtn(
             btnContent = LogInBtn,
             isBtnActivated = emailInput.isNotEmpty() && passwordInput.isNotEmpty(),
-            onClickAction = onClickLogInBtn
+            onClickAction = onClickLogInBtn,
         )
     }
 }

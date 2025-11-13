@@ -7,7 +7,6 @@ import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 
 object MemberProfileMapper : BaseMapper() {
-
     fun responseToModel(apiCall: suspend () -> HttpResponse): Flow<Result<MemberProfileModel>> {
         return baseMapper(
             apiCall = { apiCall() },
@@ -17,10 +16,10 @@ object MemberProfileMapper : BaseMapper() {
                     MemberProfileModel(
                         memberId = data.memberId,
                         nickname = data.nickname,
-                        profileImageUrl = data.profileImageUrl
+                        profileImageUrl = data.profileImageUrl,
                     )
                 } ?: MemberProfileModel()
-            }
+            },
         )
     }
 }

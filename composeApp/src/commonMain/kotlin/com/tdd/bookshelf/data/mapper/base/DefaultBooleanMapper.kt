@@ -9,7 +9,7 @@ object DefaultBooleanMapper : BaseMapper() {
         return baseMapper<Nothing, Boolean>(
             apiCall = { apiCall() },
             successDeserializer = null,
-            responseToModel = { true }
+            responseToModel = { true },
         )
     }
 }

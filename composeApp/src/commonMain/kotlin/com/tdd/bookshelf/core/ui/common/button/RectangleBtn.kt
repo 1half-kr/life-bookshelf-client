@@ -32,7 +32,7 @@ fun RectangleBtn(
         interactionSource = interactionSource,
         btnTextContent = btnContent,
         isBtnActivated = isBtnActivated,
-        onClickAction = onClickAction
+        onClickAction = onClickAction,
     )
 }
 
@@ -44,26 +44,28 @@ fun RectangleBtnContent(
     onClickAction: () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)
-            .clip(RoundedCornerShape(14.dp))
-            .background(if (isBtnActivated) Blue300 else Gray200)
-            .wrapContentHeight()
-            .clickable(
-                enabled = isBtnActivated,
-                indication = null,
-                interactionSource = interactionSource,
-                onClick = { onClickAction() }
-            )
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp)
+                .clip(RoundedCornerShape(14.dp))
+                .background(if (isBtnActivated) Blue300 else Gray200)
+                .wrapContentHeight()
+                .clickable(
+                    enabled = isBtnActivated,
+                    indication = null,
+                    interactionSource = interactionSource,
+                    onClick = { onClickAction() },
+                ),
     ) {
         Text(
             text = btnTextContent,
             style = BookShelfTypo.Medium,
             color = Gray50,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(vertical = 17.dp)
+            modifier =
+                Modifier
+                    .align(Alignment.Center)
+                    .padding(vertical = 17.dp),
         )
     }
 }

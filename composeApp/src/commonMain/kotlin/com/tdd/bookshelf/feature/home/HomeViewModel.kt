@@ -29,9 +29,8 @@ class HomeViewModel(
     private val postCreateInterviewQuestionUseCase: PostCreateInterviewQuestionUseCase,
     private val postCreateAutobiographyUseCase: PostCreateAutobiographyUseCase,
 ) : BaseViewModel<HomePageState>(
-    HomePageState()
-) {
-
+        HomePageState(),
+    ) {
     init {
         initSetChapterList()
         initSetAllAutobiography(GetAutobiographyType.DEFAULT)
@@ -42,7 +41,7 @@ class HomeViewModel(
             getAutobiographiesChapterListUseCase(Unit).collect {
                 resultResponse(
                     it,
-                    ::onSuccessGetChapterList
+                    ::onSuccessGetChapterList,
                 )
             }
         }
@@ -55,8 +54,8 @@ class HomeViewModel(
                 chapterList = data.results,
                 subChapterList = if (data.results.isNotEmpty()) data.results[0].subChapters else emptyList(),
                 currentChapterId = data.currentChapterId,
-                currentChapter = setCurrentChapterItem(data.currentChapterId, data.results)
-            )
+                currentChapter = setCurrentChapterItem(data.currentChapterId, data.results),
+            ),
         )
     }
 
@@ -67,13 +66,14 @@ class HomeViewModel(
         var currentChapter: SubChapterItemModel
 
         chapters.firstOrNull { it.chapterId == currentChapterId }?.let { chapterItem ->
-            currentChapter = SubChapterItemModel(
-                chapterItem.chapterId,
-                chapterItem.chapterNumber,
-                chapterItem.chapterName,
-                chapterItem.chapterDescription,
-                chapterItem.chapterCreatedAt
-            )
+            currentChapter =
+                SubChapterItemModel(
+                    chapterItem.chapterId,
+                    chapterItem.chapterNumber,
+                    chapterItem.chapterName,
+                    chapterItem.chapterDescription,
+                    chapterItem.chapterCreatedAt,
+                )
 
             return currentChapter
         }
@@ -90,18 +90,22 @@ class HomeViewModel(
         viewModelScope.launch {
             getAllAutobiographyUseCase(Unit).collect {
                 resultResponse(
-                    it, { data -> onSuccessAllAutobiography(data, type) }
+                    it,
+                    { data -> onSuccessAllAutobiography(data, type) },
                 )
             }
         }
     }
 
-    private fun onSuccessAllAutobiography(data: AllAutobiographyListModel, type: GetAutobiographyType) {
+    private fun onSuccessAllAutobiography(
+        data: AllAutobiographyListModel,
+        type: GetAutobiographyType,
+    ) {
         updateState(
             uiState.value.copy(
                 allAutobiography = data,
-                allAutobiographyList = data.results
-            )
+                allAutobiographyList = data.results,
+            ),
         )
 
         if (type == GetAutobiographyType.AfterCreate) emitEventFlow(HomeEvent.GoToDetailChapterPage)
@@ -127,14 +131,16 @@ class HomeViewModel(
 
         if (autobiographyId == 0) {
             getMemberInfo()
-        } else emitEventFlow(HomeEvent.GoToDetailChapterPage)
+        } else {
+            emitEventFlow(HomeEvent.GoToDetailChapterPage)
+        }
     }
 
     private fun setSelectedDetailChapterId(chapterId: Int) {
         updateState(
             uiState.value.copy(
-                selectedDetailChapterId = chapterId
-            )
+                selectedDetailChapterId = chapterId,
+            ),
         )
     }
 
@@ -148,25 +154,28 @@ class HomeViewModel(
         d("[ktor] homeViewmodel -> $data")
         updateState(
             uiState.value.copy(
-                memberInfo = data
-            )
+                memberInfo = data,
+            ),
         )
 
         generateInterviewQuestions(data)
     }
 
     private fun generateInterviewQuestions(data: MemberInfoModel) {
-        val interviewQuestionRequest = InterviewQuestionsRequestModel(
-            userInfo = data,
-            chapterInfo = ChapterInfoModel(
-                uiState.value.chapterList[0].chapterName,
-                uiState.value.chapterList[0].chapterDescription
-            ),
-            subChapterInfo = ChapterInfoModel(
-                uiState.value.subChapterList[0].chapterName,
-                uiState.value.subChapterList[0].chapterDescription
+        val interviewQuestionRequest =
+            InterviewQuestionsRequestModel(
+                userInfo = data,
+                chapterInfo =
+                    ChapterInfoModel(
+                        uiState.value.chapterList[0].chapterName,
+                        uiState.value.chapterList[0].chapterDescription,
+                    ),
+                subChapterInfo =
+                    ChapterInfoModel(
+                        uiState.value.subChapterList[0].chapterName,
+                        uiState.value.subChapterList[0].chapterDescription,
+                    ),
             )
-        )
 
         postInterviewQuestions(interviewQuestionRequest)
     }
@@ -176,7 +185,7 @@ class HomeViewModel(
             postCreateInterviewQuestionUseCase(request).collect {
                 resultResponse(
                     it,
-                    ::onSuccessInterviewQuestions
+                    ::onSuccessInterviewQuestions,
                 )
             }
         }
@@ -186,19 +195,20 @@ class HomeViewModel(
         d("[ktor] homeViewmodel -> $data")
         updateState(
             uiState.value.copy(
-                interviewQuestions = data.interviewQuestions
-            )
+                interviewQuestions = data.interviewQuestions,
+            ),
         )
 
         createAutobiography(data.interviewQuestions)
     }
 
     private fun createAutobiography(questions: List<String>) {
-        val autobiography = CreateAutobiographyRequestModel(
-            title = uiState.value.currentChapter.chapterName,
-            content = uiState.value.currentChapter.chapterDescription,
-            interviewQuestions = mapInterviewQuestionModel(questions)
-        )
+        val autobiography =
+            CreateAutobiographyRequestModel(
+                title = uiState.value.currentChapter.chapterName,
+                content = uiState.value.currentChapter.chapterDescription,
+                interviewQuestions = mapInterviewQuestionModel(questions),
+            )
         postCreateAutobiography(autobiography)
     }
 
@@ -207,7 +217,6 @@ class HomeViewModel(
             postCreateAutobiographyUseCase(request).collect {
                 resultResponse(it, { })
             }
-
 
             initSetAllAutobiography(GetAutobiographyType.AfterCreate)
         }

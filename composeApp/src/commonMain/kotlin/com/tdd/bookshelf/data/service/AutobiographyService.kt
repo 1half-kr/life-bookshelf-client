@@ -1,7 +1,7 @@
 package com.tdd.bookshelf.data.service
 
 import com.tdd.bookshelf.data.base.EndPoints
-import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyChaptersRequestDto
+import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyChapterRequestDto
 import com.tdd.bookshelf.data.entity.request.autobiography.PostCreateAutobiographyRequestDto
 import com.tdd.bookshelf.data.entity.request.autobiography.PostEditAutobiographyRequestDto
 import de.jensklingenberg.ktorfit.http.Body
@@ -12,7 +12,6 @@ import de.jensklingenberg.ktorfit.http.Path
 import io.ktor.client.statement.HttpResponse
 
 interface AutobiographyService {
-
     @GET(EndPoints.Autobiography.AUTOBIOGRAPHIES)
     suspend fun getAllAutobiographies(): HttpResponse
 
@@ -42,7 +41,7 @@ interface AutobiographyService {
 
     @POST(EndPoints.Autobiography.AUTOBIOGRAPHIESCHAPTER)
     suspend fun postAutobiographiesChapterList(
-        @Body body: PostCreateAutobiographyChaptersRequestDto,
+        @Body body: PostCreateAutobiographyChapterRequestDto,
     ): HttpResponse
 
     @POST(EndPoints.Autobiography.UPDATECURRENTCHAPTER)

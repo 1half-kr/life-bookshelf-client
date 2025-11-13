@@ -7,7 +7,6 @@ import io.ktor.client.statement.HttpResponse
 import kotlinx.coroutines.flow.Flow
 
 object PublishProgressMapper : BaseMapper() {
-
     fun responseToModel(apiCall: suspend () -> HttpResponse): Flow<Result<PublicationProgressModel>> {
         return baseMapper(
             apiCall = { apiCall() },
@@ -26,10 +25,10 @@ object PublishProgressMapper : BaseMapper() {
                         titlePosition = data.titlePosition,
                         publishStatus = data.publishStatus,
                         requestedAt = data.requestedAt,
-                        willPublishedAt = data.willPublishedAt
+                        willPublishedAt = data.willPublishedAt,
                     )
                 } ?: PublicationProgressModel()
-            }
+            },
         )
     }
 }

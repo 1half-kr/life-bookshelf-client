@@ -19,45 +19,49 @@ abstract class BaseMapper {
         apiCall: suspend () -> HttpResponse?,
         successDeserializer: KSerializer<DTO>? = null,
         responseToModel: (DTO?) -> MODEL,
-    ): Flow<Result<MODEL>> = flow {
-        val response = apiCall()
-        val defaultModel = responseToModel(null)
+    ): Flow<Result<MODEL>> =
+        flow {
+            val response = apiCall()
+            val defaultModel = responseToModel(null)
 
-        try {
-            val httpStatus = response?.status
-            val responseBody = response?.bodyAsText() ?: ""
+            try {
+                val httpStatus = response?.status
+                val responseBody = response?.bodyAsText() ?: ""
 
-            if (httpStatus == HttpStatusCode.OK) {
+                if (httpStatus == HttpStatusCode.OK) {
 //                val dto = json.decodeFromString(successDeserializer, responseBody)
 //                val model = responseToModel(dto)
 
-                val model = when {
-                    httpStatus == HttpStatusCode.NoContent || responseBody.isEmpty() || successDeserializer == null -> {
-                        responseToModel(null)
-                    }
-                    else -> {
-                        val dto = json.decodeFromString(successDeserializer, responseBody)
-                        responseToModel(dto)
-                    }
+                    val model =
+                        when {
+                            httpStatus == HttpStatusCode.NoContent || responseBody.isEmpty() || successDeserializer == null -> {
+                                responseToModel(null)
+                            }
+                            else -> {
+                                val dto = json.decodeFromString(successDeserializer, responseBody)
+                                responseToModel(dto)
+                            }
+                        }
+                    emit(Result.success(model))
+                } else {
+                    val error =
+                        json.decodeFromString(
+                            ApiStatusResponse.serializer(),
+                            responseBody,
+                        )
+                    val msg = error.message ?: "[ktor] http error ${httpStatus?.value ?: "Unknown"}"
+                    val code = error.statusCode ?: httpStatus?.value ?: 0
+                    emit(Result.failure(ApiException(code, "[ktor] $code: $msg")))
                 }
-                emit(Result.success(model))
-            } else {
-                val error = json.decodeFromString(
-                    ApiStatusResponse.serializer(),
-                    responseBody
-                )
-                val msg = error.message ?: "[ktor] http error ${httpStatus?.value ?: "Unknown"}"
-                val code = error.statusCode ?: httpStatus?.value ?: 0
-                emit(Result.failure(ApiException(code, "[ktor] $code: $msg")))
+            } catch (e: ResponseException) {
+                val code = e.response.status.value
+                val text = e.response.bodyAsText()
+                val msg =
+                    runCatching { json.decodeFromString(ApiError.serializer(), text).message }
+                        .getOrNull() ?: "[ktor] http $code"
+                emit(Result.failure(ApiException(code, msg)))
+            } catch (t: Throwable) {
+                emit(Result.failure(t))
             }
-        } catch (e: ResponseException) {
-            val code = e.response.status.value
-            val text = e.response.bodyAsText()
-            val msg = runCatching { json.decodeFromString(ApiError.serializer(), text).message }
-                .getOrNull() ?: "[ktor] http $code"
-            emit(Result.failure(ApiException(code, msg)))
-        } catch (t: Throwable) {
-            emit(Result.failure(t))
         }
-    }
 }
