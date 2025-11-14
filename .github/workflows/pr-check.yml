@@ -19,9 +19,6 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
-          cache-dependency-path: |
-            gradle/wrapper/gradle-wrapper.properties
-            *.gradle*
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
